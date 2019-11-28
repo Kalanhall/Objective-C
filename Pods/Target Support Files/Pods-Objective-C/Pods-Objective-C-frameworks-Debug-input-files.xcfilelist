@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-Objective-C/Pods-Objective-C-frameworks.sh
+${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework
+${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework
+${BUILT_PRODUCTS_DIR}/KLLeaks/KLLeaks.framework
+${BUILT_PRODUCTS_DIR}/KLNavigationController/KLNavigationController.framework
+${BUILT_PRODUCTS_DIR}/KLTarBarTransition/KLTarBarTransition.framework
+${BUILT_PRODUCTS_DIR}/YKWoodpecker/YKWoodpecker.framework

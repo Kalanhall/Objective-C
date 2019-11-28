@@ -1,0 +1,6 @@
+framework module KLTarBarTransition {
+  umbrella header "KLTarBarTransition-umbrella.h"
+
+  export *
+  module * { export * }
+}

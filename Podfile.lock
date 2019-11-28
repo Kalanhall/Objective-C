@@ -1,0 +1,37 @@
+PODS:
+  - KLApplicationEntry (1.0.3):
+    - KLNavigationController (~> 1.0.0)
+  - KLCategory (1.0.0)
+  - KLLeaks (1.0.0)
+  - KLNavigationController (1.0.0)
+  - KLTarBarTransition (1.4.3)
+  - YKWoodpecker (1.1.1)
+
+DEPENDENCIES:
+  - KLApplicationEntry
+  - KLCategory
+  - KLLeaks
+  - KLTarBarTransition
+  - YKWoodpecker
+
+SPEC REPOS:
+  https://github.com/Kalanhall/Specs.git:
+    - KLApplicationEntry
+    - KLCategory
+    - KLTarBarTransition
+  trunk:
+    - KLLeaks
+    - KLNavigationController
+    - YKWoodpecker
+
+SPEC CHECKSUMS:
+  KLApplicationEntry: a9c97d106b07f282868e749e0a530c1797c3aca7
+  KLCategory: 25c1bff2a0ca8873e9449d0aa70ae25615b3713e
+  KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
+  KLNavigationController: ed8a50a14e54a499d3a483c681bb7f394002a6bf
+  KLTarBarTransition: 262e3d1c994f3ac7f29715e7b76f8d25d46a7ea9
+  YKWoodpecker: 446884788ccf1f1800781d50e503f9bdb0bdaebe
+
+PODFILE CHECKSUM: 465e0377b197ac15da2deb694bd457c2ea2b61d0
+
+COCOAPODS: 1.8.3

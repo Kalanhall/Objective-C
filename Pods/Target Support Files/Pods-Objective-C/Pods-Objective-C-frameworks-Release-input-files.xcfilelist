@@ -2,6 +2,7 @@ ${PODS_ROOT}/Target Support Files/Pods-Objective-C/Pods-Objective-C-frameworks.s
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework
 ${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework
+${BUILT_PRODUCTS_DIR}/KLCarousel/KLCarousel.framework
 ${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework
 ${BUILT_PRODUCTS_DIR}/KLCollectionViewFlowLayout/KLCollectionViewFlowLayout.framework
 ${BUILT_PRODUCTS_DIR}/KLHomeService/KLHomeService.framework

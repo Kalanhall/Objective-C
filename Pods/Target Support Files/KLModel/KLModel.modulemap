@@ -1,0 +1,6 @@
+framework module KLModel {
+  umbrella header "KLModel-umbrella.h"
+
+  export *
+  module * { export * }
+}

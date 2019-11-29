@@ -12,8 +12,11 @@ target 'Objective-C' do
   # Pods for Objective-C
   pod 'KLApplicationEntry'
   pod 'KLTarBarTransition'
-  pod 'KLLeaks'
+  pod 'KLUserInfoManager'
   pod 'KLCategory'
+  pod 'KLServer'
+  
+  pod 'KLLeaks'
   pod 'YKWoodpecker'
 
   target 'Objective-CTests' do

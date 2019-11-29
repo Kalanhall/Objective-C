@@ -1,37 +1,53 @@
 PODS:
   - KLApplicationEntry (1.0.4):
     - KLNavigationController (~> 1.0.0)
+  - KLCache (1.0.1)
   - KLCategory (1.0.0)
   - KLLeaks (1.0.0)
+  - KLModel (1.0.0)
   - KLNavigationController (1.0.0)
+  - KLServer (1.0.0)
   - KLTarBarTransition (1.4.3)
+  - KLUserInfoManager (1.0.1):
+    - KLCache (~> 1.0.0)
+    - KLModel (~> 1.0.0)
   - YKWoodpecker (1.1.1)
 
 DEPENDENCIES:
   - KLApplicationEntry
   - KLCategory
   - KLLeaks
+  - KLServer
   - KLTarBarTransition
+  - KLUserInfoManager
   - YKWoodpecker
 
 SPEC REPOS:
   https://github.com/Kalanhall/Specs.git:
     - KLApplicationEntry
+    - KLCache
     - KLCategory
+    - KLModel
     - KLTarBarTransition
+    - KLUserInfoManager
   trunk:
     - KLLeaks
     - KLNavigationController
+    - KLServer
     - YKWoodpecker
 
 SPEC CHECKSUMS:
   KLApplicationEntry: 90d49a7f2f89cd8b30b21a223d1a5205bd6821df
+  KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
   KLCategory: 25c1bff2a0ca8873e9449d0aa70ae25615b3713e
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
+  KLModel: 68eb4580c629621bec437e2a318101295a2f0965
   KLNavigationController: ed8a50a14e54a499d3a483c681bb7f394002a6bf
+  KLServer: b37b4d567aa189afe1284ed316b4419f2029221e
   KLTarBarTransition: 262e3d1c994f3ac7f29715e7b76f8d25d46a7ea9
+  KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
   YKWoodpecker: 446884788ccf1f1800781d50e503f9bdb0bdaebe
 
-PODFILE CHECKSUM: 465e0377b197ac15da2deb694bd457c2ea2b61d0
+PODFILE CHECKSUM: bbfbeb4a511d0bb4172fd1ae689fdb9b7defca85
 
 COCOAPODS: 1.8.3

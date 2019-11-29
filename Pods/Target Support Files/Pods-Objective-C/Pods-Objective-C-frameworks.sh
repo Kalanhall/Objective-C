@@ -162,18 +162,26 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLLeaks/KLLeaks.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLModel/KLModel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLNavigationController/KLNavigationController.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLServer/KLServer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLTarBarTransition/KLTarBarTransition.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLUserInfoManager/KLUserInfoManager.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YKWoodpecker/YKWoodpecker.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLLeaks/KLLeaks.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLModel/KLModel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLNavigationController/KLNavigationController.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLServer/KLServer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLTarBarTransition/KLTarBarTransition.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLUserInfoManager/KLUserInfoManager.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YKWoodpecker/YKWoodpecker.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

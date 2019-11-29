@@ -1,0 +1,6 @@
+framework module KLUserInfoManager {
+  umbrella header "KLUserInfoManager-umbrella.h"
+
+  export *
+  module * { export * }
+}

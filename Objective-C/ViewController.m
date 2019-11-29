@@ -21,7 +21,7 @@
     
     self.view.backgroundColor = UIColor.kl_randomColor;
     
-
+    self.navigationItem.title = @"测试";
 }
 
 @end

@@ -1,0 +1,46 @@
+{
+  "name": "KLHomeService",
+  "version": "0.0.1",
+  "summary": "主页服务",
+  "description": "组件化 - 主页服务",
+  "homepage": "https://github.com/Kalanhall@163.com/KLHomeService",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Kalanhall@163.com": "wujm002@galanz.com"
+  },
+  "source": {
+    "git": "https://github.com/Kalanhall@163.com/KLHomeService.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "KLHomeService/Classes/**/*",
+  "public_header_files": "KLHomeService/Classes/*.{h}",
+  "dependencies": {
+    "Masonry": [
+
+    ],
+    "KLLeaks": [
+
+    ],
+    "KLCategory": [
+
+    ],
+    "KLNetworkModule": [
+
+    ],
+    "KLUserInfoManager": [
+
+    ],
+    "KLCollectionViewFlowLayout": [
+
+    ],
+    "YKWoodpecker": [
+
+    ]
+  }
+}

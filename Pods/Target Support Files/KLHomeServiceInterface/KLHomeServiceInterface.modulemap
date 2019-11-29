@@ -1,0 +1,6 @@
+framework module KLHomeServiceInterface {
+  umbrella header "KLHomeServiceInterface-umbrella.h"
+
+  export *
+  module * { export * }
+}

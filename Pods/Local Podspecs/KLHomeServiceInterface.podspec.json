@@ -1,0 +1,27 @@
+{
+  "name": "KLHomeServiceInterface",
+  "version": "0.0.1",
+  "summary": "主页服务接口",
+  "description": "组件化 - 主页服务接口",
+  "homepage": "https://github.com/Kalanhall@163.com/KLHomeServiceInterface",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Kalanhall@163.com": "wujm002@galanz.com"
+  },
+  "source": {
+    "git": "https://github.com/Kalanhall@163.com/KLHomeServiceInterface.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "KLHomeServiceInterface/Classes/**/*",
+  "dependencies": {
+    "KLServer": [
+
+    ]
+  }
+}

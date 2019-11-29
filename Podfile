@@ -14,10 +14,11 @@ target 'Objective-C' do
   pod 'KLTarBarTransition'
   pod 'KLUserInfoManager'
   pod 'KLCategory'
-  pod 'KLServer'
-  
   pod 'KLLeaks'
   pod 'YKWoodpecker'
+  
+  pod 'KLHomeService',          :path => '/Users/kalan/Desktop/KLHomeService'
+  pod 'KLHomeServiceInterface', :path => '/Users/kalan/Desktop/KLHomeServiceInterface'
 
   target 'Objective-CTests' do
     inherit! :search_paths

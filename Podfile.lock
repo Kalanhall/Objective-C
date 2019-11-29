@@ -1,23 +1,53 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - KLApplicationEntry (1.0.4):
     - KLNavigationController (~> 1.0.0)
   - KLCache (1.0.1)
-  - KLCategory (1.0.0)
+  - KLCategory (1.0.1)
+  - KLCollectionViewFlowLayout (1.0.0)
+  - KLHomeService (0.0.1):
+    - KLCategory
+    - KLCollectionViewFlowLayout
+    - KLLeaks
+    - KLNetworkModule
+    - KLUserInfoManager
+    - Masonry
+    - YKWoodpecker
+  - KLHomeServiceInterface (0.0.1):
+    - KLServer
   - KLLeaks (1.0.0)
   - KLModel (1.0.0)
   - KLNavigationController (1.0.0)
+  - KLNetworkModule (2.0.1):
+    - AFNetworking
   - KLServer (1.0.0)
   - KLTarBarTransition (1.4.3)
   - KLUserInfoManager (1.0.1):
     - KLCache (~> 1.0.0)
     - KLModel (~> 1.0.0)
+  - Masonry (1.1.0)
   - YKWoodpecker (1.1.1)
 
 DEPENDENCIES:
   - KLApplicationEntry
   - KLCategory
+  - KLHomeService (from `/Users/kalan/Desktop/KLHomeService`)
+  - KLHomeServiceInterface (from `/Users/kalan/Desktop/KLHomeServiceInterface`)
   - KLLeaks
-  - KLServer
   - KLTarBarTransition
   - KLUserInfoManager
   - YKWoodpecker
@@ -31,23 +61,39 @@ SPEC REPOS:
     - KLTarBarTransition
     - KLUserInfoManager
   trunk:
+    - AFNetworking
+    - KLCollectionViewFlowLayout
     - KLLeaks
     - KLNavigationController
+    - KLNetworkModule
     - KLServer
+    - Masonry
     - YKWoodpecker
 
+EXTERNAL SOURCES:
+  KLHomeService:
+    :path: "/Users/kalan/Desktop/KLHomeService"
+  KLHomeServiceInterface:
+    :path: "/Users/kalan/Desktop/KLHomeServiceInterface"
+
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   KLApplicationEntry: 90d49a7f2f89cd8b30b21a223d1a5205bd6821df
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
-  KLCategory: 25c1bff2a0ca8873e9449d0aa70ae25615b3713e
+  KLCategory: 5682e46fdf2be49b71a567058e67a3312dcdc14a
+  KLCollectionViewFlowLayout: ff4568842fa31274509da4d30c60b7391526bed2
+  KLHomeService: 81d162c0fb326a2a86f8d041f223af985bc5602e
+  KLHomeServiceInterface: 49ef569ef3ed43847883c23adc5603e2bc27212e
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
   KLModel: 68eb4580c629621bec437e2a318101295a2f0965
   KLNavigationController: ed8a50a14e54a499d3a483c681bb7f394002a6bf
+  KLNetworkModule: b9baa618cf4d1752145d74ef5c08d002f4cf6873
   KLServer: b37b4d567aa189afe1284ed316b4419f2029221e
   KLTarBarTransition: 262e3d1c994f3ac7f29715e7b76f8d25d46a7ea9
   KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YKWoodpecker: 446884788ccf1f1800781d50e503f9bdb0bdaebe
 
-PODFILE CHECKSUM: bbfbeb4a511d0bb4172fd1ae689fdb9b7defca85
+PODFILE CHECKSUM: 192053125c7f6a06f904b92217a23a640327b776
 
 COCOAPODS: 1.8.3

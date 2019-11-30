@@ -43,14 +43,13 @@
     [carousel addSubview:control];
     
     carousel.control = control;
-    carousel.customLayout = layout;
     if (layout == nil) {
         KLCarouselViewLayout *layout = KLCarouselViewLayout.alloc.init;
         layout.itemSize = frame.size;
         layout.itemSpacing = 0;
         layout.itemHorizontalCenter = YES;
-        carousel.customLayout = layout;
     }
+    carousel.customLayout = layout;
     
     return carousel;
 }

@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "NSObject+Extension.h"
 #import "UIButton+Extension.h"
 #import "UICollectionView+Extension.h"
 #import "UIColor+Extension.h"

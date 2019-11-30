@@ -17,8 +17,8 @@ PODS:
   - KLApplicationEntry (1.0.4):
     - KLNavigationController (~> 1.0.0)
   - KLCache (1.0.1)
-  - KLCarousel (1.0.0)
-  - KLCategory (1.0.1)
+  - KLCarousel (1.0.1)
+  - KLCategory (1.0.2)
   - KLCollectionViewFlowLayout (1.0.0)
   - KLHomeService (0.0.1):
     - KLCarousel
@@ -47,7 +47,6 @@ PODS:
 
 DEPENDENCIES:
   - KLApplicationEntry
-  - KLCategory
   - KLHomeService (from `/Users/kalan/Desktop/KLHomeService`)
   - KLHomeServiceInterface (from `/Users/kalan/Desktop/KLHomeServiceInterface`)
   - KLLeaks
@@ -84,8 +83,8 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   KLApplicationEntry: 90d49a7f2f89cd8b30b21a223d1a5205bd6821df
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
-  KLCarousel: 54caf4148a7757446cf49f048e7cc10cddf02205
-  KLCategory: 5682e46fdf2be49b71a567058e67a3312dcdc14a
+  KLCarousel: 5ef7536e1cfbee1580235a0766114a9e109e7390
+  KLCategory: b06b01dfcdbc54c3a6c1579d0a5f4e775444768a
   KLCollectionViewFlowLayout: ff4568842fa31274509da4d30c60b7391526bed2
   KLHomeService: 4883dcc1134096cb0b650b39a631caf379df6adf
   KLHomeServiceInterface: 49ef569ef3ed43847883c23adc5603e2bc27212e
@@ -99,6 +98,6 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YKWoodpecker: 446884788ccf1f1800781d50e503f9bdb0bdaebe
 
-PODFILE CHECKSUM: 192053125c7f6a06f904b92217a23a640327b776
+PODFILE CHECKSUM: e046b120db70d2554cfc69d45c20f9a06affc1a3
 
 COCOAPODS: 1.8.3

@@ -13,7 +13,6 @@ target 'Objective-C' do
   pod 'KLApplicationEntry'
   pod 'KLTarBarTransition'
   pod 'KLUserInfoManager'
-  pod 'KLCategory'
   pod 'KLLeaks'
   pod 'YKWoodpecker'
   

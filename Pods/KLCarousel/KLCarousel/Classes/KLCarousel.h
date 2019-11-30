@@ -10,6 +10,22 @@
 #import "KLCarouselCell.h"
 
 /** 使用示例
+ 
+ *********************************特定场景使用 *********************************
+ 
+    在不能提前确定frame的控件中，或者使用约束以后，Cell中需要重置内部控件布局
+
+    // 控件以frame布局，需要重置控件内部控件尺寸
+     - (void)layoutSubviews
+     {
+         [super layoutSubviews];
+         self.carousel.frame = self.frame;
+         self.layout.itemSize = CGSizeMake(self.frame.size.width * 0.8, self.frame.size.height * 0.8);
+         self.carousel.control.frame = CGRectMake(0, CGRectGetHeight(self.frame) - 20, CGRectGetWidth(self.frame), 20);
+     }
+ 
+  *********************************特定场景使用 *********************************
+ 
      CGRect rect = CGRectMake(0, 0, self.view.bounds.size.width, 200);
             
  初始化1

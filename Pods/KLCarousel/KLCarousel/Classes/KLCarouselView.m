@@ -489,10 +489,7 @@ NS_INLINE KLIndexSection KLMakeIndexSection(NSInteger index, NSInteger section) 
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // 解决滚动时点击停顿
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    
+    [self removeTimer];
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     if ([_delegate respondsToSelector:@selector(carouselView:didSelectedItemCell:atIndex:)]) {
         [_delegate carouselView:self didSelectedItemCell:cell atIndex:indexPath.item];
@@ -500,6 +497,10 @@ NS_INLINE KLIndexSection KLMakeIndexSection(NSInteger index, NSInteger section) 
     if ([_delegate respondsToSelector:@selector(carouselView:didSelectedItemCell:atIndexSection:)]) {
         [_delegate carouselView:self didSelectedItemCell:cell atIndexSection:KLMakeIndexSection(indexPath.item, indexPath.section)];
     }
+    
+    // 解决滚动时点击停顿
+    [self scrollToItemAtIndexSection:KLMakeIndexSection(indexPath.item, indexPath.section) animate:YES];
+    [self addTimer];
 }
 
 #pragma mark - UIScrollViewDelegate

@@ -15,4 +15,5 @@ ${BUILT_PRODUCTS_DIR}/KLServer/KLServer.framework
 ${BUILT_PRODUCTS_DIR}/KLTarBarTransition/KLTarBarTransition.framework
 ${BUILT_PRODUCTS_DIR}/KLUserInfoManager/KLUserInfoManager.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/YKWoodpecker/YKWoodpecker.framework

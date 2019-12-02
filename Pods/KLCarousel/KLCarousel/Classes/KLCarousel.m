@@ -55,7 +55,7 @@
 }
 
 - (NSInteger)numberOfItemsInCarouselView:(nonnull KLCarouselView *)carouselView {
-    self.control.numberOfPages = self.imageURLs.count;
+    self.control.numberOfPages = self.images.count;
     return self.control.numberOfPages;
 }
 
@@ -67,7 +67,7 @@
     KLCarouselCell *cell = [carouselView dequeueReusableCellWithReuseIdentifier:self.cellClass.description forIndex:index];
     
     if (self.cellForItemAtIndex) {
-        self.cellForItemAtIndex(cell, index);
+        self.cellForItemAtIndex(cell, self.images, index);
     }
     
     return cell;
@@ -83,11 +83,8 @@
     }
 }
 
-- (void)setImageURLs:(NSArray<NSString *> *)imageURLs
-{
-    if ([imageURLs isEqualToArray:_imageURLs]) return;
-    _imageURLs = imageURLs;
-    [self reloadData];
+- (void)reloadData {
+    [super reloadData];
 }
 
 @end

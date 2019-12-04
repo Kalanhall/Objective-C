@@ -29,6 +29,7 @@ PODS:
     - KLNetworkModule
     - KLUserInfoManager
     - Masonry
+    - MJRefresh
     - SDWebImage
     - YKWoodpecker
   - KLHomeServiceInterface (0.0.1):
@@ -44,6 +45,7 @@ PODS:
     - KLCache (~> 1.0.0)
     - KLModel (~> 1.0.0)
   - Masonry (1.1.0)
+  - MJRefresh (3.2.3)
   - SDWebImage (5.3.2):
     - SDWebImage/Core (= 5.3.2)
   - SDWebImage/Core (5.3.2)
@@ -75,6 +77,7 @@ SPEC REPOS:
     - KLNetworkModule
     - KLServer
     - Masonry
+    - MJRefresh
     - SDWebImage
     - YKWoodpecker
 
@@ -91,7 +94,7 @@ SPEC CHECKSUMS:
   KLCarousel: 65a3916f2b65ede1178af813edc1a47d343cf637
   KLCategory: d4bbc38166372f1db7938a448ce2743eea42849f
   KLCollectionViewFlowLayout: ff4568842fa31274509da4d30c60b7391526bed2
-  KLHomeService: 504dfa9bc409cfb5538338e99551980342b69b38
+  KLHomeService: d759cd55c7e81e5cdb9472776ad49fc25cdf308f
   KLHomeServiceInterface: 49ef569ef3ed43847883c23adc5603e2bc27212e
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
   KLModel: 68eb4580c629621bec437e2a318101295a2f0965
@@ -101,6 +104,7 @@ SPEC CHECKSUMS:
   KLTarBarTransition: 262e3d1c994f3ac7f29715e7b76f8d25d46a7ea9
   KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: 2b1214a2dc8f4df4c5dcb028ea2ad4e245425fb7
   SDWebImage: 6ac2eb96571bff96ecde31a987172c5934a0eb7d
   YKWoodpecker: 446884788ccf1f1800781d50e503f9bdb0bdaebe
 

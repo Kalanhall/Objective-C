@@ -45,6 +45,12 @@
     return YES;
 }
 
+- (void)setupTabBarTransitionAnimation:(UITabBarController *)tc {
+    KLTabBarTransitionDelegate *delegate = KLTabBarTransitionDelegate.alloc.init;
+    delegate.tabBarController = tc;
+    tc.delegate = delegate;
+}
+
 - (void)setupDebugTool:(UITabBarController *)tc {
     #ifdef DEBUG
     [tc setSwipeTabBarCallBack:^(UISwipeGestureRecognizer * _Nonnull swipe) {
@@ -56,12 +62,6 @@
     }];
     [YKWoodpeckerManager.sharedInstance registerCrashHandler];
     #endif
-}
-
-- (void)setupTabBarTransitionAnimation:(UITabBarController *)tc {
-    KLTabBarTransitionDelegate *delegate = KLTabBarTransitionDelegate.alloc.init;
-    delegate.tabBarController = tc;
-    tc.delegate = delegate;
 }
 
 @end

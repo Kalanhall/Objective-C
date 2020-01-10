@@ -43,7 +43,7 @@
             [temp addObject:@(arg)];
         }
         va_end(args);
-        NSAssert(temp.count >= 3, @"RGBA 请输入4个参数");
+        NSAssert(temp.count >= 3, @"RGBA 请输入4个CGFloat类型的参数");
         return [UIColor colorWithRed:red / 255.0
                                green:[temp[0] floatValue] / 255.0
                                 blue:[temp[1] floatValue] / 255.0

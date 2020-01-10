@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "UICollectionView+KLExtension.h"
+#import "UICollectionView+KLCellAutoSize.h"
 #import <objc/runtime.h>
 
 typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {

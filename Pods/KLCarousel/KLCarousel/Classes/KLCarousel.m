@@ -75,6 +75,10 @@
 
 - (void)carouselView:(KLCarouselView *)carouselView didScrollFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
     [self.control setCurrentPage:toIndex animate:YES];
+    
+    if (self.didScrollFromIndexToIndex) {
+        self.didScrollFromIndexToIndex(fromIndex, toIndex);
+    }
 }
 
 - (void)carouselView:(KLCarouselView *)carouselView didSelectedItemCell:(__kindof UICollectionViewCell *)cell atIndex:(NSInteger)index {

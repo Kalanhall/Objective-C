@@ -11,12 +11,12 @@
 @implementation NSObject (KLTouchFaceID)
 
 /** 是否支持识别技术*/
-+ (BOOL)authSupport
++ (BOOL)kl_authSupport
 {
     return [LAContext.alloc.init canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil];
 }
 
-+ (void)authWithLocalizedReason:(NSString *)reason handle:(void (^)(BOOL success, NSError *error))handle
++ (void)kl_authWithLocalizedReason:(NSString *)reason handle:(void (^)(BOOL success, NSError *error))handle
 {
     LAContext *context = LAContext.alloc.init;
     NSError *error = nil;

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (KLTouchFaceID)
 
 /** 是否支持生物识别技术*/
-+ (BOOL)authSupport;
++ (BOOL)kl_authSupport;
 
 /// 开启指纹、面容授权验证
 ///
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @Param reason 指纹识别对话框提示用户的信息  例：iPhoneX系列使用FaceID -> @"请对准摄像头完成验证"，其他使用TouchID -> @"请按住Home键完成验证"，面容ID需要在info.plist 中声明 Privacy - Face ID Usage Description
 /// @Param handle 识别结果回调
 ///
-+ (void)authWithLocalizedReason:(NSString *)reason handle:(void (^)(BOOL success, NSError *error))handle;
++ (void)kl_authWithLocalizedReason:(NSString *)reason handle:(void (^)(BOOL success, NSError *error))handle;
 
 @end
 

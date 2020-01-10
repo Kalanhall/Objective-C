@@ -42,7 +42,7 @@
      [self.view addSubview:self.carousel];
      
  回调
-     self.carousel.cellForItemAtIndex = ^(KLCarouselCell * _Nonnull cell, NSInteger index) {
+     self.carousel.cellForItemAtIndex = ^(KLCarouselCell * _Nonnull cell, NSArray *images, NSInteger index) {
          [cell.imageView sd_setImageWithURL:[NSURL URLWithString:images[index]]]; // cell数据绑定，图片加载控件由外部提供 SD YY等
      };
  
@@ -68,6 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) void (^cellForItemAtIndex)(KLCarouselCell *cell, NSArray *images, NSInteger index);
 // Cell选中回调
 @property (copy, nonatomic) void (^didSelectedItemCell)(NSInteger index);
+// Cell滚动回调
+@property (copy, nonatomic) void (^didScrollFromIndexToIndex)(NSInteger fromIndex, NSInteger toIndex);
 
 // 初始化方法1
 + (instancetype)carouselWithFrame:(CGRect)frame;

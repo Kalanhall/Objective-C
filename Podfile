@@ -11,10 +11,9 @@ target 'Objective-C' do
 
   # Pods for Objective-C
   pod 'KLApplicationEntry'
-  pod 'KLTarBarTransition'
   pod 'KLUserInfoManager'
   pod 'KLLeaks'
-  pod 'YKWoodpecker'
+  pod 'KLConsole'
   
   pod 'KLHomeService',          :path => '/Users/kalan/Desktop/KLHomeService'
   pod 'KLHomeServiceInterface', :path => '/Users/kalan/Desktop/KLHomeServiceInterface'

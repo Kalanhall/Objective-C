@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, ARDynamicSizeCaculateType) {
 
 #define ARLayoutCellInvalidateValue [NSValue valueWithCGSize:CGSizeZero]
 
-@implementation UICollectionView (KLExtension)
+@implementation UICollectionView (KLCellAutoSize)
 
 + (void)load {
   static dispatch_once_t onceToken;

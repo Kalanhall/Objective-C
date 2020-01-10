@@ -26,10 +26,10 @@
   },
   "public_header_files": "KLHomeService/Classes/*.{h}",
   "dependencies": {
-    "Masonry": [
+    "KLLeaks": [
 
     ],
-    "KLLeaks": [
+    "KLConsole": [
 
     ],
     "KLCategory": [
@@ -41,25 +41,13 @@
     "KLUserInfoManager": [
 
     ],
-    "KLCollectionViewFlowLayout": [
-
-    ],
     "KLNavigationController": [
 
     ],
     "KLScaleNavigationBar": [
 
     ],
-    "KLCarousel": [
-
-    ],
-    "SDWebImage": [
-
-    ],
-    "YKWoodpecker": [
-
-    ],
-    "MJRefresh": [
+    "Masonry": [
 
     ]
   }

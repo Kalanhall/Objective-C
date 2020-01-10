@@ -1,0 +1,6 @@
+framework module KLConsole {
+  umbrella header "KLConsole-umbrella.h"
+
+  export *
+  module * { export * }
+}

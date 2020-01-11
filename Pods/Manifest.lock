@@ -14,15 +14,15 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - KLApplicationEntry (1.0.5):
-    - KLNavigationController (~> 1.0.0)
+  - KLApplicationEntry (1.1.1):
+    - KLNavigationController
   - KLCache (1.0.1)
   - KLCategory (1.2.0):
     - KLCategory/Foundation (= 1.2.0)
     - KLCategory/UIKit (= 1.2.0)
   - KLCategory/Foundation (1.2.0)
   - KLCategory/UIKit (1.2.0)
-  - KLConsole (1.0.3):
+  - KLConsole (1.0.4):
     - Masonry
     - YKWoodpecker
   - KLHomeService (0.0.1):
@@ -31,18 +31,15 @@ PODS:
     - KLLeaks
     - KLNavigationController
     - KLNetworkModule
-    - KLScaleNavigationBar
     - KLUserInfoManager
     - Masonry
   - KLHomeServiceInterface (0.0.1):
     - KLServer
   - KLLeaks (1.0.0)
   - KLModel (1.0.0)
-  - KLNavigationController (1.0.0)
+  - KLNavigationController (1.1.0)
   - KLNetworkModule (2.0.1):
     - AFNetworking
-  - KLScaleNavigationBar (1.0.3):
-    - Masonry
   - KLServer (1.0.0)
   - KLUserInfoManager (1.0.1):
     - KLCache (~> 1.0.0)
@@ -66,7 +63,6 @@ SPEC REPOS:
     - KLConsole
     - KLModel
     - KLNavigationController
-    - KLScaleNavigationBar
     - KLUserInfoManager
   trunk:
     - AFNetworking
@@ -84,17 +80,16 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  KLApplicationEntry: d50b8710cf5de327d43a390b95d5b76359c09c70
+  KLApplicationEntry: 670be43ae9e65087d0b4d87d95f2201d75dc9f86
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
   KLCategory: 226bb7f6e699e6c9b6ec1dd1489d9904b9359262
-  KLConsole: d94177044c15548eb942aef6e77918fcb806abe1
-  KLHomeService: 47a81020a7228347bf6234d7ff598b1bc0c62510
+  KLConsole: f4202be2ac6ad807728823614730e99237b2f85d
+  KLHomeService: fbb897c68ec1828fcc97456878a9b668060760ec
   KLHomeServiceInterface: 49ef569ef3ed43847883c23adc5603e2bc27212e
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
   KLModel: 68eb4580c629621bec437e2a318101295a2f0965
-  KLNavigationController: 5996c913f2d13e7b65762877c525a7d437d3d934
+  KLNavigationController: bc9860e43a06103f3e12b7a2b89f27de48c7ff94
   KLNetworkModule: b9baa618cf4d1752145d74ef5c08d002f4cf6873
-  KLScaleNavigationBar: f2640b6eca02740af7cbd3d3b4d5ddaa4d31caad
   KLServer: b37b4d567aa189afe1284ed316b4419f2029221e
   KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201

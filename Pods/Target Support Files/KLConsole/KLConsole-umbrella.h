@@ -15,6 +15,7 @@
 #import "KLConsoleConfig.h"
 #import "KLConsoleController.h"
 #import "KLConsoleInfoController.h"
+#import "NSObject+KLConsole.h"
 #import "UIDevice+KLConsole.h"
 
 FOUNDATION_EXPORT double KLConsoleVersionNumber;

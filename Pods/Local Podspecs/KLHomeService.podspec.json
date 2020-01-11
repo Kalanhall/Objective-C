@@ -24,7 +24,6 @@
       "KLHomeService/Assets/*"
     ]
   },
-  "public_header_files": "KLHomeService/Classes/*.{h}",
   "dependencies": {
     "KLLeaks": [
 
@@ -42,9 +41,6 @@
 
     ],
     "KLNavigationController": [
-
-    ],
-    "KLScaleNavigationBar": [
 
     ],
     "Masonry": [

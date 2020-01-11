@@ -14,6 +14,7 @@
 #import "KLHomeModel.h"
 #import "KLHomeBannerCell.h"
 #import "KLHomeController.h"
+#import "KLHomeMenuCell.h"
 #import "KLScaleNavigationBar.h"
 #import "KLHomeViewModel.h"
 

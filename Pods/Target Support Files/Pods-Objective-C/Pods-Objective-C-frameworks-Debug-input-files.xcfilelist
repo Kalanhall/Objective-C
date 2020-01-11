@@ -13,6 +13,9 @@ ${BUILT_PRODUCTS_DIR}/KLNavigationController/KLNavigationController.framework
 ${BUILT_PRODUCTS_DIR}/KLNetworkModule/KLNetworkModule.framework
 ${BUILT_PRODUCTS_DIR}/KLServer/KLServer.framework
 ${BUILT_PRODUCTS_DIR}/KLUserInfoManager/KLUserInfoManager.framework
+${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder/SDWebImageWebPCoder.framework
 ${BUILT_PRODUCTS_DIR}/YKWoodpecker/YKWoodpecker.framework
+${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework

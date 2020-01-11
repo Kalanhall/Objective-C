@@ -35,7 +35,9 @@ PODS:
     - KLNetworkModule
     - KLUserInfoManager
     - Masonry
+    - MJRefresh
     - SDWebImage
+    - SDWebImageWebPCoder
   - KLHomeServiceInterface (0.0.1):
     - KLServer
   - KLLeaks (1.0.0)
@@ -47,10 +49,23 @@ PODS:
   - KLUserInfoManager (1.0.1):
     - KLCache (~> 1.0.0)
     - KLModel (~> 1.0.0)
+  - libwebp (1.1.0):
+    - libwebp/demux (= 1.1.0)
+    - libwebp/mux (= 1.1.0)
+    - libwebp/webp (= 1.1.0)
+  - libwebp/demux (1.1.0):
+    - libwebp/webp
+  - libwebp/mux (1.1.0):
+    - libwebp/demux
+  - libwebp/webp (1.1.0)
   - Masonry (1.1.0)
+  - MJRefresh (3.3.1)
   - SDWebImage (5.4.0):
     - SDWebImage/Core (= 5.4.0)
   - SDWebImage/Core (5.4.0)
+  - SDWebImageWebPCoder (0.3.1):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.0)
   - YKWoodpecker (1.1.1)
 
 DEPENDENCIES:
@@ -76,8 +91,11 @@ SPEC REPOS:
     - KLLeaks
     - KLNetworkModule
     - KLServer
+    - libwebp
     - Masonry
+    - MJRefresh
     - SDWebImage
+    - SDWebImageWebPCoder
     - YKWoodpecker
 
 EXTERNAL SOURCES:
@@ -93,7 +111,7 @@ SPEC CHECKSUMS:
   KLCarousel: ff85addd353c871337132f1007004c42813ef68f
   KLCategory: 226bb7f6e699e6c9b6ec1dd1489d9904b9359262
   KLConsole: f4202be2ac6ad807728823614730e99237b2f85d
-  KLHomeService: 354c33ec84ca51bfcc7cca074e03eb5b9de7741f
+  KLHomeService: ae1539f097d56217bc38e61392a8afccd9e54141
   KLHomeServiceInterface: 49ef569ef3ed43847883c23adc5603e2bc27212e
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
   KLModel: 68eb4580c629621bec437e2a318101295a2f0965
@@ -101,8 +119,11 @@ SPEC CHECKSUMS:
   KLNetworkModule: b9baa618cf4d1752145d74ef5c08d002f4cf6873
   KLServer: b37b4d567aa189afe1284ed316b4419f2029221e
   KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
+  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
   SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
+  SDWebImageWebPCoder: ce58a29621c2806dd5c36695ed192cf67163ff9d
   YKWoodpecker: 446884788ccf1f1800781d50e503f9bdb0bdaebe
 
 PODFILE CHECKSUM: 35259f3a31caa8c2da3dc89ccb420d610b727266

@@ -164,6 +164,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLCarousel/KLCarousel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLConsole/KLConsole.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLHomeService/KLHomeService.framework"
@@ -175,12 +176,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/KLServer/KLServer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLUserInfoManager/KLUserInfoManager.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YKWoodpecker/YKWoodpecker.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KLCarousel/KLCarousel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLConsole/KLConsole.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLHomeService/KLHomeService.framework"
@@ -192,6 +195,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/KLServer/KLServer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLUserInfoManager/KLUserInfoManager.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/YKWoodpecker/YKWoodpecker.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

@@ -37,14 +37,11 @@
             break;
         case KLLayoutStyleImageTop:    // 图上字下
             [self setImageEdgeInsets:UIEdgeInsetsMake(0,0, labHeight + margin, -labWidth)];
-            
             [self setTitleEdgeInsets:UIEdgeInsetsMake(imgHeight + margin, -imgWidth, 0, 0)];
             break;
         case KLLayoutStyleImageBottom: // 图下字上
             [self setImageEdgeInsets:UIEdgeInsetsMake(labHeight + margin,0, 0, -labWidth)];
-            
             [self setTitleEdgeInsets:UIEdgeInsetsMake(0, -imgWidth, imgHeight + margin, 0)];
-            
             break;
         default:
             break;

@@ -60,9 +60,9 @@ PODS:
   - libwebp/webp (1.1.0)
   - Masonry (1.1.0)
   - MJRefresh (3.3.1)
-  - SDWebImage (5.4.0):
-    - SDWebImage/Core (= 5.4.0)
-  - SDWebImage/Core (5.4.0)
+  - SDWebImage (5.4.2):
+    - SDWebImage/Core (= 5.4.2)
+  - SDWebImage/Core (5.4.2)
   - SDWebImageWebPCoder (0.3.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.0)
@@ -71,8 +71,8 @@ PODS:
 DEPENDENCIES:
   - KLApplicationEntry
   - KLConsole
-  - KLHomeService (from `/Users/kalan/KLHomeService`)
-  - KLHomeServiceInterface (from `/Users/kalan/KLHomeServiceInterface`)
+  - KLHomeService (from `/Users/kalan/Desktop/KLHomeService`)
+  - KLHomeServiceInterface (from `/Users/kalan/Desktop/KLHomeServiceInterface`)
   - KLLeaks
   - KLUserInfoManager
 
@@ -100,9 +100,9 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   KLHomeService:
-    :path: "/Users/kalan/KLHomeService"
+    :path: "/Users/kalan/Desktop/KLHomeService"
   KLHomeServiceInterface:
-    :path: "/Users/kalan/KLHomeServiceInterface"
+    :path: "/Users/kalan/Desktop/KLHomeServiceInterface"
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -122,10 +122,10 @@ SPEC CHECKSUMS:
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
-  SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
+  SDWebImage: 4ca2dc4eefae4224bea8f504251cda485a363745
   SDWebImageWebPCoder: ce58a29621c2806dd5c36695ed192cf67163ff9d
   YKWoodpecker: 446884788ccf1f1800781d50e503f9bdb0bdaebe
 
-PODFILE CHECKSUM: 35259f3a31caa8c2da3dc89ccb420d610b727266
+PODFILE CHECKSUM: 4f13f3d263c22e1babedd35b9ec93621931364e4
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.8.3

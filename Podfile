@@ -15,8 +15,8 @@ target 'Objective-C' do
   pod 'KLLeaks'
   pod 'KLConsole'
   
-  pod 'KLHomeService',          :path => '/Users/kalan/KLHomeService'
-  pod 'KLHomeServiceInterface', :path => '/Users/kalan/KLHomeServiceInterface'
+  pod 'KLHomeService',          :path => '/Users/kalan/Desktop/KLHomeService'
+  pod 'KLHomeServiceInterface', :path => '/Users/kalan/Desktop/KLHomeServiceInterface'
 
   target 'Objective-CTests' do
     inherit! :search_paths

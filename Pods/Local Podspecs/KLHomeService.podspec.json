@@ -28,9 +28,6 @@
     "KLLeaks": [
 
     ],
-    "KLConsole": [
-
-    ],
     "KLCarousel": [
 
     ],
@@ -41,6 +38,9 @@
 
     ],
     "KLUserInfoManager": [
+
+    ],
+    "KLScaleNavigationBar": [
 
     ],
     "KLNavigationController": [

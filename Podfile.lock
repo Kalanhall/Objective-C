@@ -29,10 +29,10 @@ PODS:
   - KLHomeService (0.0.1):
     - KLCarousel
     - KLCategory
-    - KLConsole
     - KLLeaks
     - KLNavigationController
     - KLNetworkModule
+    - KLScaleNavigationBar
     - KLUserInfoManager
     - Masonry
     - MJRefresh
@@ -45,6 +45,8 @@ PODS:
   - KLNavigationController (1.1.0)
   - KLNetworkModule (2.0.1):
     - AFNetworking
+  - KLScaleNavigationBar (1.1.1):
+    - Masonry
   - KLServer (1.0.0)
   - KLUserInfoManager (1.0.1):
     - KLCache (~> 1.0.0)
@@ -85,6 +87,7 @@ SPEC REPOS:
     - KLConsole
     - KLModel
     - KLNavigationController
+    - KLScaleNavigationBar
     - KLUserInfoManager
   trunk:
     - AFNetworking
@@ -111,12 +114,13 @@ SPEC CHECKSUMS:
   KLCarousel: ff85addd353c871337132f1007004c42813ef68f
   KLCategory: 226bb7f6e699e6c9b6ec1dd1489d9904b9359262
   KLConsole: f4202be2ac6ad807728823614730e99237b2f85d
-  KLHomeService: ae1539f097d56217bc38e61392a8afccd9e54141
+  KLHomeService: d8eff27be18af3e536df090ce52e3fbb2ca1fde6
   KLHomeServiceInterface: 49ef569ef3ed43847883c23adc5603e2bc27212e
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
   KLModel: 68eb4580c629621bec437e2a318101295a2f0965
   KLNavigationController: bc9860e43a06103f3e12b7a2b89f27de48c7ff94
   KLNetworkModule: b9baa618cf4d1752145d74ef5c08d002f4cf6873
+  KLScaleNavigationBar: 429af87ee754160f244139f7691c36f2a5c3584b
   KLServer: b37b4d567aa189afe1284ed316b4419f2029221e
   KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3

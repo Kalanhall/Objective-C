@@ -115,6 +115,16 @@
         #ifdef DEBUG
             [KLConsole consoleSetupAndSelectedCallBack:^(NSIndexPath * _Nonnull indexPath, BOOL switchOn) {
                 // 扩展功能回调
+                switch (indexPath.row) {
+                    case 0:
+                        NSLog(@"H5访问测试~");
+                        break;
+                    case 1:
+                        NSLog(@"引导页测试~");
+                        break;
+                    default:
+                        break;
+                }
             }];
         #endif
     };

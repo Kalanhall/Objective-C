@@ -145,27 +145,27 @@
     NSArray *systemInfos = @[
             @{
                 @"title" : @"应用名称",
-                @"subtitle" : [UIDevice kl_appDisplayName]
+                @"subtitle" : [UIDevice kl_appDisplayName] ? : @""
             },
             @{
                 @"title" : @"版本号",
-                @"subtitle" : [UIDevice kl_appShortVersion]
+                @"subtitle" : [UIDevice kl_appShortVersion] ? : @""
             },
             @{
                 @"title" : @"Build号",
-                @"subtitle" : [UIDevice kl_appBuildVersion]
+                @"subtitle" : [UIDevice kl_appBuildVersion] ? : @""
             },
             @{
                 @"title" : @"Bundle Id",
-                @"subtitle" : [UIDevice kl_appIdentifier]
+                @"subtitle" : [UIDevice kl_appIdentifier] ? : @""
             },
             @{
                 @"title" : @"KeyChain Id",
-                @"subtitle" : [UIDevice kl_deviceIdentifierForKeyChain]
+                @"subtitle" : [UIDevice kl_deviceIdentifierForKeyChain] ? : @""
             }
             , @{
                 @"title" : @"手机系统",
-                @"subtitle" : [UIDevice kl_OSVersion]
+                @"subtitle" : [UIDevice kl_OSVersion] ? : @""
             },
             @{
                 @"title" : @"是否发布版本",
@@ -177,26 +177,26 @@
             },
             @{
                 @"title" : @"设备类型",
-                @"subtitle" : [UIDevice kl_currentModel]
+                @"subtitle" : [UIDevice kl_currentModel] ? : @""
             },
             @{
                 @"title" : @"分辨率(宽高)",
                 @"subtitle" : [NSString stringWithFormat:@"%.1f x %.1f (%.1f x %.1f) @scale %.1f", UIScreen. mainScreen.currentMode.size.width, UIScreen. mainScreen.currentMode.size.height, UIScreen. mainScreen.bounds.size.width, UIScreen. mainScreen.bounds.size.height, UIScreen. mainScreen.scale]
             }, @{
                 @"title" : @"运营商",
-                @"subtitle" : [UIDevice kl_carrierName]
+                @"subtitle" : [UIDevice kl_carrierName] ? : @"请插入SIM卡"
             }, @{
                 @"title" : @"系统语言",
-                @"subtitle" : [UIDevice kl_OSLanguage]
+                @"subtitle" : [UIDevice kl_OSLanguage] ? : @""
             }, @{
                 @"title" : @"是否越狱",
                 @"subtitle" : [NSString stringWithFormat:@"%@", [UIDevice kl_isJailBroken] ? @"是" : @"否"]
             }, @{
                 @"title" : @"ip地址(ipv4)",
-                @"subtitle" : [UIDevice kl_IPV4]
+                @"subtitle" : [UIDevice kl_IPV4] ? : @""
             }, @{
                 @"title" : @"ip地址(ipv6)",
-                @"subtitle" : [UIDevice kl_IPV6]
+                @"subtitle" : [UIDevice kl_IPV6] ? : @""
             }, @{
                 @"title" : @"系统位数",
             #ifdef __LP64__

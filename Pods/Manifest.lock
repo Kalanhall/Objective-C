@@ -23,7 +23,7 @@ PODS:
     - KLCategory/UIKit (= 1.2.0)
   - KLCategory/Foundation (1.2.0)
   - KLCategory/UIKit (1.2.0)
-  - KLConsole (1.0.4):
+  - KLConsole (1.0.6):
     - Masonry
     - YKWoodpecker
   - KLHomeService (0.0.1):
@@ -113,7 +113,7 @@ SPEC CHECKSUMS:
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
   KLCarousel: ff85addd353c871337132f1007004c42813ef68f
   KLCategory: 226bb7f6e699e6c9b6ec1dd1489d9904b9359262
-  KLConsole: f4202be2ac6ad807728823614730e99237b2f85d
+  KLConsole: 144de281278a6523e08e07ebb96c7bd4e52d52b5
   KLHomeService: d8eff27be18af3e536df090ce52e3fbb2ca1fde6
   KLHomeServiceInterface: 49ef569ef3ed43847883c23adc5603e2bc27212e
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c

@@ -194,13 +194,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    KLConsoleConfig *config = self.dataSource[indexPath.section];
-    KLConsoleSecondConfig *scg = config.infos[indexPath.row];
-    
-    KLConsoleInfoController *vc = KLConsoleInfoController.alloc.init;
-    vc.title = scg.title;
     
     if (indexPath.section == 0) {
+        KLConsoleConfig *config = self.dataSource[indexPath.section];
+        KLConsoleSecondConfig *scg = config.infos[indexPath.row];
+        KLConsoleInfoController *vc = KLConsoleInfoController.alloc.init;
+        vc.title = scg.title;
         // 环境配置
         __weak typeof(self) weakself = self;
         vc.config = config.infos[indexPath.row];
@@ -208,6 +207,10 @@
         vc.selectedCallBack = ^() { [weakself reloadData]; };
         [self.navigationController pushViewController:vc animated:YES];
     } else if (indexPath.section == 1) {
+        KLConsoleConfig *config = self.dataSource[indexPath.section];
+        KLConsoleSecondConfig *scg = config.infos[indexPath.row];
+        KLConsoleInfoController *vc = KLConsoleInfoController.alloc.init;
+        vc.title = scg.title;
         // 系统信息
         vc.infoType = KLConsoleInfoTypeSystemInfo;
         [self.navigationController pushViewController:vc animated:YES];

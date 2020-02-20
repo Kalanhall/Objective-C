@@ -15,7 +15,6 @@
 #import "KLHomeBannerCell.h"
 #import "KLHomeController.h"
 #import "KLHomeMenuCell.h"
-#import "KLRefreshControl.h"
 #import "KLHomeViewModel.h"
 
 FOUNDATION_EXPORT double KLHomeServiceVersionNumber;

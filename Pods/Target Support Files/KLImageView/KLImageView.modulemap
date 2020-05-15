@@ -1,0 +1,6 @@
+framework module KLImageView {
+  umbrella header "KLImageView-umbrella.h"
+
+  export *
+  module * { export * }
+}

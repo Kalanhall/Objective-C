@@ -2,7 +2,7 @@
 platform :ios, '9.0'
 inhibit_all_warnings!
 
-source 'https://cdn.cocoapods.org/'
+source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/Kalanhall/Specs.git'
 
 target 'Objective-C' do
@@ -15,8 +15,9 @@ target 'Objective-C' do
   pod 'KLLeaks'
   pod 'KLConsole'
   
-  pod 'KLHomeService',          :path => '/Users/kalan/Desktop/KLHomeService'
-  pod 'KLHomeServiceInterface', :path => '/Users/kalan/Desktop/KLHomeServiceInterface'
+  # 主页模块
+  pod 'KLHomeService'
+  pod 'KLHomeServiceInterface'
 
   target 'Objective-CTests' do
     inherit! :search_paths

@@ -1,6 +1,0 @@
-framework module KLCarousel {
-  umbrella header "KLCarousel-umbrella.h"
-
-  export *
-  module * { export * }
-}

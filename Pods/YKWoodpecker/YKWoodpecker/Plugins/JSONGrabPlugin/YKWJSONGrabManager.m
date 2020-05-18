@@ -58,7 +58,6 @@
         
         _contentView = [[YKWFollowView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
         _contentView.backgroundColor = [YKWBackgroudColor colorWithAlphaComponent:0.9];
-        _contentView.followWoodpeckerIcon = YES;
         
         _tableView = [[UITableView alloc] initWithFrame:_contentView.bounds style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor clearColor];
@@ -74,8 +73,8 @@
 
         UIButton *hideButton = [UIButton buttonWithType:UIButtonTypeCustom];
         hideButton.backgroundColor = [UIColor clearColor];
-        hideButton.frame = CGRectMake(_contentView.width - 30, -12, 40, 40);
-        hideButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15];
+        hideButton.frame = CGRectMake(_contentView.ykw_width - 30, -12, 40, 40);
+        hideButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:25];
         [hideButton setTitle:@"×" forState:UIControlStateNormal];
         [hideButton setTitleColor:[YKWForegroudColor colorWithAlphaComponent:0.8] forState:UIControlStateNormal];
         [hideButton addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
@@ -83,8 +82,8 @@
         
         UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
         clearButton.backgroundColor = [UIColor clearColor];
-        clearButton.frame = CGRectMake(_contentView.width - 30, _contentView.height - 30, 40, 40);
-        clearButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15];
+        clearButton.frame = CGRectMake(_contentView.ykw_width - 30, _contentView.ykw_height - 32, 40, 40);
+        clearButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:25];
         [clearButton setTitle:@"☒" forState:UIControlStateNormal];
         [clearButton setTitleColor:[YKWForegroudColor colorWithAlphaComponent:0.8] forState:UIControlStateNormal];
         [clearButton addTarget:self action:@selector(clear) forControlEvents:UIControlEventTouchUpInside];
@@ -93,10 +92,18 @@
         _methodHook = [[YKWObjcMethodHook alloc] init];
         _methodHook.delegate = self;
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyWindowDidChange)
+                                                     name:UIWindowDidBecomeKeyNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hide)
                                                      name:YKWoodpeckerManagerPluginsDidShowNotification object:nil];
     }
     return self;
+}
+
+- (void)keyWindowDidChange {
+    if (_contentView.superview && _contentView.window != [UIApplication sharedApplication].keyWindow) {
+        [self show];
+    }
 }
 
 - (void)show {
@@ -106,7 +113,7 @@
     CGRect frame = _contentView.frame;
     frame.origin = [YKWoodpeckerManager sharedInstance].woodpeckerRestPoint;
     _contentView.frame = frame;
-    [[UIApplication sharedApplication].windows.firstObject addSubview:_contentView];
+    [[UIApplication sharedApplication].keyWindow addSubview:_contentView];
     [UIView animateWithDuration:0.2 animations:^{
         self->_contentView.alpha = 1.0;
     } completion:^(BOOL finished) {
@@ -146,10 +153,12 @@
             if (jsonData) {
                 NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self->_jsonsAry addObject:jsonStr];
-                    [self->_tableView reloadData];
-                });
+                if (jsonStr) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self->_jsonsAry addObject:jsonStr];
+                        [self->_tableView reloadData];
+                    });
+                }
             }
         }
     }
@@ -173,7 +182,7 @@
     cell.textLabel.textColor = YKWForegroudColor;
     cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.textLabel.numberOfLines = 3;
-    
+
     NSString *json = [_jsonsAry ykw_objectAtIndex:indexPath.row];
     NSInteger length = json.length;
     

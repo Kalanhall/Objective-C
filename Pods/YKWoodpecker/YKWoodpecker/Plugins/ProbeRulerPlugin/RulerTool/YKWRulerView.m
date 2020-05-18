@@ -40,7 +40,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [[UIColor colorWithHexString:@"ff00e6"] colorWithAlphaComponent:0.5];
+        self.backgroundColor = [[UIColor ykw_colorWithHexString:@"ff00e6"] colorWithAlphaComponent:0.5];
+        self.followWoodpeckerIcon = NO;
         
         _widthHeightLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _widthHeightLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -58,16 +59,16 @@
     [super setFrame:frame];
     
     NSString *width = nil;
-    if ([self isRoundInteger:self.width]) {
-        width = [NSString stringWithFormat:@"%.0f", self.width];
+    if ([self isRoundInteger:self.ykw_width]) {
+        width = [NSString stringWithFormat:@"%.0f", self.ykw_width];
     } else {
-        width = [NSString stringWithFormat:@"%.1f", self.width];
+        width = [NSString stringWithFormat:@"%.1f", self.ykw_width];
     }
     NSString *height = nil;
-    if ([self isRoundInteger:self.height]) {
-        height = [NSString stringWithFormat:@"%.0f", self.height];
+    if ([self isRoundInteger:self.ykw_height]) {
+        height = [NSString stringWithFormat:@"%.0f", self.ykw_height];
     } else {
-        height = [NSString stringWithFormat:@"%.1f", self.height];
+        height = [NSString stringWithFormat:@"%.1f", self.ykw_height];
     }
 
     _widthHeightLabel.text = [width stringByAppendingFormat:@"•%@", height];

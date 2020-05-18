@@ -40,11 +40,14 @@
 #define kYKWScreenLogPreInputCache @"YKWScreenLogPreInputCache"
 #define kYKWScreenLogPreInputCacheCount 20
 
-#define YKWScreenLogAutoPlainLength 20000
+#define YKWScreenLogAutoPlainLength 6000
+#define YKWScreenLogAutoHideLength 2000
+#define YKWScreenLogAutoCleanLogLength 15000
 
 @interface YKWScreenLog()<UITextViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, YKWCmdViewDelegate> {
     UITextView *_txtView;
     BOOL _isDeleting;
+    NSMutableString *_allLogString;
     
     UIButton *_functionBtn;
     
@@ -52,6 +55,8 @@
     UILabel *_sizeLabel;
     CGFloat _originalHeight;
     
+    UILabel *_showHideLogLabel;
+
     UIView *_searchView;
     UITextField *_searchTxtField;
     UILabel *_searchResultNumLabel;
@@ -85,7 +90,7 @@
     }
     self = [super initWithFrame:frame];
     if (self) {
-        _originalHeight = self.height;
+        _originalHeight = self.ykw_height;
         self.backgroundColor = [YKWBackgroudColor colorWithAlphaComponent:0.92];
         self.clipsToBounds = YES;
         self.followVelocity = 1.0;
@@ -93,6 +98,7 @@
         _inputable = YES;
         _isDeleting = NO;
         _parseCommands = YES;
+        _showLog = YES;
         
         _appendedAry = [NSMutableArray array];
         
@@ -108,8 +114,10 @@
         tap.delegate = self;
         [self addGestureRecognizer:tap];
         
+        _allLogString = [NSMutableString string];
+
         _txtView = [[UITextView alloc] init];
-        _txtView.frame = CGRectMake(10, 20, self.width - 20, self.height - 70);
+        _txtView.frame = CGRectMake(10, 20, self.ykw_width - 20, self.ykw_height - 70);
         _txtView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         _txtView.backgroundColor = [UIColor clearColor];
         _txtView.clipsToBounds = YES;
@@ -128,29 +136,29 @@
         _txtView.delegate = self;
         [self addSubview:_txtView];
 
-        CGFloat y = _txtView.bottom + 10;
+        CGFloat y = _txtView.ykw_bottom + 10;
         {
             UIButton *btn = [self getBtn];
-            btn.frame = CGRectMake(10, y, 65, 30);
-            [btn setTitle:YKWLocalizedString(@"Clear log") forState:UIControlStateNormal];
+            btn.frame = CGRectMake(10, y, 45, 30);
+            [btn setTitle:YKWLocalizedString(@"Clear") forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(clearTxt) forControlEvents:UIControlEventTouchUpInside];
         }
         {
             UIButton *btn = [self getBtn];
-            btn.frame = CGRectMake(85, y, 65, 30);
-            [btn setTitle:YKWLocalizedString(@"Share log") forState:UIControlStateNormal];
+            btn.frame = CGRectMake(65, y, 45, 30);
+            [btn setTitle:YKWLocalizedString(@"Share") forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(shareTxt) forControlEvents:UIControlEventTouchUpInside];
         }
         {
             _functionBtn = [self getBtn];
-            _functionBtn.frame = CGRectMake(160, y, 65, 30);
+            _functionBtn.frame = CGRectMake(120, y, 65, 30);
             [_functionBtn setTitle:YKWLocalizedString(@"Function") forState:UIControlStateNormal];
             [_functionBtn addTarget:self action:@selector(handleFunction) forControlEvents:UIControlEventTouchUpInside];
         }
         {
             UIButton *btn = [self getBtn];
             btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
-            btn.frame = CGRectMake(self.width - 40, y, 30, 30);
+            btn.frame = CGRectMake(self.ykw_width - 40, y, 30, 30);
             btn.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:16];
             [btn setTitle:@"×" forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
@@ -158,7 +166,7 @@
         {
             UIButton *btn = [self getBtn];
             btn.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
-            btn.frame = CGRectMake(self.width - 80, y, 30, 30);
+            btn.frame = CGRectMake(self.ykw_width - 80, y, 30, 30);
             btn.titleLabel.font = [UIFont systemFontOfSize:13.];
             [btn setTitle:@"🔍" forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(searchBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -166,7 +174,7 @@
         
         _sizeLabel = [[UILabel alloc] init];
         _sizeLabel.backgroundColor = YKWForegroudColor;
-        _sizeLabel.frame = CGRectMake(self.width - 120, y, 30, 30);
+        _sizeLabel.frame = CGRectMake(self.ykw_width - 120, y, 30, 30);
         _sizeLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
         _sizeLabel.layer.cornerRadius = 2;
         _sizeLabel.clipsToBounds = YES;
@@ -179,6 +187,21 @@
         [_sizeLabel addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSizeGesture:)]];
         self.panGestureRecognizer.delegate = self;
         [self addSubview:_sizeLabel];
+        
+        _showHideLogLabel = [[UILabel alloc] init];
+        _showHideLogLabel.backgroundColor = YKWForegroudColor;
+        _showHideLogLabel.frame = CGRectMake(self.ykw_width - 160, y, 30, 30);
+        _showHideLogLabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
+        _showHideLogLabel.layer.cornerRadius = 2;
+        _showHideLogLabel.clipsToBounds = YES;
+        _showHideLogLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:18];
+        _showHideLogLabel.textAlignment = NSTextAlignmentCenter;
+        _showHideLogLabel.textColor = YKWBackgroudColor;
+        _showHideLogLabel.text = _showLog ? @"◉" : @"○";
+
+        _showHideLogLabel.userInteractionEnabled = YES;
+        [_showHideLogLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleShowHideLogGesture:)]];
+        [self addSubview:_showHideLogLabel];
     }
     return self;
 }
@@ -238,18 +261,29 @@
         _preLoc = loc;
     }
 
-    CGFloat width = self.width + (loc.x - _preLoc.x);
+    CGFloat width = self.ykw_width + (loc.x - _preLoc.x);
     if (width > 360) {
-        self.width = width;
+        self.ykw_width = width;
     }
     
-    CGFloat height = self.height + (loc.y - _preLoc.y);
+    CGFloat height = self.ykw_height + (loc.y - _preLoc.y);
     if (height > 200) {
-        self.height = height;
+        self.ykw_height = height;
     }
     _preLoc = loc;
 }
 
+- (void)handleShowHideLogGesture:(UIPanGestureRecognizer *)sender {
+    if (_showLog) {
+        [self logInfo:YKWLocalizedString(@"<Hiding log, check log via share...>")];
+        _showLog = NO;
+    } else {
+        _showLog = YES;
+        [self logInfo:YKWLocalizedString(@"<Showing log...>")];
+    }
+    _showHideLogLabel.text = _showLog ? @"◉" : @"○";
+}
+    
 - (NSString *)functionButtonTitle {
     return [_functionBtn titleForState:UIControlStateNormal];
 }
@@ -270,13 +304,7 @@
 }
 
 - (void)shareTxt {
-    NSString *string = nil;
-    if (_txtView.text.length) {
-        string = _txtView.text;
-    }
-    if (_txtView.attributedText.length) {
-        string = _txtView.attributedText.string;
-    }
+    NSString *string = _allLogString;
     if (string.length) {
         [YKWoodpeckerUtils showShareActivityWithItems:@[string]];
     } else {
@@ -285,6 +313,7 @@
 }
 
 - (void)clearTxt {
+    _allLogString = [NSMutableString string];
     _txtView.text = @"";
     _txtView.attributedText = [NSAttributedString new];
     _searchResultAry = nil;
@@ -295,9 +324,9 @@
 - (void)appendView:(UIView *)view {
     if (view) {
         self.autoresizesSubviews = NO;
-        view.frame = CGRectMake(0, self.height, self.width, view.height);
+        view.frame = CGRectMake(0, self.ykw_height, self.ykw_width, view.ykw_height);
         view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
-        self.height += view.height;
+        self.ykw_height += view.ykw_height;
         [self addSubview:view];
         [_appendedAry addObject:view];
         self.autoresizesSubviews = YES;
@@ -391,16 +420,32 @@
         logStr = [self regFilterLog:logStr];
     }
     
+    [_allLogString appendString:logStr];
+    
+    if (logStr.length > YKWScreenLogAutoHideLength) {
+        logStr = YKWLocalizedString(@"<Log is too long to show, check it via share>");
+    }
+    
     if (!color) {
         color = [UIColor whiteColor];
     }
     
     if (!keepline) {
         logStr = [logStr stringByAppendingString:@"\n"];
+        [_allLogString appendString:@"\n"];
+    }
+    
+    if (!_showLog) {
+        return;
+    }
+    
+    if (_txtView.text.length > YKWScreenLogAutoCleanLogLength) {
+        _txtView.text = nil;
+        _txtView.attributedText = nil;
     }
     
     BOOL autoScrl = NO;
-    if (_txtView.contentSize.height < _txtView.height || _txtView.contentSize.height - _txtView.height - _txtView.contentOffset.y < 50) {
+    if (_txtView.contentSize.height < _txtView.ykw_height || _txtView.contentSize.height - _txtView.ykw_height - _txtView.contentOffset.y < 50) {
         autoScrl = YES;
     }
     
@@ -416,8 +461,8 @@
         _txtView.attributedText = mLog;
     }
     
-    if (autoScrl && _txtView.contentSize.height > _txtView.height) {
-        [_txtView setContentOffset:CGPointMake(0, _txtView.contentSize.height - _txtView.height) animated:YES];
+    if (autoScrl && _txtView.contentSize.height > _txtView.ykw_height) {
+        [_txtView setContentOffset:CGPointMake(0, _txtView.contentSize.height - _txtView.ykw_height) animated:YES];
     }
     
     [self searchLogWithKey:nil];
@@ -618,7 +663,7 @@
         [self setupSearchView];
     }
     
-    _searchView.frame = CGRectMake(_txtView.left, _txtView.top, _txtView.width, 26);
+    _searchView.frame = CGRectMake(_txtView.ykw_left, _txtView.ykw_top, _txtView.ykw_width, 26);
     _searchView.alpha = 0.0;
     [self addSubview:_searchView];
     [UIView animateWithDuration:0.2 animations:^{
@@ -664,7 +709,7 @@
 
 - (void)searchNextTapped:(UITapGestureRecognizer *)sender {
     CGPoint p = [sender locationInView:sender.view];
-    if (p.x < sender.view.width / 2) {
+    if (p.x < sender.view.ykw_width / 2) {
         [self showPreviousSearchResult];
     } else {
         [self showNextSearchResult];
@@ -731,7 +776,7 @@
         _searchResultNumLabel.text = @"0/0";
     }
     [_searchResultNumLabel sizeToFit];
-    _searchResultNumLabel.width += 5;
+    _searchResultNumLabel.ykw_width += 5;
 }
 
 - (NSRange)visibleRangeOfTextView:(UITextView *)textView {
@@ -753,11 +798,11 @@
 
 - (void)setupSearchView {
     if (!_searchView) {
-        _searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _txtView.width, 26)];
+        _searchView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _txtView.ykw_width, 26)];
         _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin;
         _searchView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
         
-        _searchTxtField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, _searchView.width - 60, _searchView.height)];
+        _searchTxtField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, _searchView.ykw_width - 60, _searchView.ykw_height)];
         _searchTxtField.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         _searchTxtField.backgroundColor = [UIColor clearColor];
         _searchTxtField.textColor = [UIColor whiteColor];
@@ -768,7 +813,7 @@
         _searchTxtField.delegate = self;
         [_searchView addSubview:_searchTxtField];
         
-        _searchResultNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, _searchView.height)];
+        _searchResultNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, _searchView.ykw_height)];
         _searchResultNumLabel.textColor = [UIColor whiteColor];
         _searchResultNumLabel.font = [UIFont systemFontOfSize:12];
         _searchResultNumLabel.textAlignment = NSTextAlignmentCenter;
@@ -776,7 +821,7 @@
         _searchTxtField.rightViewMode = UITextFieldViewModeAlways;
         _searchResultNumLabel.text = @"0/0";
         
-        _searchNextLabel = [[UILabel alloc] initWithFrame:CGRectMake(_searchView.width - 60, 0, 60, _searchView.height)];
+        _searchNextLabel = [[UILabel alloc] initWithFrame:CGRectMake(_searchView.ykw_width - 60, 0, 60, _searchView.ykw_height)];
         _searchNextLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleHeight;
         _searchNextLabel.textColor = [UIColor whiteColor];
         _searchNextLabel.font = [UIFont systemFontOfSize:12];

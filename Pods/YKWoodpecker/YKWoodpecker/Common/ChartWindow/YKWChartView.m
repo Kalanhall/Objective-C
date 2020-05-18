@@ -58,7 +58,7 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         [self addSubview:_scrollView];
         
-        _lineView = [[YKWChartLineView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.width, _scrollView.height)];
+        _lineView = [[YKWChartLineView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.ykw_width, _scrollView.ykw_height)];
         [_scrollView addSubview:_lineView];
         
         _yTitleLabel = [[UILabel alloc] init];
@@ -89,10 +89,12 @@
         return;
     }
     
+    NSUInteger count = _dataArray.count;
     _minData = MAXFLOAT;
     _maxData = 0;
     float total = 0;
-    for (int i = 0; i < _dataArray.count; i++) {
+    float totalpow2 = 0;
+    for (int i = 0; i < count; i++) {
         float data = [_dataArray[i] floatValue];
         if (data > _maxData) {
             _maxData = data;
@@ -101,23 +103,18 @@
             _minData = data;
         }
         total += data;
+        totalpow2 += data * data;
     }
-    float avg = total / dataArray.count;
-    total = 0;
-    for (int i = 0; i < _dataArray.count; i++) {
-        float data = [_dataArray[i] floatValue];
-        total += pow(data - avg, 2);
-    }
-    float variance = sqrt(total / dataArray.count);
-    
+    float avg = total / count;
+    float variance = sqrt(totalpow2 / count - avg * avg);
     _yTitleLabel.text = [NSString stringWithFormat:@"%@/ max:%.2f min:%.2f avg:%.2f σ:%.2f", _yTitle, _maxData, _minData, avg, variance];
     [self setupYLabels];
     
     CGSize contentSize = CGSizeMake(_dataArray.count * _lineView.xStep + 10, 0);
     _scrollView.contentSize = contentSize;
-    _lineView.width = contentSize.width;
-    if (contentSize.width > _scrollView.width) {
-        [_scrollView setContentOffset:CGPointMake(contentSize.width - _scrollView.width, 0) animated:NO];
+    _lineView.ykw_width = contentSize.width;
+    if (contentSize.width > _scrollView.ykw_width) {
+        [_scrollView setContentOffset:CGPointMake(contentSize.width - _scrollView.ykw_width, 0) animated:NO];
     }
     
     _lineView.baseValue = _minData / kDataScale;
@@ -136,7 +133,7 @@
         float y = min + step * i;
         UILabel *yLabel = [[UILabel alloc] init];
         yLabel.frame = CGRectMake(0, 0, 40, 15);
-        yLabel.centerY = 50. + (5 - i) * (self.height - 80.) / 5.;
+        yLabel.ykw_centerY = 50. + (5 - i) * (self.ykw_height - 80.) / 5.;
         yLabel.textColor = [UIColor lightGrayColor];
         yLabel.font = [UIFont systemFontOfSize:10];
         yLabel.textAlignment = NSTextAlignmentRight;
@@ -156,8 +153,8 @@
     for (int i = 0; i < 6; i++) {
         UIView *line = [[UIView alloc] init];
         line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.8];
-        line.frame = CGRectMake(45, 0, self.width - 45, 1. / [UIScreen mainScreen].scale);
-        line.centerY = 50. + i * (self.height - 80.) / 5.;
+        line.frame = CGRectMake(45, 0, self.ykw_width - 45, 1. / [UIScreen mainScreen].scale);
+        line.ykw_centerY = 50. + i * (self.ykw_height - 80.) / 5.;
         [self insertSubview:line atIndex:0];
         [_yLinesArray addObject:line];
     }

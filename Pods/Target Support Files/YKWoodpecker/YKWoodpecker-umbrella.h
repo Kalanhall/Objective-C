@@ -16,6 +16,7 @@
 #import "YKWPluginProtocol.h"
 #import "YKWPluginSectionHeader.h"
 #import "YKWPluginsWindow.h"
+#import "YKWRotationWindowRootViewController.h"
 #import "YKWoodpeckerManager.h"
 #import "YKWChartLineView.h"
 #import "YKWChartView.h"

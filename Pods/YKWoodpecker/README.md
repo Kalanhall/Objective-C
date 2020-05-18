@@ -4,12 +4,12 @@
 
 啄幕鸟，即手机屏幕上的啄木鸟，专抓App里的Bug。啄幕鸟集合了UI检查、对象查看、方法监听等多种开发工具，通过拾取UI控件、查看对象属性、监听方法调用、App内抓包等，不依赖电脑联调，直接获取运行时数据，快速定位Bug，提高开发效率。啄幕鸟提供了插件化的工具平台，简便易用，零侵入、零依赖、易接入、易扩展。   
 # 功能简介
-1.UI检查：快速查看页面布局、UI控件间距、字体颜色、UI控件类名、对象属性/成员变量、图片URL等。
-2.JSON抓包：便捷JSON抓包工具，通过监听系统json解析抓包。
-3.方法监听：监听任意OC方法的调用，输出调用参数、返回值等信息，可以通过屏幕日志输入监听、KVC取值等命令，支持后台配置命令，在此基础上实现了App内抓包等功能。    
-4.系统信息：查看各种系统名称、版本、屏幕、UA等信息，支持外部添加信息。   
-5.po命令：执行类似LLDB的po命令。   
-6.SandBox：查看沙盒文件，导出文件等。   
+1.UI检查：快速查看页面布局、UI控件间距、字体颜色、UI控件类名、对象属性/成员变量、图片URL等。   
+2.JSON抓包：便捷JSON抓包工具，通过监听系统json解析抓包。    
+3.方法监听：Bug听诊器，可监听App中任意OC方法的调用，输出调用参数、返回值等信息，可以通过屏幕日志输入监听、KVC取值等命令，支持后台配置命令。      
+4.po命令：执行类似LLDB的po命令，在App运行时执行po命令，调用任意方法。      
+5.系统信息：查看各种系统名称、版本、屏幕、UA等信息，支持外部添加信息。       
+6.SandBox：查看沙盒文件，导出文件等。     
 7.Bundle：查看、导出Bundle目录中的内容。   
 8.Crash：查看Crash日志，需先打开一次Crash插件以开启Crash监控。   
 9.Defaults：查看、新增、删除User Defaults。    
@@ -35,14 +35,14 @@ iOS 8.0及以上。
 > ```
 >pod  'YKWoodpecker'   
 > ```
-推荐始终使用最啄幕鸟最新版本，现最新版本：1.1.1。
+推荐更新使用最新版本啄幕鸟，现最新版本：1.2.5。
 
 ## Get Started
 ##### 打开啄幕鸟
 > #import "YKWoodpecker.h"
 > ```
 >    // 方法监听命令配置JSON地址 * 可选，如无单独配置，可使用 https://github.com/ZimWoodpecker/WoodpeckerCmdSource 上的配置
->    [YKWoodpeckerManager shareInstance].cmdSourceUrl = @"https://raw.githubusercontent.com/ZimWoodpecker/WoodpeckerCmdSource/master/cmdSource/default/cmds_cn.json";
+>    [YKWoodpeckerManager sharedInstance].cmdSourceUrl = @"https://raw.githubusercontent.com/ZimWoodpecker/WoodpeckerCmdSource/master/cmdSource/default/cmds_cn.json";
 >    
 >    // Release 下可开启安全模式，只支持打开安全插件 * 可选
 >#ifndef DEBUG
@@ -50,10 +50,10 @@ iOS 8.0及以上。
 >#endif
 >
 >    // 设置 parseDelegate，可通过 YKWCmdCoreCmdParseDelegate 协议实现自定义命令 * 可选
->    [YKWoodpeckerManager shareInstance].cmdCore.parseDelegate = self;
+>    [YKWoodpeckerManager sharedInstance].cmdCore.parseDelegate = self;
 >    
->    // 显示啄幕鸟，启动默认打开UI检查插件
->    [[YKWoodpeckerManager shareInstance] show];
+>    // 显示啄幕鸟
+>    [[YKWoodpeckerManager sharedInstance] show];
 >    
 >    // 启动时可直接打开某一插件 * 可选
 >//    [[YKWoodpeckerManager sharedInstance] openPluginNamed:@"xxx"];
@@ -288,7 +288,7 @@ JSON抓包插件通过监听[NSJSONSerialization JSONObjectWithData:options:erro
 >        // 处理自定义命令
 >        // -----------
 >        // 显示日志
->        [[YKWoodpeckerManager shareInstance].screenLog log:@"Calling my cmd"];
+>        [[YKWoodpeckerManager sharedInstance].screenLog log:@"Calling my cmd"];
 >        return NO;
 >    }
 >    return YES;
@@ -310,7 +310,8 @@ po命令是iOS开发中最常用Debug命令，啄幕鸟让你在App运行时也�
 
 #### po命令功能
 ◆ 输入h可查看输入历史记录。   
-◆ 其他几乎和LLDB po命令一样。
+◆ 其他几乎和LLDB po命令一样。     
+◆ 输入po [N ...]即可对列表中第N个对象执行po命令。   
 
 <p align="center" style="font-size:11px;">
 <img src="https://raw.githubusercontent.com/ZimWoodpecker/WoodpeckerResources/master/woodpecker_po_cmd.png" style="border:1px solid black" height="500">
@@ -380,22 +381,23 @@ UI对比可以从系统相册中导入设计图片以与App对比设计还原度
 性能插件主要有CPU、内存、FPS、网络流量插件，可以实时查看App的相关性能。
 
 # 插件开发
-## 内部插件
-啄幕鸟支持插件式开发，新插件需要实现YKWPluginProtocol协议中的方法，并在插件列表plist中添加相关插件信息即可添加新插件，测试无bug后即可提交pull request合并到项目中。   
+## 插件协议
+啄幕鸟使用插件式开发，所有插件须符合YKWPluginProtocol协议，实现runWithParameters: 方法，在点击插件时会执行此方法以开启插件。不会强制检查是否遵守YKWPluginProtocol，实现协议方法即可。
 
 >#import "YKWPluginProtocol.h"
 > ```
 >@protocol YKWPluginProtocol <NSObject>
 >
->@optional
 >- (void)runWithParameters:(NSDictionary *)paraDic;
 >
 >@end
 > ```
->
+
+## 内部插件
+内部插件会随啄幕鸟开源，新插件需实现YKWPluginProtocol协议中的方法，并在插件列表plist中添加相关插件信息，测试无bug后即可提交pull request合并到项目中。
 
 ## 外部插件
-可以注册外部类为插件在啄幕鸟中打开，使用如下方法注册插件：
+可以注册任意符合插件协议的第三方类为插件在啄幕鸟中打开，使用如下方法注册插件：
 
 >  #import "YKWoodpecker.h"
 > ```
@@ -422,7 +424,7 @@ UI对比可以从系统相册中导入设计图片以与App对比设计还原度
 >
 > ```
 
-推荐使用pluginCharIconText指定一个字符作为插件图标，以节省包大小。可以使用registerPluginCategory:atIndex:方法添加一个工具类别，并定制显示位置。
+推荐使用pluginCharIconText指定一个字符作为插件图标，以节省包大小。
 
 > ```
 >// Demo for registering a plugin
@@ -433,6 +435,18 @@ UI对比可以从系统相册中导入设计图片以与App对比设计还原度
 >                                                                     @"pluginCategoryName" : @"自定义",
 >                                                                     @"pluginClassName" : @"ClassName"}];
 >
+> ```
+
+可以使用registerPluginCategory:atIndex:方法添加一个工具类别，并定制显示位置。
+  
+> ```
+>  /**
+> Register a plugin category or change the position of a plugin category.
+>
+> @param pluginCategoryName Plugin category name.
+> @param index Position to show the category, 0...N-1, or -1 for the last.
+> */
+>- (void)registerPluginCategory:(NSString *)pluginCategoryName atIndex:(NSInteger)index;
 > ```
 
 ## 安全插件
@@ -455,5 +469,5 @@ All source code is licensed under the [MIT License](https://github.com/alibaba/y
 # Architecture
 
 <p align="center" style="font-size:11px;">
-<img src="https://github.com/ZimWoodpecker/WoodpeckerResources/blob/master/woodpecker_arch.png" style="border:1px solid black" height="600">
+<img src="https://github.com/ZimWoodpecker/WoodpeckerResources/blob/master/woodpecker_arch.png" style="border:1px solid black" height="500">
 </p>

@@ -42,7 +42,7 @@
 
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0 ,self.width - 20, self.height)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0 ,self.ykw_width - 20, self.ykw_height)];
         _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.font = [UIFont systemFontOfSize:12];

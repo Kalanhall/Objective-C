@@ -90,14 +90,16 @@ NSString *const YKWPluginReceiveMessageNotification = @"YKWPluginReceiveMessageN
     if (_pluginsEntrance) {
         [_pluginsEntrance show];
     } else {
-        _pluginsEntrance = [[YKWPluginsWindow alloc] initWithFrame:CGRectMake(22, 120, 0, 0)];
+        _pluginsEntrance = [[YKWPluginsWindow alloc] initWithFrame:CGRectMake(22, 150, 0, 0)];
         [_pluginsEntrance showWoodpecker];
         _pluginsEntrance.delegate = self;
         _pluginsEntrance.pluginModelArray = _pluginsArray;
         
-        [self openPluginNamed:YKWLocalizedString(@"UI Check")];
+        if (self.autoOpenUICheckOnShow) {
+            [self openPluginNamed:YKWLocalizedString(@"UI Check")];
+        }
 
-        [_pluginsEntrance makeKeyAndVisible];
+        [_pluginsEntrance show];
     }
 }
 
@@ -113,8 +115,8 @@ NSString *const YKWPluginReceiveMessageNotification = @"YKWPluginReceiveMessageN
 
 - (void)setWoodpeckerRestPoint:(CGPoint)woodpeckerRestPoint {
     if (CGRectContainsPoint(UIEdgeInsetsInsetRect([UIScreen mainScreen].applicationFrame, UIEdgeInsetsMake(20, 20, 20, 20)), woodpeckerRestPoint)) {
-        _pluginsEntrance.left = woodpeckerRestPoint.x;
-        _pluginsEntrance.top = woodpeckerRestPoint.y;
+        _pluginsEntrance.ykw_left = woodpeckerRestPoint.x;
+        _pluginsEntrance.ykw_top = woodpeckerRestPoint.y;
     }
 }
 
@@ -181,6 +183,10 @@ NSString *const YKWPluginReceiveMessageNotification = @"YKWPluginReceiveMessageN
     [self checkAndRemoveEmptyPluginCategory];
 }
 
+- (void)registerPluginWithParameters:(NSDictionary *)parasDic {
+    [self registerPluginWithParameters:parasDic atIndex:-1];
+}
+
 -(void)registerPluginWithParameters:(NSDictionary *)parasDic atIndex:(NSInteger)index {
     if (parasDic) {
         YKWPluginModel *model = [[YKWPluginModel alloc] initWithDictionary:parasDic];
@@ -189,7 +195,11 @@ NSString *const YKWPluginReceiveMessageNotification = @"YKWPluginReceiveMessageN
             for (NSMutableArray *array in _pluginsArray) {
                 for (YKWPluginModel *m in array) {
                     if ([m.pluginName isEqualToString:model.pluginName]) {
-                        return;
+                        NSMutableDictionary *allParasDic = [m.registerDictionary mutableCopy];
+                        [allParasDic addEntriesFromDictionary:parasDic];
+                        model = [[YKWPluginModel alloc] initWithDictionary:allParasDic];
+                        [array removeObject:m];
+                        break;
                     }
                 }
             }
@@ -201,10 +211,6 @@ NSString *const YKWPluginReceiveMessageNotification = @"YKWPluginReceiveMessageN
             }
         }
     }
-}
-
-- (void)registerPluginWithParameters:(NSDictionary *)parasDic {
-    [self registerPluginWithParameters:parasDic atIndex:-1];
 }
 
 - (void)registerPluginCategory:(NSString *)pluginCategoryName atIndex:(NSInteger)index {
@@ -235,6 +241,13 @@ NSString *const YKWPluginReceiveMessageNotification = @"YKWPluginReceiveMessageN
 }
 
 - (void)openPluginNamed:(NSString *)pluginName {
+    [self openPluginNamed:pluginName withParameters:nil];
+}
+
+- (void)openPluginNamed:(NSString *)pluginName withParameters:(NSDictionary *)parasDic {
+    // May close other open plugins
+    [[NSNotificationCenter defaultCenter] postNotificationName:YKWoodpeckerManagerPluginsDidShowNotification object:nil];
+    
     YKWPluginModel *plugin = nil;
     for (NSMutableArray *array in _pluginsArray) {
         for (YKWPluginModel *p in array) {
@@ -246,10 +259,18 @@ NSString *const YKWPluginReceiveMessageNotification = @"YKWPluginReceiveMessageN
     }
 
     if (plugin) {
-        // May close other open plugins
-        [[NSNotificationCenter defaultCenter] postNotificationName:YKWoodpeckerManagerPluginsDidShowNotification object:nil];
         [_pluginsEntrance fold:NO];
-        [self pluginsWindow:_pluginsEntrance didSelectPlugin:plugin];
+        if (parasDic) {
+            NSDictionary *previousParas = plugin.pluginParameters;
+            NSMutableDictionary *allParas = [NSMutableDictionary dictionary];
+            [allParas addEntriesFromDictionary:previousParas];
+            [allParas addEntriesFromDictionary:parasDic];
+            plugin.pluginParameters = allParas;
+            [self pluginsWindow:_pluginsEntrance didSelectPlugin:plugin];
+            plugin.pluginParameters = previousParas;
+        } else {
+            [self pluginsWindow:_pluginsEntrance didSelectPlugin:plugin];
+        }
     } else {
         [YKWoodpeckerMessage showMessage:YKWLocalizedString(@"Plugin not found")];
     }

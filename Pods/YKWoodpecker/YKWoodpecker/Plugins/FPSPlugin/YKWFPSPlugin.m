@@ -38,15 +38,16 @@ static YKWChartWindow *_chartWindow;
 - (void)runWithParameters:(NSDictionary *)paraDic {
     if (!_chartWindow) {
         CGFloat width = [UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height ? [UIScreen mainScreen].bounds.size.width : [UIScreen mainScreen].bounds.size.height;
-        if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             width /= 2;
         }
-        _chartWindow = [[YKWChartWindow alloc] initWithFrame:CGRectMake(1, 20, width - 2, 180.)];
+        _chartWindow = [[YKWChartWindow alloc] initWithFrame:CGRectMake(0.5, 20, width - 1, 180.)];
         _chartWindow.yTitle = @"fps";
         _chartWindow.delegate = (id<YKWChartWindowDelegate>)[YKWFPSUtils sharedInstance];
-        [_chartWindow makeKeyAndVisible];
+        _chartWindow.hidden = NO;
     }
     
+    _chartWindow.statusBarMode = [[paraDic objectForKey:@"statusBarMode"] boolValue];
     [[YKWFPSUtils sharedInstance] startFps];
     _chartWindow.hidden = NO;
     [_chartWindow clearData];

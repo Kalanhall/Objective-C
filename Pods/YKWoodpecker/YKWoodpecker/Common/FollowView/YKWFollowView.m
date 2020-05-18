@@ -34,8 +34,9 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.followVelocity = 1.0;
-        
+        _followVelocity = 1.0;
+        _followWoodpeckerIcon = YES;
+
         _panGestureRecognizer = [[UIPanGestureRecognizer alloc] init];
         _panGestureRecognizer.maximumNumberOfTouches = 1;
         _panGestureRecognizer.minimumNumberOfTouches = 1;
@@ -48,7 +49,7 @@
 - (void)pan:(UIPanGestureRecognizer *)sender {
     CGPoint translation = [sender translationInView:sender.view];
     [sender setTranslation:CGPointZero inView:sender.view];
-    self.center = CGPointMake(self.centerX + translation.x * self.followVelocity, self.centerY + translation.y * self.followVelocity);
+    self.center = CGPointMake(self.ykw_centerX + translation.x * self.followVelocity, self.ykw_centerY + translation.y * self.followVelocity);
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -58,9 +59,7 @@
         return;
     }
     
-    if (!(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) && !(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))) {
-        [YKWoodpeckerManager sharedInstance].woodpeckerRestPoint = self.frame.origin;
-    }
+    [YKWoodpeckerManager sharedInstance].woodpeckerRestPoint = self.frame.origin;
 }
 
 - (void)setCenter:(CGPoint)center {
@@ -69,10 +68,8 @@
     if (!self.followWoodpeckerIcon) {
         return;
     }
-    
-    if (!(UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) && !(UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation))) {
-        [YKWoodpeckerManager sharedInstance].woodpeckerRestPoint = self.frame.origin;
-    }
+
+    [YKWoodpeckerManager sharedInstance].woodpeckerRestPoint = self.frame.origin;
 }
 
 @end

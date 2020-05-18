@@ -24,11 +24,13 @@
     // MARK: 选项卡入口配置
     NSArray *controllers =
     @[[KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"商城" image:@"Tab0" selectedImage:@"Tab0-h"],
+                                                         title:@"闲鱼" image:@"Tab0" selectedImage:@"Tab0-h"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"分类" image:@"Tab1" selectedImage:@"Tab1-h"],
+                                                         title:@"鱼塘" image:@"Tab1" selectedImage:@"Tab1-h"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"购物车" image:@"Tab2" selectedImage:@"Tab2-h"],
+                                                         title:@"发布" image:@"Tab2" selectedImage:@"Tab2-h"],
+      [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                         title:@"消息" image:@"Tab2" selectedImage:@"Tab2-h"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                          title:@"我的" image:@"Tab3" selectedImage:@"Tab3-h"]];
     UITabBarController *tc = [UITabBarController tabBarWithControllers:controllers];
@@ -44,6 +46,8 @@
     
     // MARK: 开发工具配置
     [self setupDebugTool:tc];
+    
+    sleep(2);
     
     return YES;
 }

@@ -66,7 +66,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.clipsToBounds = NO;
         
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.ykw_width, self.ykw_height)];
         _contentView.backgroundColor = [YKWBackgroudColor colorWithAlphaComponent:0.9];
         _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         _contentView.clipsToBounds = YES;
@@ -76,8 +76,8 @@
         [self addSubview:_contentView];
         
         UIView *line = [[UIView alloc] init];
-        line.frame = CGRectMake(0, self.height, self.width, 0.5);
-        line.backgroundColor = [UIColor colorWithHexString:@"3F3F3F"];
+        line.frame = CGRectMake(0, self.ykw_height, self.ykw_width, 0.5);
+        line.backgroundColor = [UIColor ykw_colorWithHexString:@"3F3F3F"];
         [_contentView addSubview:line];
         
         _probeBtn = ({
@@ -104,20 +104,20 @@
         
         UIButton *hideButton = [UIButton buttonWithType:UIButtonTypeCustom];
         hideButton.backgroundColor = [UIColor clearColor];
-        hideButton.frame = CGRectMake(_contentView.width - 30, -12, 40, 40);
-        hideButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:15];
+        hideButton.frame = CGRectMake(_contentView.ykw_width - 30, -12, 40, 40);
+        hideButton.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:20];
         [hideButton setTitle:@"×" forState:UIControlStateNormal];
         [hideButton setTitleColor:[YKWForegroudColor colorWithAlphaComponent:0.8] forState:UIControlStateNormal];
         [hideButton addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
         [_contentView addSubview:hideButton];
         
-        _probeFuncView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 35)];
+        _probeFuncView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.ykw_width, 35)];
         _probeFuncView.clipsToBounds = YES;
         
         _probeFuncBtn1 = ({
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.tag = 1;
-            btn.frame = CGRectMake(0, 5, self.width / 3., 26);
+            btn.frame = CGRectMake(0, 5, self.ykw_width / 3., 26);
             btn.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:YKWPanelViewFont];
             [btn setTitleColor:YKWForegroudColor forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(handleProbeBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -128,7 +128,7 @@
         _probeFuncBtn2 = ({
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.tag = 2;
-            btn.frame = CGRectMake(_probeFuncBtn1.right, 5,  self.width / 3., 26);
+            btn.frame = CGRectMake(_probeFuncBtn1.ykw_right, 5,  self.ykw_width / 3., 26);
             btn.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:YKWPanelViewFont];
             [btn setTitleColor:YKWForegroudColor forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(handleProbeBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -139,7 +139,7 @@
         _probeFuncBtn3 = ({
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.tag = 3;
-            btn.frame = CGRectMake(_probeFuncBtn2.right, 5,  self.width / 3., 26);
+            btn.frame = CGRectMake(_probeFuncBtn2.ykw_right, 5,  self.ykw_width / 3., 26);
             btn.titleLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:YKWPanelViewFont];
             [btn setTitleColor:YKWForegroudColor forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(handleProbeBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -252,7 +252,7 @@
         [_rulerTool showInView:self];
         [UIView animateWithDuration:0.2 animations:^{
             self->_rulerTool.alpha = 1;
-            self.height = YKWPanelViewHeight + self->_rulerTool.height;
+            self.ykw_height = YKWPanelViewHeight + self->_rulerTool.ykw_height;
         }];
     }
 }
@@ -262,7 +262,7 @@
     if (_rulerTool.superview) {
         [UIView animateWithDuration:0.2 animations:^{
             self->_rulerTool.alpha = 0.0;
-            self.height = YKWPanelViewHeight;
+            self.ykw_height = YKWPanelViewHeight;
         }completion:^(BOOL finished) {
             [self->_rulerTool hide];
         }];
@@ -275,14 +275,14 @@
         [_probeView showWithView:self];
         
         _probeFuncView.alpha = 0.0;
-        _probeFuncView.top = YKWPanelViewHeight;
-        _probeFuncView.width = self.width;
+        _probeFuncView.ykw_top = YKWPanelViewHeight;
+        _probeFuncView.ykw_width = self.ykw_width;
         [_contentView addSubview:_probeFuncView];
         
-        _infoLabel.left = 10;
-        _infoLabel.top = YKWPanelViewHeight + _probeFuncView.height;
-        _infoLabel.width = self.width;
-        _infoLabel.height = 0;
+        _infoLabel.ykw_left = 10;
+        _infoLabel.ykw_top = YKWPanelViewHeight + _probeFuncView.ykw_height;
+        _infoLabel.ykw_width = self.ykw_width;
+        _infoLabel.ykw_height = 0;
         _infoLabel.alpha = 0.0;
         _infoLabel.text = nil;
         [_contentView addSubview:_infoLabel];
@@ -296,7 +296,7 @@
             self->_probeView.alpha = 0.0;
             self->_infoLabel.alpha = 0.0;
             self->_probeFuncView.alpha = 0.0;
-            self.height = YKWPanelViewHeight;
+            self.ykw_height = YKWPanelViewHeight;
         }completion:^(BOOL finished) {
             [self->_probeView hide];
             [self->_infoLabel removeFromSuperview];
@@ -313,7 +313,7 @@
 - (void)probeView:(YKWProbeView *)probeView didProbeView:(UIView *)view {
     if (!view) return;
     
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"YKWPanelViewPickModeTipShown"] && view.width == view.window.width) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"YKWPanelViewPickModeTipShown"] && view.ykw_width == view.window.ykw_width) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"YKWPanelViewPickModeTipShown"];
         [YKWoodpeckerMessage showMessage:YKWLocalizedString(@"A 3-finger-tap can change the pick mode") duration:5];
     }
@@ -326,47 +326,25 @@
     [info appendFormat:@"%@:\n", [view class]];
     UIView *frame1 = probeView.frameViewAry.lastObject;
     if (frame1) {
-        [info appendFormat:@"X:%.2f Y:%.2f \n%@:%.2f %@:%.2f\n", _probeView.probedView.left, _probeView.probedView.top, YKWLocalizedString(@"Width"), _probeView.probedView.width, YKWLocalizedString(@"Height"), _probeView.probedView.height];
+        [info appendFormat:@"X:%.2f Y:%.2f \n%@:%.2f %@:%.2f\n", _probeView.probedView.ykw_left, _probeView.probedView.ykw_top, YKWLocalizedString(@"Width"), _probeView.probedView.ykw_width, YKWLocalizedString(@"Height"), _probeView.probedView.ykw_height];
     }
     [info appendFormat:@"%@: %.2f\n", YKWLocalizedString(@"Opacity"), view.alpha];
     [info appendFormat:@"Hidden: %@\n", view.hidden ? @"YES" : @"NO"];
     [info appendFormat:@"ClipsToBounds: %@\n", view.clipsToBounds ? @"YES" : @"NO"];
+    [info appendFormat:@"UserInteractionEnabled: %@\n", view.userInteractionEnabled ? @"YES" : @"NO"];
     [info appendFormat:@"%@: %.2f\n", YKWLocalizedString(@"Corner Radius"), view.layer.cornerRadius];
-    [info appendFormat:@"%@: ", YKWLocalizedString(@"Background Color")];
-    if (_probeView.probedView.backgroundColor) {
-        const CGFloat *components = CGColorGetComponents(_probeView.probedView.backgroundColor.CGColor);
-        NSUInteger componentsCount = CGColorGetNumberOfComponents(_probeView.probedView.backgroundColor.CGColor);
-        NSMutableString *hexColor = [NSMutableString stringWithString:@"0x"];
-        for (int i = 0; i < componentsCount; i++) {
-            [info appendFormat:@"%.2f ", components[i]];
-            [hexColor appendString:[YKWPanelView getHexByDecimal:components[i] * 255]];
-        }
-        if (componentsCount == 4) {
-            [info appendString:@" "];
-            [info appendString:hexColor];
-        }
-    } else {
-        [info appendString:YKWLocalizedString(@"<Empty>")];
+    if (view.layer.borderWidth > 0) {
+        [info appendFormat:@"%@: %.2f\n", YKWLocalizedString(@"Border Width"), view.layer.borderWidth];
+        [info appendFormat:@"%@: %@\n", YKWLocalizedString(@"Border Color"), [YKWPanelView colorToString:_probeView.probedView.layer.borderColor]];
     }
-    [info appendString:@"\n"];
+    [info appendFormat:@"%@: %@\n", YKWLocalizedString(@"Background Color"), [YKWPanelView colorToString:_probeView.probedView.backgroundColor.CGColor]];
 
     if ([view isKindOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)view;
         [info appendFormat:@"%@:%@\n", YKWLocalizedString(@"Text"), label.text];
         [info appendFormat:@"%@:%@ %.1f\n", YKWLocalizedString(@"Font"), label.font.fontName , label.font.pointSize];
-        [info appendFormat:@"%@:", YKWLocalizedString(@"Color")];
-        const CGFloat *components = CGColorGetComponents(label.textColor.CGColor);
-        NSUInteger componentsCount = CGColorGetNumberOfComponents(label.textColor.CGColor);
-        NSMutableString *hexColor = [NSMutableString stringWithString:@"0x"];
-        for (int i = 0; i < componentsCount; i++) {
-            [info appendFormat:@"%.2f ", components[i]];
-            [hexColor appendString:[YKWPanelView getHexByDecimal:components[i] * 255]];
-        }
-        if (componentsCount == 4) {
-            [info appendString:@" "];
-            [info appendString:hexColor];
-        }
-        [info appendString:@"\n"];
+        [info appendFormat:@"%@:%@\n", YKWLocalizedString(@"Color"), [YKWPanelView colorToString:label.textColor.CGColor]];
+
         [_probeFuncBtn2 setTitle:YKWLocalizedString(@"CopyText") forState:UIControlStateNormal];
         _probeFuncBtn3.hidden = YES;
     } else if ([view isKindOfClass:[UIImageView class]]) {
@@ -401,40 +379,18 @@
         UITextView *label = (UITextView *)view;
         [info appendFormat:@"%@:%@\n", YKWLocalizedString(@"Text"), label.text];
         [info appendFormat:@"%@:%@ %.1f\n", YKWLocalizedString(@"Font"), label.font.fontName , label.font.pointSize];
-        [info appendFormat:@"%@:", YKWLocalizedString(@"Color")];
-        const CGFloat *components = CGColorGetComponents(label.textColor.CGColor);
-        NSUInteger componentsCount = CGColorGetNumberOfComponents(label.textColor.CGColor);
-        NSMutableString *hexColor = [NSMutableString stringWithString:@"0x"];
-        for (int i = 0; i < componentsCount; i++) {
-            [info appendFormat:@"%.2f ", components[i]];
-            [hexColor appendString:[YKWPanelView getHexByDecimal:components[i] * 255]];
-        }
-        if (componentsCount == 4) {
-            [info appendString:@" "];
-            [info appendString:hexColor];
-        }
-        [info appendString:@"\n"];
+        [info appendFormat:@"%@:%@\n", YKWLocalizedString(@"Color"), [YKWPanelView colorToString:label.textColor.CGColor]];
+
         _probeFuncBtn2.hidden = YES;
         _probeFuncBtn3.hidden = YES;
     } else if ([view isKindOfClass:[UITextField class]]) {
         UITextField *label = (UITextField *)view;
         [info appendFormat:@"%@:%@\n", YKWLocalizedString(@"Text"), label.text];
         [info appendFormat:@"%@:%@ %.1f\n", YKWLocalizedString(@"Font"), label.font.fontName , label.font.pointSize];
-        [info appendFormat:@"%@:", YKWLocalizedString(@"Color")];
-        const CGFloat *components = CGColorGetComponents(label.textColor.CGColor);
-        NSUInteger componentsCount = CGColorGetNumberOfComponents(label.textColor.CGColor);
-        NSMutableString *hexColor = [NSMutableString stringWithString:@"0x"];
-        for (int i = 0; i < componentsCount; i++) {
-            [info appendFormat:@"%.2f ", components[i]];
-            [hexColor appendString:[YKWPanelView getHexByDecimal:components[i] * 255]];
-        }
-        if (componentsCount == 4) {
-            [info appendString:@" "];
-            [info appendString:hexColor];
-        }
+        [info appendFormat:@"%@:%@\n", YKWLocalizedString(@"Color"), [YKWPanelView colorToString:label.textColor.CGColor]];
+
         _probeFuncBtn2.hidden = YES;
         _probeFuncBtn3.hidden = YES;
-        [info appendString:@"\n"];
     } else {
         [_probeFuncBtn2 setTitle:YKWLocalizedString(@"Image") forState:UIControlStateNormal];
         _probeFuncBtn3.hidden = YES;
@@ -463,11 +419,11 @@
     [UIView animateWithDuration:0.2 animations:^{
         self->_infoLabel.alpha = 1.0;
         self->_probeFuncView.alpha = 1.0;
-        self->_infoLabel.top = YKWPanelViewHeight + self->_probeFuncView.height;
-        self->_infoLabel.width = self.width - 20;
+        self->_infoLabel.ykw_top = YKWPanelViewHeight + self->_probeFuncView.ykw_height;
+        self->_infoLabel.ykw_width = self.ykw_width - 20;
         [self->_infoLabel sizeToFit];
-        self->_infoLabel.width = self.width - 20;
-        self.height = YKWPanelViewHeight + self->_probeFuncView.height + self->_infoLabel.height + 10;
+        self->_infoLabel.ykw_width = self.ykw_width - 20;
+        self.ykw_height = YKWPanelViewHeight + self->_probeFuncView.ykw_height + self->_infoLabel.ykw_height + 10;
     }];
 }
 
@@ -553,6 +509,25 @@
 }
 
 #pragma mark - Class Method
++ (NSString *)colorToString:(CGColorRef)colorRef {
+    if (!colorRef) {
+        return YKWLocalizedString(@"<Empty>");
+    }
+    NSMutableString *colorInfo = [NSMutableString string];
+    const CGFloat *components = CGColorGetComponents(colorRef);
+    NSUInteger componentsCount = CGColorGetNumberOfComponents(colorRef);
+    NSMutableString *hexColor = [NSMutableString stringWithString:@"0x"];
+    for (int i = 0; i < componentsCount; i++) {
+        [colorInfo appendFormat:@"%.2f ", components[i]];
+        [hexColor appendString:[YKWPanelView getHexByDecimal:components[i] * 255]];
+    }
+    if (componentsCount == 4) {
+        [colorInfo appendString:@" "];
+        [colorInfo appendString:hexColor];
+    }
+    return colorInfo;
+}
+
 + (NSString *)getHexByDecimal:(NSInteger)decimal {
     if (decimal == 0) {
         return @"00";

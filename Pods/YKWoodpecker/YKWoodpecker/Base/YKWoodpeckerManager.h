@@ -45,6 +45,11 @@ extern NSString *const YKWoodpeckerManagerPluginsDidHideNotification;   /**< = @
 + (YKWoodpeckerManager *)sharedInstance;
 
 /**
+Automatically open 'UI Check' tool on show.
+*/
+@property (nonatomic, assign) BOOL autoOpenUICheckOnShow;
+
+/**
  Show woodpecker entrance.
  */
 - (void)show;
@@ -108,6 +113,14 @@ extern NSString *const YKWoodpeckerManagerPluginsDidHideNotification;   /**< = @
  @param pluginName Plugin name.
  */
 - (void)openPluginNamed:(NSString *)pluginName;
+
+/**
+ Open a plugin.
+
+ @param pluginName Plugin name.
+ @param parasDic Parameters to pass to the plugin.
+ */
+- (void)openPluginNamed:(NSString *)pluginName withParameters:(NSDictionary *)parasDic;
 
 
 // ----------------------------- Crash Plugin -----------------------------

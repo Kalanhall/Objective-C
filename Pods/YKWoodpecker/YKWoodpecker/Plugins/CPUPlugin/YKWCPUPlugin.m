@@ -41,11 +41,12 @@ static YKWChartWindow *_chartWindow;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             width /= 2.;
         }
-        _chartWindow = [[YKWChartWindow alloc] initWithFrame:CGRectMake(1, 20, width - 2, 180.)];
+        _chartWindow = [[YKWChartWindow alloc] initWithFrame:CGRectMake(0.5, 20, width - 1, 180.)];
         _chartWindow.yTitle = @"CPU %";
-        [_chartWindow makeKeyAndVisible];
+        _chartWindow.hidden = NO;
     }
     
+    _chartWindow.statusBarMode = [[paraDic objectForKey:@"statusBarMode"] boolValue];
     _chartWindow.hidden = NO;
     [_chartWindow clearData];
     [_chartWindow startQueryDataWithInterval:1.0 block:^(NSMutableArray *dataAry) {

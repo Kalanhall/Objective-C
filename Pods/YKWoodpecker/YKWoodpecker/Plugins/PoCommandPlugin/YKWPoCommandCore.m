@@ -107,7 +107,7 @@
 @implementation YKWPoCommandCore
 
 - (BOOL)parseInput:(NSString *)input {
-    if (![input hasPrefix:@"po "] && ![input hasPrefix:@"Po "]) {
+    if ((![input hasPrefix:@"po "] && ![input hasPrefix:@"Po "]) || [input rangeOfString:@"["].location == NSNotFound) {
         self.isLastPoCmd = NO;
         self.lastErrorInfo = @"Not po command.";
         return NO;
@@ -154,7 +154,19 @@
                     component = [component substringToIndex:component.length - 1];
                 }
             }
-            NSArray *methodComponents = [component componentsSeparatedByString:@":"];
+            NSMutableArray *methodComponents = [[component componentsSeparatedByString:@":"] mutableCopy];
+            for (int i = 0; i < methodComponents.count; i++) {
+                NSString *s = methodComponents[i];
+                if ([s.lowercaseString hasSuffix:@"http"] || [s.lowercaseString hasSuffix:@"https"]) {
+                    if (i+1 < methodComponents.count) {
+                        s = [s stringByAppendingFormat:@":%@", methodComponents[i+1]];
+                        [methodComponents removeObjectAtIndex:i];
+                        [methodComponents insertObject:s atIndex:i];
+                        [methodComponents removeObjectAtIndex:i+1];
+                        i--;
+                    }
+                }
+            }
             if (i != components.count - 1 && methodComponents.count < 2) {
                 self.lastErrorInfo = @"Syntax error.";
                 return NO;
@@ -188,6 +200,17 @@
             target = self.lastReturnedObject;
             if (!target) {
                 self.lastErrorInfo = @"Target object error.";
+                return NO;
+            }
+            if (![target respondsToSelector:selector]) {
+                self.lastErrorInfo = @"Target object does not respond to selector.";
+                return NO;
+            }
+            methodSignature = [target methodSignatureForSelector:selector];
+        } else if ([self inputIsPureNumber:first]) {
+            target = [self.objectsArray ykw_objectAtIndex:first.integerValue - 1];
+            if (!target) {
+                self.lastErrorInfo = [NSString stringWithFormat:@"Target object not found at index %@.", first];
                 return NO;
             }
             if (![target respondsToSelector:selector]) {

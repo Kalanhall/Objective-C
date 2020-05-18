@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		7CCD8C166D1A061D1D4AF056 /* Pods_Objective_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC20B283307E301D5F89708 /* Pods_Objective_C.framework */; };
 		B067A9A37AD355FD164E47F9 /* Pods_Objective_CTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F5427AF44FE4C36984DFB7 /* Pods_Objective_CTests.framework */; };
+		F6443A11247293C2004AD092 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */; };
+		F6443A12247295D6004AD092 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */; };
 		F69C079F238F5B4A00610C02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C079E238F5B4A00610C02 /* AppDelegate.m */; };
 		F69C07AA238F5B4D00610C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F69C07A9238F5B4D00610C02 /* Assets.xcassets */; };
-		F69C07AD238F5B4D00610C02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */; };
 		F69C07B0238F5B4D00610C02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07AF238F5B4D00610C02 /* main.m */; };
 		F69C07BA238F5B4D00610C02 /* Objective_CTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07B9238F5B4D00610C02 /* Objective_CTests.m */; };
 /* End PBXBuildFile section */
@@ -210,8 +211,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F69C07AD238F5B4D00610C02 /* LaunchScreen.storyboard in Resources */,
 				F69C07AA238F5B4D00610C02 /* Assets.xcassets in Resources */,
+				F6443A11247293C2004AD092 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6443A12247295D6004AD092 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +454,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.163-Kalanhall.Objective-C";
 				PRODUCT_NAME = "Objective-C";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -470,7 +472,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.163-Kalanhall.Objective-C";
 				PRODUCT_NAME = "Objective-C";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

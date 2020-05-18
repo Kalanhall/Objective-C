@@ -33,8 +33,12 @@
 #import <arpa/inet.h>
 #import <sys/sysctl.h>
 #import <objc/runtime.h>
+#import <WebKit/WebKit.h>
 
 @implementation YKWSysInfoPlugin
+{
+    __block WKWebView *_webView;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -60,7 +64,14 @@
 
 - (void)runWithParameters:(NSDictionary *)paraDic {
     NSMutableString *sysInfo = [NSMutableString string];
-
+    
+    NSArray *allKeys = paraDic.allKeys;
+    if (allKeys.count) {
+        for (NSString *key in allKeys) {
+            [sysInfo appendFormat:@"%@: %@\n", key, [paraDic objectForKey:key]];
+        }
+    }
+    
     [sysInfo appendFormat:@"%@: %@\n", YKWLocalizedString(@"Name"), [UIDevice currentDevice].name];
 
     struct utsname systemInfo;
@@ -76,9 +87,9 @@
     [sysInfo appendFormat:@"%@: %.1f x %.1f @scale %.1f\n", YKWLocalizedString(@"Screen"), [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].scale];
 
     [sysInfo appendFormat:@"IDFV: %@\n", [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
-    
+   
     [sysInfo appendFormat:@"App Name: %@\n", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]];
-    
+
     [sysInfo appendFormat:@"Build ID: %@\n", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
 
     [sysInfo appendFormat:@"App Version: %@\n", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
@@ -86,14 +97,17 @@
     [sysInfo appendFormat:@"Build Version: %@\n", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
 
     [sysInfo appendFormat:@"Locale: %@\n", [[NSLocale currentLocale] localeIdentifier]];
-    // User-Agent
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-    NSString *userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    [sysInfo appendFormat:@"User-Agent: %@\n", userAgent];
-
+    
     [[YKWoodpeckerManager sharedInstance] showLog:sysInfo];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:YKWPluginSendMessageNotification object:@"SysInfoPluginNotification"];
+    
+    // User-Agent
+    _webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+    [_webView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+        [[YKWoodpeckerManager sharedInstance] showLog:[NSString stringWithFormat:@"User-Agent: %@\n",result]];
+        self->_webView = nil;
+    }];
 }
 
 // Credit to https://www.jianshu.com/p/82becd09b6f5
@@ -114,7 +128,7 @@
     return @"";
 }
 
-// Credit to https://www.jianshu.com/p/f2d83ddb09fe
+// Credit to https://www.jianshu.com/p/f2d83ddb09fe https://blog.csdn.net/Kun__kun/article/details/101699828
 - (NSString *)currentModel:(NSString *)model {
     if ([model isEqualToString:@"iPhone1,1"])    return @"iPhone 1G";
     if ([model isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
@@ -147,6 +161,9 @@
     if ([model isEqualToString:@"iPhone11,4"])   return @"iPhone XS Max (China)";
     if ([model isEqualToString:@"iPhone11,6"])   return @"iPhone XS Max";
     if ([model isEqualToString:@"iPhone11,8"])   return @"iPhone XR";
+    if ([model isEqualToString:@"iPhone12,1"])   return @"iPhone 11";
+    if ([model isEqualToString:@"iPhone12,3"])   return @"iPhone 11 Pro";
+    if ([model isEqualToString:@"iPhone12,5"])   return @"iPhone 11 Pro Max";
     
     if ([model isEqualToString:@"i386"])         return @"Simulator 32";
     if ([model isEqualToString:@"x86_64"])       return @"Simulator 64";
@@ -177,6 +194,22 @@
         [model isEqualToString:@"iPad7,2"]) return @"iPad Pro 12.9-inch 2";
     if ([model isEqualToString:@"iPad7,3"] ||
         [model isEqualToString:@"iPad7,4"]) return @"iPad Pro 10.5-inch";
+    if ([model isEqualToString:@"iPad7,5"]) return @"iPad 6";
+    if ([model isEqualToString:@"iPad7,6"]) return @"iPad 6";
+    if ([model isEqualToString:@"iPad7,11"]) return @"iPad 7";
+    if ([model isEqualToString:@"iPad7,12"]) return @"iPad 7";
+    if ([model isEqualToString:@"iPad8,1"]) return @"iPad Pro (11-inch) ";
+    if ([model isEqualToString:@"iPad8,2"]) return @"iPad Pro (11-inch) ";
+    if ([model isEqualToString:@"iPad8,3"]) return @"iPad Pro (11-inch) ";
+    if ([model isEqualToString:@"iPad8,4"]) return @"iPad Pro (11-inch) ";
+    if ([model isEqualToString:@"iPad8,5"]) return @"iPad Pro 3 (12.9-inch) ";
+    if ([model isEqualToString:@"iPad8,6"]) return @"iPad Pro 3 (12.9-inch) ";
+    if ([model isEqualToString:@"iPad8,7"]) return @"iPad Pro 3 (12.9-inch) ";
+    if ([model isEqualToString:@"iPad8,8"]) return @"iPad Pro 3 (12.9-inch) ";
+    if ([model isEqualToString:@"iPad11,1"]) return @"iPad mini 5";
+    if ([model isEqualToString:@"iPad11,2"]) return @"iPad mini 5";
+    if ([model isEqualToString:@"iPad11,3"]) return @"iPad Air 3";
+    if ([model isEqualToString:@"iPad11,4"]) return @"iPad Air 3";
     
     if ([model isEqualToString:@"iPad2,5"] ||
         [model isEqualToString:@"iPad2,6"] ||
@@ -197,7 +230,7 @@
     if ([model isEqualToString:@"iPod5,1"]) return @"iTouch5";
     if ([model isEqualToString:@"iPod7,1"]) return @"iTouch6";
     
-    return YKWLocalizedString(@"Wow, New Model");
+    return YKWLocalizedString(@"Wow, New Model!");
 }
 
 @end

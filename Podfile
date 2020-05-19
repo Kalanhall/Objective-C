@@ -16,7 +16,7 @@ target 'Objective-C' do
   pod 'KLConsole' 
   
   # 主页模块
-  pod 'KLHomeService'
+  pod 'KLHomeService', :path=>'/Users/kalan/KLHomeService'
   pod 'KLHomeServiceInterface'
 
   target 'Objective-CTests' do

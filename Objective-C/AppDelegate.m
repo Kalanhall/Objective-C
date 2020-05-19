@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "KLTabBarController.h"
 @import KLConsole;
 @import KLApplicationEntry;
 @import KLHomeServiceInterface;
@@ -28,26 +29,45 @@
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                          title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"发布" image:@"tab2-n" selectedImage:@"tab2-s"],
+                                                         title:@"发布" image:@"tab2-n" selectedImage:@"tab2-n"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                          title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                          title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"]];
-    UITabBarController *tc = [UITabBarController tabBarWithControllers:controllers];
-    [tc setTabBarBackgroundColor:UIColor.whiteColor];
-    [tc setTabBarShadowColor:UIColor.lightGrayColor opacity:0.3];
-    self.window.rootViewController = tc;
-    [self.window makeKeyAndVisible];
+    UITabBarController *tc = [KLTabBarController tabBarWithControllers:controllers];
     
-    // MARK: 导航栏全局配置
-    [KLNavigationController navigationGlobalTincolor:UIColor.blackColor];
-    [KLNavigationController navigationGlobalBarTincolor:UIColor.blackColor];
-    [KLNavigationController navigationGlobalBackIndicatorImage:[UIImage imageNamed:@"back"]];
+    // MARK: - 导航栏全局设置
+    [KLNavigationController setAppearanceTincolor:UIColor.blackColor];
+    [KLNavigationController setAppearanceBarTincolor:UIColor.whiteColor];
+    [KLNavigationController setAppearanceBackIndicatorImage:[UIImage imageNamed:@"back"]];
+    
+    // MARK: - 选项卡全局设置
+    // 设置阴影线颜色，当只有设置了背景图后才生效
+    [tc setTabBarShadowLineColor:UIColor.clearColor];
+    // 设置背景图片
+    [tc setTabBarBackgroundImageWithColor:UIColor.whiteColor];
+    // 设置文字样式
+    [tc setTabBarItemTitleTextAttributes:@{NSForegroundColorAttributeName : UIColor.blackColor,
+                                           NSFontAttributeName : [UIFont systemFontOfSize:10]}
+                                forState:UIControlStateNormal];
+    [tc setTabBarItemTitleTextAttributes:@{NSForegroundColorAttributeName : UIColor.blackColor,
+                                           NSFontAttributeName : [UIFont systemFontOfSize:10]}
+                                forState:UIControlStateHighlighted];
+    // 设置文字位置偏移量
+    [tc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateNormal];
+    [tc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateSelected];
+    // 设置凸起图片高度
+    [tc setTabBarItemImageEdgeInsets:(UIEdgeInsets){-17,0,17,0} atIndex:2];
+    // 增加一个凸起点击区域
+    [tc setTabBarRespondAreaAtIndex:2 height:0];
     
     // MARK: 开发工具配置
     [self setupDebugTool:tc];
     
-    sleep(2);
+    self.window.rootViewController = tc;
+    [self.window makeKeyAndVisible];
+    
+    sleep(1);
     
     return YES;
 }

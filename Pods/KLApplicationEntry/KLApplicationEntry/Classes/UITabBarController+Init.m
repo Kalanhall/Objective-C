@@ -10,33 +10,14 @@
 #import <objc/runtime.h>
 
 const NSString *SWIPE_CALLBACK_KEY = @"SWIPE_CALLBACK_KEY";
+const NSString *SELECT_CALLBACK_KEY = @"SELECT_CALLBACK_KEY";
 
 @implementation UITabBarController (Init)
 
 + (instancetype)tabBarWithControllers:(NSArray <UIViewController *> *)controllers
 {
-    UITabBarController *tc = UITabBarController.alloc.init;
-    tc.view.backgroundColor = UIColor.whiteColor;
-    
+    UITabBarController *tc = [[self alloc] init];
     tc.viewControllers = controllers;
-
-    if (@available(iOS 13.0, *)) {
-        // MARK: 适配iOS13选项卡
-        UITabBarAppearance *appearance = tc.tabBar.standardAppearance.copy;
-        appearance.stackedLayoutAppearance.normal.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.lightGrayColor};
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.blackColor};
-        appearance.stackedLayoutAppearance.normal.titlePositionAdjustment = UIOffsetMake(0, -3);
-        appearance.stackedLayoutAppearance.selected.titlePositionAdjustment = UIOffsetMake(0, -3);
-        tc.tabBar.standardAppearance = appearance;
-    } else {
-        // MARK: 适配iOS13以下选项卡
-        for (UIViewController *vc in tc.viewControllers) {
-            [vc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : UIColor.lightGrayColor} forState:UIControlStateNormal];
-            [vc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : UIColor.blackColor} forState:UIControlStateSelected];
-            vc.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -3);
-            vc.tabBarItem.imageInsets = UIEdgeInsetsMake(-3, 0, 3, 0);
-        }
-    }
     
     UISwipeGestureRecognizer *swipr = [UISwipeGestureRecognizer.alloc initWithTarget:tc action:@selector(swipGesture:)];
     swipr.direction = UISwipeGestureRecognizerDirectionRight;
@@ -48,18 +29,62 @@ const NSString *SWIPE_CALLBACK_KEY = @"SWIPE_CALLBACK_KEY";
     return tc;
 }
 
+- (void)setTabBarRespondAreaAtIndex:(NSInteger)index height:(CGFloat)height {
+    UIButton *control = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGFloat w = self.tabBar.bounds.size.width/self.tabBar.items.count;
+    CGFloat h = height > 0 ? height : w;
+    CGFloat y = 0;
+    if (@available(iOS 11.0, *)) {
+        y = fabs(h * 0.5 - (self.tabBar.bounds.size.height - UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom));
+    } else {
+        y = fabs(h * 0.5 - self.tabBar.bounds.size.height);
+    }
+    control.bounds = CGRectMake(0, 0, w, h);
+    control.center = CGPointMake((index + 0.5) * w, y);
+    control.tag = index;
+    [self.tabBar addSubview:control];
+    [control addTarget:self action:@selector(tabBarItemControlCallBack:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)tabBarItemControlCallBack:(UIButton *)sender {
+    if (self.shouldSelectViewController) {
+        self.shouldSelectViewController(sender.tag);
+    }
+}
+
 - (void)swipGesture:(UISwipeGestureRecognizer *)swip {
     if (self.swipeTabBarCallBack) {
         self.swipeTabBarCallBack(swip);
     }
 }
 
-- (instancetype)setTitleItemPositionAdjustment:(UIOffset)offset
-{
+- (void)setTabBarItemTitleTextAttributes:(NSDictionary<NSAttributedStringKey, id> *)titleTextAttributes forState:(UIControlState)state {
     if (@available(iOS 13.0, *)) {
         // MARK: 适配iOS13选项卡
         UITabBarAppearance *appearance = self.tabBar.standardAppearance.copy;
-        appearance.stackedLayoutAppearance.normal.titlePositionAdjustment = offset;
+        if (state == UIControlStateNormal) {
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = titleTextAttributes;
+        } else {
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = titleTextAttributes;
+        }
+        self.tabBar.standardAppearance = appearance;
+    } else {
+        // MARK: 适配iOS13以下选项卡
+        for (UIViewController *vc in self.viewControllers) {
+            [vc.tabBarItem setTitleTextAttributes:titleTextAttributes forState:state];
+        }
+    }
+}
+
+- (void)setTabBarItemTitlePositionAdjustment:(UIOffset)offset forState:(UIControlState)state {
+    if (@available(iOS 13.0, *)) {
+        // MARK: 适配iOS13选项卡
+        UITabBarAppearance *appearance = self.tabBar.standardAppearance.copy;
+        if (state == UIControlStateNormal) {
+            appearance.stackedLayoutAppearance.normal.titlePositionAdjustment = offset;
+        } else {
+            appearance.stackedLayoutAppearance.selected.titlePositionAdjustment = offset;
+        }
         self.tabBar.standardAppearance = appearance;
     } else {
         // MARK: 适配iOS13以下选项卡
@@ -67,27 +92,23 @@ const NSString *SWIPE_CALLBACK_KEY = @"SWIPE_CALLBACK_KEY";
             vc.tabBarItem.titlePositionAdjustment = offset;
         }
     }
-    return self;
 }
 
-- (instancetype)setImageItemPositionAdjustment:(UIOffset)offset;
-{    
-    if (@available(iOS 13.0, *)) {
-        // MARK: 适配iOS13选项卡
-        UITabBarAppearance *appearance = self.tabBar.standardAppearance.copy;
-        appearance.stackedLayoutAppearance.selected.titlePositionAdjustment = offset;
-        self.tabBar.standardAppearance = appearance;
-    } else {
-        // MARK: 适配iOS13以下选项卡
-        for (UIViewController *vc in self.viewControllers) {
-            vc.tabBarItem.imageInsets = UIEdgeInsetsMake(offset.vertical, offset.horizontal, -offset.vertical, -offset.horizontal);
-        }
+- (void)setTabBarItemImageEdgeInsets:(UIEdgeInsets)imageEdgeInsets {
+    for (UIViewController *vc in self.viewControllers) {
+        vc.tabBarItem.imageInsets = imageEdgeInsets;
     }
-    return self;
 }
 
-- (instancetype)setTabBarBackgroundColor:(UIColor *)color
-{
+- (void)setTabBarItemImageEdgeInsets:(UIEdgeInsets)imageEdgeInsets atIndex:(NSInteger)index {
+    [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx == index) {
+            obj.tabBarItem.imageInsets = imageEdgeInsets;
+        }
+    }];
+}
+
+- (void)setTabBarBackgroundImageWithColor:(UIColor *)color {
     if (@available(iOS 13.0, *)) {
         UITabBarAppearance *appearance = self.tabBar.standardAppearance.copy;
         appearance.backgroundImage = [self tab_fetchImageWithColor:color];
@@ -95,11 +116,9 @@ const NSString *SWIPE_CALLBACK_KEY = @"SWIPE_CALLBACK_KEY";
     } else {
         self.tabBar.backgroundImage = [self tab_fetchImageWithColor:color];
     }
-    return self;
 }
 
-- (instancetype)setTabBarShadowLineColor:(UIColor *)color
-{
+- (void)setTabBarShadowLineColor:(UIColor *)color {
     if (@available(iOS 13.0, *)) {
         UITabBarAppearance *appearance = self.tabBar.standardAppearance.copy;
         appearance.shadowImage = [self tab_fetchImageWithColor:color];
@@ -107,10 +126,9 @@ const NSString *SWIPE_CALLBACK_KEY = @"SWIPE_CALLBACK_KEY";
     } else {
         self.tabBar.shadowImage = [self tab_fetchImageWithColor:color];
     }
-    return self;
 }
 
-- (instancetype)setTabBarShadowColor:(nullable UIColor *)color opacity:(CGFloat)opacity
+- (void)setTabBarShadowColor:(nullable UIColor *)color opacity:(CGFloat)opacity
 {
     if (@available(iOS 13.0, *)) {
         UITabBarAppearance *appearance = self.tabBar.standardAppearance.copy;
@@ -123,7 +141,6 @@ const NSString *SWIPE_CALLBACK_KEY = @"SWIPE_CALLBACK_KEY";
     self.tabBar.layer.shadowColor = color.CGColor;
     self.tabBar.layer.shadowOffset = CGSizeMake(0, -2);
     self.tabBar.layer.shadowOpacity = opacity;
-    return self;
 }
 
 - (void)setSwipeTabBarCallBack:(void (^)(UISwipeGestureRecognizer * _Nonnull))swipeTabBarCallBack {
@@ -132,6 +149,14 @@ const NSString *SWIPE_CALLBACK_KEY = @"SWIPE_CALLBACK_KEY";
 
 - (void (^)(UISwipeGestureRecognizer * _Nonnull))swipeTabBarCallBack {
     return objc_getAssociatedObject(self, &SWIPE_CALLBACK_KEY);
+}
+
+- (void)setShouldSelectViewController:(void (^)(NSInteger))shouldSelectViewController {
+    objc_setAssociatedObject(self, &SELECT_CALLBACK_KEY, shouldSelectViewController, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (void (^)(NSInteger))shouldSelectViewController {
+    return objc_getAssociatedObject(self, &SELECT_CALLBACK_KEY);
 }
 
 - (UIImage *)tab_fetchImageWithColor:(UIColor *)color {

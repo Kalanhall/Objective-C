@@ -17,31 +17,48 @@ NS_ASSUME_NONNULL_BEGIN
 /// @Returns UITabBarController实例
 + (instancetype)tabBarWithControllers:(NSArray <UIViewController *> *)controllers;
 
-/// 设置选项卡文字垂直方向位移
-/// @param offset 导航栏根控制器
-/// @Returns self
-- (instancetype)setTitleItemPositionAdjustment:(UIOffset)offset;
+/// 设置选项卡子控制器标题颜色
+/// @param titleTextAttributes 文本属性
+/// @param state 状态
+- (void)setTabBarItemTitleTextAttributes:(NSDictionary<NSAttributedStringKey, id> *)titleTextAttributes forState:(UIControlState)state;
 
-/// 设置选项卡图片垂直方向位移
-/// @param offset 导航栏根控制器
-/// @Returns self
-- (instancetype)setImageItemPositionAdjustment:(UIOffset)offset;
+/// 设置选项卡子控制器标题位移
+/// @param offset 文本位移
+/// @param state 状态
+- (void)setTabBarItemTitlePositionAdjustment:(UIOffset)offset forState:(UIControlState)state;
+
+/// 设置选项卡指定子控制器标题位移
+/// @param imageEdgeInsets 图片边距位移
+- (void)setTabBarItemImageEdgeInsets:(UIEdgeInsets)imageEdgeInsets;
+
+/// 设置选项卡指定子控制器标题位移
+/// @param imageEdgeInsets 图片边距位移
+/// @param index 指定Item
+- (void)setTabBarItemImageEdgeInsets:(UIEdgeInsets)imageEdgeInsets atIndex:(NSInteger)index;
 
 /// 设置选项卡背景颜色
 /// @param color 颜色
-/// @Returns self
-- (instancetype)setTabBarBackgroundColor:(nullable UIColor *)color;
+- (void)setTabBarBackgroundImageWithColor:(nullable UIColor *)color;
 
 /// 设置选项卡阴影线颜色，默认0.5pt
+/// 必须设置背景图片后才生效
 /// @param color 颜色
-/// @Returns self
-- (instancetype)setTabBarShadowLineColor:(nullable UIColor *)color;
+- (void)setTabBarShadowLineColor:(nullable UIColor *)color;
 
 /// 设置TabBar阴影
+/// 必须设置背景图片后才生效
 /// @param color 阴影颜色
 /// @param opacity 阴影透明度
-/// @Returns self
-- (instancetype)setTabBarShadowColor:(nullable UIColor *)color opacity:(CGFloat)opacity;
+- (void)setTabBarShadowColor:(nullable UIColor *)color opacity:(CGFloat)opacity;
+
+/// 设置自定义响应事件区域
+/// @param index TabBarItem Index
+/// @param height 宽度是适配Item的，可以自定义高度，height = 0 则默认与宽相等
+- (void)setTabBarRespondAreaAtIndex:(NSInteger)index height:(CGFloat)height;
+
+/// 设置选项卡指定子控制器点击回调
+/// 设置自定义点击区域后，会回调该方法
+@property (copy, nonatomic) void (^shouldSelectViewController)(NSInteger index);
 
 ///  回调给外部的事件，用于调试工具的调用
 @property (copy, nonatomic) void (^swipeTabBarCallBack)(UISwipeGestureRecognizer *swipe);

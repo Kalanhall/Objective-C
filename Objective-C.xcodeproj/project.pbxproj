@@ -11,6 +11,7 @@
 		B067A9A37AD355FD164E47F9 /* Pods_Objective_CTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F5427AF44FE4C36984DFB7 /* Pods_Objective_CTests.framework */; };
 		F6443A11247293C2004AD092 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */; };
 		F6443A12247295D6004AD092 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */; };
+		F6443A242473C2C8004AD092 /* KLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6443A232473C2C8004AD092 /* KLTabBarController.m */; };
 		F69C079F238F5B4A00610C02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C079E238F5B4A00610C02 /* AppDelegate.m */; };
 		F69C07AA238F5B4D00610C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F69C07A9238F5B4D00610C02 /* Assets.xcassets */; };
 		F69C07B0238F5B4D00610C02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07AF238F5B4D00610C02 /* main.m */; };
@@ -33,6 +34,8 @@
 		69B6CB34664C6D320042200D /* Pods-Objective-C.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Objective-C.debug.xcconfig"; path = "Target Support Files/Pods-Objective-C/Pods-Objective-C.debug.xcconfig"; sourceTree = "<group>"; };
 		CDC20B283307E301D5F89708 /* Pods_Objective_C.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Objective_C.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED8D5E7AB4F23BCF8F1094A1 /* Pods-Objective-CTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Objective-CTests.debug.xcconfig"; path = "Target Support Files/Pods-Objective-CTests/Pods-Objective-CTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F6443A222473C2C8004AD092 /* KLTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KLTabBarController.h; sourceTree = "<group>"; };
+		F6443A232473C2C8004AD092 /* KLTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KLTabBarController.m; sourceTree = "<group>"; };
 		F69C079A238F5B4A00610C02 /* Objective-C.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Objective-C.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F69C079D238F5B4A00610C02 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F69C079E238F5B4A00610C02 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 			children = (
 				F69C079D238F5B4A00610C02 /* AppDelegate.h */,
 				F69C079E238F5B4A00610C02 /* AppDelegate.m */,
+				F6443A222473C2C8004AD092 /* KLTabBarController.h */,
+				F6443A232473C2C8004AD092 /* KLTabBarController.m */,
 				F69C07A9238F5B4D00610C02 /* Assets.xcassets */,
 				F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */,
 				F69C07AE238F5B4D00610C02 /* Info.plist */,
@@ -295,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6443A242473C2C8004AD092 /* KLTabBarController.m in Sources */,
 				F69C079F238F5B4A00610C02 /* AppDelegate.m in Sources */,
 				F69C07B0238F5B4D00610C02 /* main.m in Sources */,
 			);

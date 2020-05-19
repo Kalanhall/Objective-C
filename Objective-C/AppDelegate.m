@@ -24,15 +24,15 @@
     // MARK: 选项卡入口配置
     NSArray *controllers =
     @[[KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"闲鱼" image:@"Tab0" selectedImage:@"Tab0-h"],
+                                                         title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"鱼塘" image:@"Tab1" selectedImage:@"Tab1-h"],
+                                                         title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"发布" image:@"Tab2" selectedImage:@"Tab2-h"],
+                                                         title:@"发布" image:@"tab2-n" selectedImage:@"tab2-s"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"消息" image:@"Tab2" selectedImage:@"Tab2-h"],
+                                                         title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
       [KLNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"我的" image:@"Tab3" selectedImage:@"Tab3-h"]];
+                                                         title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"]];
     UITabBarController *tc = [UITabBarController tabBarWithControllers:controllers];
     [tc setTabBarBackgroundColor:UIColor.whiteColor];
     [tc setTabBarShadowColor:UIColor.lightGrayColor opacity:0.3];

@@ -13,7 +13,7 @@ target 'Objective-C' do
   pod 'KLApplicationEntry'
   pod 'KLUserInfoManager'
   pod 'KLLeaks'
-  pod 'KLConsole'
+  pod 'KLConsole' 
   
   # 主页模块
   pod 'KLHomeService'

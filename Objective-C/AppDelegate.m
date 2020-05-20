@@ -93,16 +93,19 @@
     [self.window addSubview:vc.view];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        KLImageView *imageView = [vc.view viewWithTag:999];
-        [imageView kl_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589977243710&di=023ed7b7b3dd38b6bd018413705ac6a5&imgtype=0&src=http%3A%2F%2Fimage.it168.com%2Fn%2F640x480%2F8%2F8258%2F8258031.jpg"] options:KLWebImageOptionProgressiveBlur];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.75 animations:^{
-                vc.view.alpha = 0;
-                vc.view.transform = CGAffineTransformMakeScale(2, 2);
-            } completion:^(BOOL finished) {
-                [vc.view removeFromSuperview];
-            }];
-        });
+        UIView *content = [vc.view viewWithTag:999];
+        KLImageView *imageView = [KLImageView.alloc initWithFrame:content.frame];
+        [content addSubview:imageView];
+        [imageView kl_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589991864305&di=c6d607d12b111cb51a70132b7abc4b9a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180628%2F7c9e6065e61d4c4ab905bf45f7e87f06.gif"] placeholder:nil options:KLWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, KLWebImageFromType from, KLWebImageStage stage, NSError * _Nullable error) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:0.75 animations:^{
+                    vc.view.alpha = 0;
+                    vc.view.transform = CGAffineTransformMakeScale(2, 2);
+                } completion:^(BOOL finished) {
+                    [vc.view removeFromSuperview];
+                }];
+            });
+        }];
     });
     
     return YES;

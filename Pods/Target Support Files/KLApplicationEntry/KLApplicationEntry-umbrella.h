@@ -10,7 +10,7 @@
 #endif
 #endif
 
-#import "UINavigationController+Init.h"
+#import "KLNavigationController+Init.h"
 #import "UITabBar+Init.h"
 #import "UITabBarController+Init.h"
 

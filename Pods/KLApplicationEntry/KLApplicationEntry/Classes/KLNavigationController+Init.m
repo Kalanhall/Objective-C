@@ -1,17 +1,17 @@
 //
-//  UINavigationController+Init.m
+//  KLNavigationController+Init.m
 //  Objective-C
 //
 //  Created by Logic on 2019/11/28.
 //  Copyright © 2019 Kalan. All rights reserved.
 //
 
-#import "UINavigationController+Init.h"
+#import "KLNavigationController+Init.h"
 
-@implementation UINavigationController (Init)
+@implementation KLNavigationController (Init)
 
 + (instancetype)navigationWithRootViewController:(UIViewController *)rootViewController title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage {
-    UINavigationController *nc = [self.alloc initWithRootViewController:rootViewController];
+    KLNavigationController *nc = [KLNavigationController.alloc initWithRootViewController:rootViewController];
     UIImage *normal = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImage *select = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nc.tabBarItem = [UITabBarItem.alloc initWithTitle:title image:normal selectedImage:select];

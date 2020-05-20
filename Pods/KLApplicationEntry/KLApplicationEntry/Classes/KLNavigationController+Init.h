@@ -1,5 +1,5 @@
 //
-//  UINavigationController+Init.h
+//  KLNavigationController+Init.h
 //  Objective-C
 //
 //  Created by Logic on 2019/11/28.
@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@import KLNavigationController;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UINavigationController (Init)
+@interface KLNavigationController (Init)
 
 /// 用于创建选项卡实例的分类方法
 ///

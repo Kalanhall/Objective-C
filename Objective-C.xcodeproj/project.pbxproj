@@ -13,6 +13,7 @@
 		F6443A12247295D6004AD092 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */; };
 		F6443A242473C2C8004AD092 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6443A232473C2C8004AD092 /* TabBarController.m */; };
 		F6443DD624752092004AD092 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6443DD524752092004AD092 /* NavigationController.m */; };
+		F6443FB3247625B5004AD092 /* AppDelegate+Launch.m in Sources */ = {isa = PBXBuildFile; fileRef = F6443FB2247625B5004AD092 /* AppDelegate+Launch.m */; };
 		F69C079F238F5B4A00610C02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C079E238F5B4A00610C02 /* AppDelegate.m */; };
 		F69C07AA238F5B4D00610C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F69C07A9238F5B4D00610C02 /* Assets.xcassets */; };
 		F69C07B0238F5B4D00610C02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07AF238F5B4D00610C02 /* main.m */; };
@@ -39,6 +40,8 @@
 		F6443A232473C2C8004AD092 /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		F6443DD424752092004AD092 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		F6443DD524752092004AD092 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		F6443FB1247625B5004AD092 /* AppDelegate+Launch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Launch.h"; sourceTree = "<group>"; };
+		F6443FB2247625B5004AD092 /* AppDelegate+Launch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Launch.m"; sourceTree = "<group>"; };
 		F69C079A238F5B4A00610C02 /* Objective-C.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Objective-C.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F69C079D238F5B4A00610C02 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F69C079E238F5B4A00610C02 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 			children = (
 				F69C079D238F5B4A00610C02 /* AppDelegate.h */,
 				F69C079E238F5B4A00610C02 /* AppDelegate.m */,
+				F6443FB1247625B5004AD092 /* AppDelegate+Launch.h */,
+				F6443FB2247625B5004AD092 /* AppDelegate+Launch.m */,
 				F6443DD424752092004AD092 /* NavigationController.h */,
 				F6443DD524752092004AD092 /* NavigationController.m */,
 				F6443A222473C2C8004AD092 /* TabBarController.h */,
@@ -305,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6443FB3247625B5004AD092 /* AppDelegate+Launch.m in Sources */,
 				F6443A242473C2C8004AD092 /* TabBarController.m in Sources */,
 				F6443DD624752092004AD092 /* NavigationController.m in Sources */,
 				F69C079F238F5B4A00610C02 /* AppDelegate.m in Sources */,

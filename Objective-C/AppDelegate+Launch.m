@@ -257,7 +257,7 @@
             NSString *appVersion = [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"];
             if ([appVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
                 // 有新的版本需要更新
-                NSLogDebug(@"\n最新版本：%@\n更新描述：%@\n是否强更：%@\n跳转地址：%@", version, descrip, forced, url);
+                NSLogSuccess(@"\n最新版本：%@\n更新描述：%@\n是否强更：%@\n跳转地址：%@", version, descrip, forced, url);
             }
         }
     }];

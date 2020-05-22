@@ -30,6 +30,9 @@
     // MARK: 启动图配置
     [AppDelegate setupLaunchImage];
     
+    // MARK: 版本更新
+    [AppDelegate setupVersionUpdate];
+    
     return YES;
 }
 

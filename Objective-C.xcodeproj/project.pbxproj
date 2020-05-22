@@ -122,14 +122,14 @@
 				F69C079E238F5B4A00610C02 /* AppDelegate.m */,
 				F6443FB1247625B5004AD092 /* AppDelegate+Launch.h */,
 				F6443FB2247625B5004AD092 /* AppDelegate+Launch.m */,
+				F69C07A9238F5B4D00610C02 /* Assets.xcassets */,
+				F69C07AE238F5B4D00610C02 /* Info.plist */,
+				F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */,
+				F69C07AF238F5B4D00610C02 /* main.m */,
 				F6443DD424752092004AD092 /* NavigationController.h */,
 				F6443DD524752092004AD092 /* NavigationController.m */,
 				F6443A222473C2C8004AD092 /* TabBarController.h */,
 				F6443A232473C2C8004AD092 /* TabBarController.m */,
-				F69C07A9238F5B4D00610C02 /* Assets.xcassets */,
-				F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */,
-				F69C07AE238F5B4D00610C02 /* Info.plist */,
-				F69C07AF238F5B4D00610C02 /* main.m */,
 			);
 			path = "Objective-C";
 			sourceTree = "<group>";

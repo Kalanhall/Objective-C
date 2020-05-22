@@ -47,7 +47,7 @@ PODS:
   - KLLeaks (1.0.0)
   - KLModel (1.0.0)
   - KLNavigationController (1.1.0)
-  - KLNetworkModule (2.0.1):
+  - KLNetworkModule (2.1.1):
     - AFNetworking
   - KLServer (1.0.0)
   - KLUserInfoManager (1.0.1):
@@ -77,7 +77,6 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - KLLeaks
-    - KLNetworkModule
     - KLServer
     - libwebp
     - Masonry
@@ -91,6 +90,7 @@ SPEC REPOS:
     - KLImageView
     - KLModel
     - KLNavigationController
+    - KLNetworkModule
     - KLUserInfoManager
 
 EXTERNAL SOURCES:
@@ -109,13 +109,13 @@ SPEC CHECKSUMS:
   KLLeaks: 2c098234d67353bc2286d4eec6feeff14163136c
   KLModel: 68eb4580c629621bec437e2a318101295a2f0965
   KLNavigationController: bc9860e43a06103f3e12b7a2b89f27de48c7ff94
-  KLNetworkModule: b9baa618cf4d1752145d74ef5c08d002f4cf6873
+  KLNetworkModule: d34ef00d22f2213920151a4efb8685981004eb25
   KLServer: b37b4d567aa189afe1284ed316b4419f2029221e
   KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
-  libwebp: 04242ef451672185c1fe41b285a034d2fbda483c
+  libwebp: 40fb682a65546d6e327e34372ec4317847e7323d
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YKWoodpecker: 97ebd8f4c0366560c61d5844e64b21af8d70804c
 
 PODFILE CHECKSUM: a80bed5f7ee9d5152a93c4668b27f8a2c800c7b2
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

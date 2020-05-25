@@ -23,16 +23,23 @@
     // MARK: 选项卡入口配置
     NSArray *controllers =
     @[[NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"闲鱼" image:@"tab0-n1" selectedImage:@"tab0-s1"],
+                                                         title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"鱼塘" image:@"tab1-n1" selectedImage:@"tab1-s1"],
+                                                         title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"发布" image:@"tab2-n1" selectedImage:@"tab2-n1"],
+                                                         title:@"发布" image:@"tab2-n" selectedImage:@"tab2-n"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"消息" image:@"tab3-n1" selectedImage:@"tab3-s1"],
+                                                         title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"我的" image:@"tab4-n1" selectedImage:@"tab4-s1"]];
+                                                         title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"]];
     TabBarController *vc = [TabBarController tabBarWithControllers:controllers];
+    
+    // 控制台调用
+    vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
+        #ifdef DEBUG
+        [AppDelegate launchDebugTool];
+        #endif
+    };
     
     // MARK: 导航栏全局设置
     [NavigationController setAppearanceTincolor:UIColor.blackColor];
@@ -54,17 +61,6 @@
     // 设置文字位置偏移量
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateNormal];
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateSelected];
-    // 设置凸起图片高度
-    [vc setTabBarItemImageEdgeInsets:(UIEdgeInsets){-17,0,17,0} atIndex:2];
-    // 增加一个凸起点击区域
-    [vc setTabBarRespondAreaAtIndex:2 height:0];
-    
-    // 控制台调用
-    vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
-        #ifdef DEBUG
-        [AppDelegate launchDebugTool];
-        #endif
-    };
     
     return vc;
 }

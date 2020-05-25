@@ -19,7 +19,7 @@
 @implementation AppDelegate (Launch)
 
 // MARK: - RootViewController
-+ (UIViewController *)setupRootViewController {
++ (void)setupRootViewControllerWithWindow:(UIWindow *)window {
     // MARK: 选项卡入口配置
     NSArray *controllers =
     @[[NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
@@ -62,7 +62,9 @@
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateNormal];
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateSelected];
     
-    return vc;
+    // 设置主窗口
+    window.rootViewController = vc;
+    [window makeKeyAndVisible];
 }
 
 // MARK: - DebugTool

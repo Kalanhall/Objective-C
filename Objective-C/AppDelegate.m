@@ -19,10 +19,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // MARK: 根控制器配置
-    UIViewController *vc = [AppDelegate setupRootViewController];
     self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
-    self.window.rootViewController = vc;
-    [self.window makeKeyAndVisible];
+    [AppDelegate setupRootViewControllerWithWindow:self.window];
     
     // MARK: 开发工具配置
     [AppDelegate setupDebugTool];

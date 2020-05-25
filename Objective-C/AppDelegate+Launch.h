@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  1、导航栏设置
  *  2、选项卡设置
  */
-+ (UIViewController *)setupRootViewController;
++ (void)setupRootViewControllerWithWindow:(UIWindow *)window;
 
 /**
  *  初始化开发工具

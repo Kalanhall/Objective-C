@@ -7,6 +7,14 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef weakify
+# define weakify(object) try{} @finally{} {} __weak __typeof__(object) weak##_##object = object;
+#endif
+
+#ifndef strongify
+# define strongify(object) try{} @finally{} __typeof__(object) object = weak##_##object;
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Foundation)

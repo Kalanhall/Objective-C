@@ -23,15 +23,15 @@
     // MARK: 选项卡入口配置
     NSArray *controllers =
     @[[NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"],
+                                                         title:@"闲鱼" image:@"tab0-n1" selectedImage:@"tab0-s1"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
+                                                         title:@"鱼塘" image:@"tab1-n1" selectedImage:@"tab1-s1"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"发布" image:@"tab2-n" selectedImage:@"tab2-n"],
+                                                         title:@"发布" image:@"tab2-n1" selectedImage:@"tab2-n1"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
+                                                         title:@"消息" image:@"tab3-n1" selectedImage:@"tab3-s1"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"]];
+                                                         title:@"我的" image:@"tab4-n1" selectedImage:@"tab4-s1"]];
     TabBarController *vc = [TabBarController tabBarWithControllers:controllers];
     
     // MARK: 导航栏全局设置
@@ -152,51 +152,7 @@
 
 // MARK: - LaunchScreen
 + (void)setupLaunchImage {
-    NSArray <UIView *> *views = [self setupLaunchSubViews];
-    KLImageView *imageView = (KLImageView *)views.firstObject;
-    UIButton *timeBtn = (UIButton *)views.lastObject;
-    
-    NSString *url = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589991864305&di=c6d607d12b111cb51a70132b7abc4b9a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180628%2F7c9e6065e61d4c4ab905bf45f7e87f06.gif";
-    url = nil;
-
-    if (url) {
-        [imageView kl_setImageWithURL:[NSURL URLWithString:url] placeholder:nil options:KLWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, KLWebImageFromType from, KLWebImageStage stage, NSError * _Nullable error) {
-
-            timeBtn.hidden = NO;
-            [self setupCycleTimeOut:3 callBack:^(NSTimeInterval time) {
-                [timeBtn setTitle:[NSString stringWithFormat:@"跳过广告 %@", @(time)] forState:UIControlStateNormal];
-                if (time == 0) {
-                    [self skipLaunchScreen:timeBtn];
-                }
-            }];
-        }];
-    } else {
-        [self skipLaunchScreen:timeBtn];
-    }
-}
-
-+ (void)setupCycleTimeOut:(NSTimeInterval)timeout callBack:(void (^)(NSTimeInterval time))callBack {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (timeout > 0) {
-            [self setupCycleTimeOut:timeout - 1 callBack:callBack];
-        }
-    });
-    
-    if (callBack) {
-        callBack(timeout);
-    }
-}
-
-+ (void)skipLaunchScreen:(UIButton *)sender {
-    [UIView animateWithDuration:0.75 delay:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        sender.superview.alpha = 0;
-        sender.superview.transform = CGAffineTransformMakeScale(2, 2);
-    } completion:^(BOOL finished) {
-        [sender.superview removeFromSuperview];
-    }];
-}
-
-+ (NSArray <UIView *> *)setupLaunchSubViews {
+    // MARK: 自定义布局
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
     UIViewController *launchVc = [story instantiateViewControllerWithIdentifier:@"LaunchScreen"];
     [UIApplication.sharedApplication.keyWindow addSubview:launchVc.view];
@@ -204,23 +160,23 @@
     // LaunchScreen 无法使用自定义控件、属性，提供容器，由外部进行个性化处理
     UIView *content = [launchVc.view viewWithTag:999]; // 自定义容器
     content.userInteractionEnabled = YES;
-    KLImageView *imageView = KLImageView.alloc.init;
-    [content addSubview:imageView];
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    KLImageView *imageHandler = KLImageView.alloc.init;
+    [content addSubview:imageHandler];
+    [imageHandler mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
     
     // 添加倒计时控件
-    UIButton *timeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    timeBtn.titleLabel.font = [UIFont systemFontOfSize:11];
-    timeBtn.layer.cornerRadius = timeBtn.bounds.size.height * 0.5;
-    timeBtn.layer.masksToBounds = YES;
-    timeBtn.hidden = YES;
-    [timeBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [timeBtn setTitleEdgeInsets:(UIEdgeInsets){0,13,0,-13}];
-    [timeBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [launchVc.view addSubview:timeBtn];
-    [timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *timeHandler = [UIButton buttonWithType:UIButtonTypeCustom];
+    timeHandler.titleLabel.font = [UIFont systemFontOfSize:11];
+    timeHandler.layer.cornerRadius = timeHandler.bounds.size.height * 0.5;
+    timeHandler.layer.masksToBounds = YES;
+    timeHandler.hidden = YES;
+    [timeHandler setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [timeHandler setTitleEdgeInsets:(UIEdgeInsets){0,13,0,-13}];
+    [timeHandler setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [launchVc.view addSubview:timeHandler];
+    [timeHandler mas_makeConstraints:^(MASConstraintMaker *make) {
         if (@available(iOS 11.0, *)) {
             make.top.mas_equalTo(UIApplication.sharedApplication.keyWindow.safeAreaInsets.top);
         } else {
@@ -231,14 +187,64 @@
         make.height.mas_equalTo(80);
     }];
     
-    [timeBtn addTarget:self action:@selector(skipLaunchScreen:) forControlEvents:UIControlEventTouchUpInside];
-    return @[imageView, timeBtn];
+    // 广告点击跳转
+    [imageHandler kl_setTapCompletion:^(UITapGestureRecognizer *tapGesture) {
+        NSLogDebug(@"广告图片点击");
+        UIViewController *vc = UIViewController.new;
+        vc.view.backgroundColor = UIColor.kl_randomColor;
+        [(UINavigationController *)UIApplication.sharedApplication.keyWindow.rootViewController.childViewControllers.firstObject pushViewController:vc animated:YES];
+        [self skipLaunchScreen:timeHandler];
+    }];
+    
+    // 按钮点击跳过
+    [timeHandler kl_controlEvents:UIControlEventTouchUpInside completion:^(UIButton * _Nonnull sender) {
+        [self skipLaunchScreen:timeHandler];
+    }];
+    
+    // MARK: 网络获取广告信息
+    NSString *url = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589991864305&di=c6d607d12b111cb51a70132b7abc4b9a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180628%2F7c9e6065e61d4c4ab905bf45f7e87f06.gif";
+
+    // MARK: 根据获取广告的结果，设计交互逻辑
+    [imageHandler kl_setImageWithURL:[NSURL URLWithString:url ? : @""] placeholder:nil options:KLWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, KLWebImageFromType from, KLWebImageStage stage, NSError * _Nullable error) {
+        // 跳过按钮开关
+        timeHandler.hidden = image == nil;
+        // 广告交互开关
+        imageHandler.userInteractionEnabled = image != nil;
+        // 倒计时
+        [self setupCycleTimeOut:image == nil ? 1 : 3 callBack:^(NSTimeInterval time) {
+            if (time == 0) {
+                [self skipLaunchScreen:timeHandler];
+            } else {
+                if (image) [timeHandler setTitle:[NSString stringWithFormat:@"跳过广告 %@", @(time)] forState:UIControlStateNormal];
+            }
+        }];
+    }];
+}
+
++ (void)skipLaunchScreen:(UIButton *)sender {
+    [UIView animateWithDuration:0.75 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        sender.superview.alpha = 0;
+        sender.superview.transform = CGAffineTransformMakeScale(2, 2);
+    } completion:^(BOOL finished) {
+        [sender.superview removeFromSuperview];
+    }];
+}
+
++ (void)setupCycleTimeOut:(NSTimeInterval)timeout callBack:(void (^)(NSTimeInterval time))callBack {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (timeout > 0) {
+            [self setupCycleTimeOut:timeout - 1 callBack:callBack];
+        }
+    });
+    if (callBack) {
+        callBack(timeout);
+    }
 }
 
 // MARK: - Version Update
 + (void)setupVersionUpdate {
         
-//    KLNetworkConfigure.shareInstance.enableDebug = YES;
+    KLNetworkConfigure.shareInstance.enableDebug = YES;
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
         request.baseURL = @"https://api.galanz.com/prod/app/appversion/getAppVersionByType";
         request.method = KLNetworkRequestMethodPOST;

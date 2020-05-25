@@ -165,7 +165,7 @@
     // 添加倒计时控件
     UIButton *timeHandler = [UIButton buttonWithType:UIButtonTypeCustom];
     timeHandler.titleLabel.font = [UIFont systemFontOfSize:11];
-    timeHandler.layer.cornerRadius = timeHandler.bounds.size.height * 0.5;
+    timeHandler.layer.cornerRadius = 10;
     timeHandler.layer.masksToBounds = YES;
     timeHandler.hidden = YES;
     [timeHandler setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -176,11 +176,11 @@
         if (@available(iOS 11.0, *)) {
             make.top.mas_equalTo(UIApplication.sharedApplication.keyWindow.safeAreaInsets.top);
         } else {
-            make.top.mas_equalTo(25);
+            make.top.mas_equalTo(20);
         }
         make.right.mas_equalTo(-15);
         make.width.mas_equalTo(80);
-        make.height.mas_equalTo(80);
+        make.height.mas_equalTo(20);
     }];
     
     // 广告点击跳转

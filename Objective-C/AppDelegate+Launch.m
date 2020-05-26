@@ -62,6 +62,9 @@
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateNormal];
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateSelected];
     
+    // 设置中间凸起按钮
+    [vc setupCustomAreaView];
+    
     // 设置主窗口
     window.rootViewController = vc;
     [window makeKeyAndVisible];
@@ -176,7 +179,7 @@
     [launchVc.view addSubview:timeHandler];
     [timeHandler mas_makeConstraints:^(MASConstraintMaker *make) {
         if (@available(iOS 11.0, *)) {
-            make.top.mas_equalTo(UIApplication.sharedApplication.keyWindow.safeAreaInsets.top);
+            make.top.mas_equalTo(UIApplication.sharedApplication.keyWindow.safeAreaInsets.top ? : 20);
         } else {
             make.top.mas_equalTo(20);
         }

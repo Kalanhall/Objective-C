@@ -10,10 +10,10 @@ target 'Objective-C' do
   use_frameworks!
 
   # Pods for Objective-C
-  pod 'KLApplicationEntry'
-  pod 'KLUserInfoManager'
-  pod 'KLLeaks'
-  pod 'KLConsole' 
+  pod 'KLApplicationEntry'  , '~> 1.4.0'
+  pod 'KLUserInfoManager'   , '~> 1.0.1'
+  pod 'KLLeaks'             , '~> 1.0.0'
+  pod 'KLConsole'           , '~> 1.0.6'
   
   # 主页模块
   pod 'KLHomeService', :path=>'/Users/kalan/KLHomeService'

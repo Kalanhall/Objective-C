@@ -30,13 +30,22 @@
     };
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
+    NSInteger index = [tabBarController.viewControllers indexOfObject:viewController];
+    if (index == 2) {
+        if (self.shouldSelectViewController) {
+            self.shouldSelectViewController(index);
+        }
+    }
     
-    // 系统Item凸起样式
+    return index != 2;
+}
+
+- (void)setupCustomAreaView {
+    // 添加系统Item凸起样式
     // Step1 设置图片位置
-    [self setTabBarItemImageEdgeInsets:(UIEdgeInsets){-17,0,17,0} atIndex:2];
+    [self setTabBarItemImageEdgeInsets:(UIEdgeInsets){-20,0,20,0} atIndex:2];
     // Step2 添加响应区域
     UIButton *center = [UIButton buttonWithType:UIButtonTypeCustom];
     center.tag = 2;
@@ -49,18 +58,6 @@
     if (self.shouldSelectViewController) {
         self.shouldSelectViewController(sender.tag);
     }
-}
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    
-    NSInteger index = [tabBarController.viewControllers indexOfObject:viewController];
-    if (index == 2) {
-        if (self.shouldSelectViewController) {
-            self.shouldSelectViewController(index);
-        }
-    }
-    
-    return index != 2;
 }
 
 @end

@@ -66,7 +66,7 @@
             if ([value integerValue] == [(KLImage *)center.image animatedImageFrameCount] - 1) {
                 UIImage *image = [(KLImage *)center.image animatedImageFrameAtIndex:[value integerValue]];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    center.image = image;
+                    center.image = image;   
                 });
             }
         }];

@@ -31,7 +31,7 @@
          ***/
         id value = [self valueForKey:key];
         // 编码
-        [aCoder encodeObject:value forKey:key];
+        if (value != nil) [aCoder encodeObject:value forKey:key];
     }
     
     free(ivars);
@@ -52,7 +52,7 @@
         // kvc
         id value = [aDecoder decodeObjectForKey:key];
         // 解码
-        [self setValue:value forKey:key];
+        if (value != nil) [self setValue:value forKey:key];
     }
     
     free(ivars);

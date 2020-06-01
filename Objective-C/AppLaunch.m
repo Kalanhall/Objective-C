@@ -63,7 +63,7 @@
         [self.entryBtn setTitle:@"立即体验" forState:UIControlStateNormal];
         [self.contentView addSubview:self.entryBtn];
         [self.entryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(200);
+            make.width.mas_equalTo(150);
             make.height.mas_equalTo(50);
             make.centerX.mas_equalTo(0);
             make.bottom.mas_equalTo(-50);
@@ -106,16 +106,16 @@ static AppLaunch *_instance;
     _instance = nil;
 }
 
-// MARK: - RootViewController
+// MARK: 🌈🌈🌈 RootViewController
 + (void)setupRootViewControllerWithWindow:(UIWindow *)window {
-    // MARK: 选项卡入口配置
+    // 选项卡入口配置
     NSArray *controllers =
     @[[NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                          title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                          title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"发布" image:@"tab2-n" selectedImage:@"tab2-n"],
+                                                         title:@"发布" image:@"" selectedImage:@""],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                          title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
       [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
@@ -123,18 +123,18 @@ static AppLaunch *_instance;
     TabBarController *vc = [TabBarController tabBarWithControllers:controllers];
     
     // 控制台调用
+    #ifdef DEBUG
     vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
-        #ifdef DEBUG
         [AppLaunch launchDebugTool];
-        #endif
     };
+    #endif
     
-    // MARK: 导航栏全局设置
+    // 导航栏全局设置
     [NavigationController setAppearanceTincolor:UIColor.blackColor];
     [NavigationController setAppearanceBarTincolor:UIColor.whiteColor];
     [NavigationController setAppearanceBackIndicatorImage:[UIImage imageNamed:@"back"]];
     
-    // MARK: 选项卡全局设置
+    // 选项卡全局设置
     // 设置阴影线颜色，当只有设置了背景图后才生效
     [vc setTabBarShadowLineColor:UIColor.clearColor];
     // 设置背景图片
@@ -158,9 +158,9 @@ static AppLaunch *_instance;
     [window makeKeyAndVisible];
 }
 
-// MARK: - DebugTool
+// MARK: 🌈🌈🌈 DebugTool
 + (void)setupDebugTool {
-    // MARK: 环境初始化
+    // 环境初始化
     [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleSecondConfig *> *configs) {
         KLConsoleSecondConfig *serviceA = KLConsoleSecondConfig.alloc.init;
         serviceA.version = @"1.0";
@@ -246,9 +246,9 @@ static AppLaunch *_instance;
     }];
 }
 
-// MARK: - LaunchScreen
+// MARK: 🌈🌈🌈 LaunchScreen
 + (void)setupLaunchImage {
-    // MARK: 自定义布局
+    // 自定义布局
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
     UIViewController *launchVc = [story instantiateViewControllerWithIdentifier:@"LaunchScreen"];
     [UIApplication.sharedApplication.keyWindow addSubview:launchVc.view];
@@ -297,10 +297,10 @@ static AppLaunch *_instance;
         [self skipLaunchScreen:timeHandler];
     }];
     
-    // MARK: 网络获取广告信息
+    // 网络获取广告信息
     NSString *url = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589991864305&di=c6d607d12b111cb51a70132b7abc4b9a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180628%2F7c9e6065e61d4c4ab905bf45f7e87f06.gif";
 
-    // MARK: 根据获取广告的结果，设计交互逻辑
+    // 根据获取广告的结果，设计交互逻辑
     [imageHandler kl_setImageWithURL:[NSURL URLWithString:url ? : @""] placeholder:nil options:KLWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, KLWebImageFromType from, KLWebImageStage stage, NSError * _Nullable error) {
         // 跳过按钮开关
         timeHandler.hidden = image == nil;
@@ -337,7 +337,7 @@ static AppLaunch *_instance;
     }
 }
 
-// MARK: - GuidePage
+// MARK: 🌈🌈🌈 GuidePage
 + (void)setupGuidePage {
     KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleFade dataSource:AppLaunch.shareLaunch];
     page.hideForLastPage = YES;
@@ -378,7 +378,7 @@ static AppLaunch *_instance;
     return imageView;
 }
 
-// MARK: - Version Update
+// MARK: 🌈🌈🌈 Version Update
 + (void)setupVersionUpdate {
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
         request.baseURL = @"https://api.galanz.com/prod/app/appversion/getAppVersionByType";

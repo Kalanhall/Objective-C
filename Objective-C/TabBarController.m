@@ -8,6 +8,8 @@
 
 #import "TabBarController.h"
 @import KLApplicationEntry;
+@import KLImageView;
+@import KLCategory;
 
 @interface TabBarController () <UITabBarControllerDelegate>
 
@@ -43,21 +45,23 @@
 }
 
 - (void)setupCustomAreaView {
-    // 添加系统Item凸起样式
-    // Step1 设置图片位置
-    [self setTabBarItemImageEdgeInsets:(UIEdgeInsets){-20,0,20,0} atIndex:2];
-    // Step2 添加响应区域
-    UIButton *center = [UIButton buttonWithType:UIButtonTypeCustom];
+    // 添加自定义凸起区域
+    KLImageView *center = KLImageView.alloc.init;
+    center.contentMode = UIViewContentModeScaleAspectFit;
     center.tag = 2;
-    [center addTarget:self action:@selector(centerTouchInsideCallBack:) forControlEvents:UIControlEventTouchUpInside];
     [self addTabBarCustomAreaWithView:center atIndex:2 height:0];
-    [self resetTabBarCustomArea:center extendEdgeInsets:(UIEdgeInsets){-20, 0, 0, 0}];
-}
-
-- (void)centerTouchInsideCallBack:(UIButton *)sender {
-    if (self.shouldSelectViewController) {
-        self.shouldSelectViewController(sender.tag);
-    }
+    [self resetTabBarCustomArea:center extendEdgeInsets:(UIEdgeInsets){-17, 0, -17, 0}];
+    // 图片事件回调
+    @weakify(self)
+    [center kl_setTapCompletion:^(UITapGestureRecognizer *tapGesture) {
+        @strongify(self)
+        if (self.shouldSelectViewController) {
+            self.shouldSelectViewController(center.tag);
+        }
+    }];
+    // 加载图片
+    [center kl_setImageWithURL:[NSURL URLWithString:@"https://gw.alicdn.com/tfs/TB1BYxNrUY1gK0jSZFMXXaWcVXa-220-220.png"]
+                   placeholder:[UIImage imageNamed:@"tab2-n"]];
 }
 
 @end

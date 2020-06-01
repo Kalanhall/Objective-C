@@ -11,6 +11,7 @@ target 'Objective-C' do
 
   # Pods for Objective-C
   pod 'KLApplicationEntry'  , '~> 1.4.0'
+  pod 'KLGuidePage'         , '~> 1.0.0'
   pod 'KLUserInfoManager'   , '~> 1.0.1'
   pod 'KLLeaks'             , '~> 1.0.0'
   pod 'KLConsole'           , '~> 1.0.6'

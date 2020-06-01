@@ -4,6 +4,7 @@ ${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework
 ${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework
 ${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework
 ${BUILT_PRODUCTS_DIR}/KLConsole/KLConsole.framework
+${BUILT_PRODUCTS_DIR}/KLGuidePage/KLGuidePage.framework
 ${BUILT_PRODUCTS_DIR}/KLHomeService/KLHomeService.framework
 ${BUILT_PRODUCTS_DIR}/KLHomeServiceInterface/KLHomeServiceInterface.framework
 ${BUILT_PRODUCTS_DIR}/KLImageView/KLImageView.framework

@@ -1,22 +1,110 @@
 //
-//  AppDelegate+Launch.m
+//  AppLaunch.m
 //  Objective-C
 //
-//  Created by Logic on 2020/5/21.
+//  Created by Logic on 2020/6/1.
 //  Copyright © 2020 Kalan. All rights reserved.
 //
 
-#import "AppDelegate+Launch.h"
-#import "TabBarController.h"
-#import "NavigationController.h"
-@import KLApplicationEntry;
-@import KLConsole;
-@import KLCategory;
-@import KLHomeServiceInterface;
-@import KLImageView;
-@import KLNetworkModule;
+#import "AppLaunch.h"
 
-@implementation AppDelegate (Launch)
+
+// MARK: - KLGuideCustomCell
+@interface KLGuideCustomCell : UICollectionViewCell
+
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *subTitleLabel;
+@property (strong, nonatomic) UIButton *entryBtn;
+
+@property (copy  , nonatomic) void (^entryBlock)(void);
+
+@end
+
+@implementation KLGuideCustomCell
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.imageView = UIImageView.alloc.init;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView addSubview:self.imageView];
+        [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(UIEdgeInsetsZero);
+        }];
+        
+        self.titleLabel = UILabel.new;
+        self.titleLabel.textColor = UIColor.blackColor;
+        self.titleLabel.font = [UIFont boldSystemFontOfSize:25];
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:self.titleLabel];
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(0);
+            make.centerY.mas_equalTo(self.contentView.mas_centerY).multipliedBy(1.3);
+        }];
+        
+        self.subTitleLabel = UILabel.new;
+        self.subTitleLabel.textColor = [UIColor.blackColor colorWithAlphaComponent:0.6];
+        self.subTitleLabel.font = [UIFont systemFontOfSize:16];
+        self.subTitleLabel.numberOfLines = 0;
+        self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:self.subTitleLabel];
+        [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.mas_equalTo(0);
+            make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(15);
+        }];
+        
+        self.entryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.entryBtn.backgroundColor = UIColor.redColor;
+        self.entryBtn.layer.cornerRadius = 9;
+        self.entryBtn.clipsToBounds = YES;
+        [self.entryBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [self.entryBtn setTitle:@"立即体验" forState:UIControlStateNormal];
+        [self.contentView addSubview:self.entryBtn];
+        [self.entryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(200);
+            make.height.mas_equalTo(50);
+            make.centerX.mas_equalTo(0);
+            make.bottom.mas_equalTo(-50);
+        }];
+        
+        [self.entryBtn addTarget:self action:@selector(entryBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return self;
+}
+
+- (void)entryBtnClick:(UIButton *)sender {
+    if (self.entryBlock) {
+        self.entryBlock();
+    }
+}
+
+@end
+
+// MARK: - AppLaunch
+@interface AppLaunch () <KLGuidePageDataSource>
+
+@end
+
+@implementation AppLaunch
+
+static dispatch_once_t _onceToken;
+static AppLaunch *_instance;
+
+// 创建单例
++ (instancetype)shareLaunch {
+    dispatch_once(&_onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
+
+// 释放单例
++ (void)launchClear {
+    _onceToken = 0;
+    _instance = nil;
+}
 
 // MARK: - RootViewController
 + (void)setupRootViewControllerWithWindow:(UIWindow *)window {
@@ -37,7 +125,7 @@
     // 控制台调用
     vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
         #ifdef DEBUG
-        [AppDelegate launchDebugTool];
+        [AppLaunch launchDebugTool];
         #endif
     };
     
@@ -72,23 +160,6 @@
 
 // MARK: - DebugTool
 + (void)setupDebugTool {
-    // MAKR: 扩展功能
-    [KLConsole consoleSetup:^(NSMutableArray<KLConsoleConfig *> * _Nonnull configs) {
-        KLConsoleConfig *serverA = KLConsoleConfig.alloc.init;
-        serverA.title = @"功能测试";
-        
-        KLConsoleSecondConfig *serviceA = KLConsoleSecondConfig.alloc.init;
-        serviceA.title = @"H5访问测试";
-        serviceA.subtitle = @"点击输入链接访问";
-        
-        KLConsoleSecondConfig *serviceB = KLConsoleSecondConfig.alloc.init;
-        serviceB.title = @"引导页测试";
-        serviceB.subtitle = @"点击查看";
-        
-        serverA.infos = @[serviceA, serviceB];
-        [configs addObject:serverA];
-    }];
-    
     // MARK: 环境初始化
     [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleSecondConfig *> *configs) {
         KLConsoleSecondConfig *serviceA = KLConsoleSecondConfig.alloc.init;
@@ -133,6 +204,27 @@
         serviceB.details = @[serviceBa, serviceBb, serviceBc, serviceBd];
         [configs addObject:serviceB];
     }];
+    
+    // MAKR: 扩展功能
+    [KLConsole consoleSetup:^(NSMutableArray<KLConsoleConfig *> * _Nonnull configs) {
+        KLConsoleConfig *serverA = KLConsoleConfig.alloc.init;
+        serverA.title = @"功能测试";
+        
+        KLConsoleSecondConfig *serviceA = KLConsoleSecondConfig.alloc.init;
+        serviceA.title = @"版本升级测试";
+        serviceA.subtitle = @"点击获取最新版本";
+        
+        KLConsoleSecondConfig *serviceB = KLConsoleSecondConfig.alloc.init;
+        serviceB.title = @"启动页测试";
+        serviceB.subtitle = @"点击查看";
+        
+        KLConsoleSecondConfig *serviceC = KLConsoleSecondConfig.alloc.init;
+        serviceC.title = @"引导页测试";
+        serviceC.subtitle = @"点击查看";
+        
+        serverA.infos = @[serviceA, serviceB, serviceC];
+        [configs addObject:serverA];
+    }];
 }
 
 + (void)launchDebugTool {
@@ -140,10 +232,13 @@
         // 扩展功能回调
         switch (indexPath.row) {
             case 0:
-                NSLog(@"H5访问测试~");
+                [self setupVersionUpdate];
                 break;
             case 1:
-                NSLog(@"引导页测试~");
+                [self setupLaunchImage];
+                break;
+            case 2:
+                [self setupGuidePage];
                 break;
             default:
                 break;
@@ -242,10 +337,49 @@
     }
 }
 
+// MARK: - GuidePage
++ (void)setupGuidePage {
+    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleFade dataSource:AppLaunch.shareLaunch];
+    page.hideForLastPage = YES;
+    page.alphaMultiple = 1.5;
+    page.duration = 0.5;
+    page.bottomlHeight = 50;
+    page.bottomSpace = 50;
+    page.bottomControl.pageIndicatorTintColor = [UIColor.redColor colorWithAlphaComponent:0.3];
+    page.bottomControl.currentPageIndicatorTintColor = UIColor.redColor;
+    [page registerClass:KLGuideCustomCell.class forCellWithReuseIdentifier:KLGuideCustomCell.description];
+}
+
+- (NSArray *)dataOfItems {
+    return @[[UIImage imageNamed:@"Guide-0"], [UIImage imageNamed:@"Guide-1"], [UIImage imageNamed:@"Guide-2"]];
+}
+
+- (UICollectionViewCell *)guidePage:(KLGuidePage *)page data:(id)data cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    KLGuideCustomCell *cell = (KLGuideCustomCell *)[page dequeueReusableCellWithReuseIdentifier:KLGuideCustomCell.description forIndexPath:indexPath];
+//    cell.imageView.image = data;
+    cell.titleLabel.text = @[@"欢迎使用京东", @"请授权位置信息权限", @"获取最新的促销信息"][indexPath.row];
+    cell.subTitleLabel.text = @[@"正品低价、急速配送\n点缀您的品质生活", @"获取周边库存信息和周边服务、推送专属\n商品与优惠", @"随时了解促销信息，掌握实时物流动态\n请\"允许\"京东获取消息通知权限"][indexPath.row];
+    cell.entryBtn.hidden = indexPath.row != self.dataOfItems.count - 1;
+    
+    __weak typeof(page) weakpage = page;
+    cell.entryBlock = ^{
+        [weakpage hideWithStyle:KLGuideHideStyleNomal animated:YES]; // 移除引导页
+        [AppLaunch launchClear]; // 释放单例
+    };
+
+    return cell;
+}
+
+// KLGuideStyleFade 需要单独实现这个装载图片的视图
+- (UIView *)guidePage:(KLGuidePage *)page data:(id)data viewForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UIImageView *imageView = UIImageView.alloc.init;
+    imageView.image = data;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    return imageView;
+}
+
 // MARK: - Version Update
 + (void)setupVersionUpdate {
-        
-    KLNetworkConfigure.shareInstance.enableDebug = YES;
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
         request.baseURL = @"https://api.galanz.com/prod/app/appversion/getAppVersionByType";
         request.method = KLNetworkRequestMethodPOST;
@@ -268,6 +402,8 @@
             }
         }
     }];
+    
+    KLNetworkConfigure.shareInstance.enableDebug = YES;
 }
 
 @end

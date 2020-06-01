@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "AppDelegate+Launch.h"
+#import "AppLaunch.h"
 
 @interface AppDelegate ()
 
@@ -20,16 +20,19 @@
     
     // MARK: 根控制器配置
     self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
-    [AppDelegate setupRootViewControllerWithWindow:self.window];
+    [AppLaunch setupRootViewControllerWithWindow:self.window];
     
     // MARK: 开发工具配置
-    [AppDelegate setupDebugTool];
+    [AppLaunch setupDebugTool];
+    
+    // MARK: 引导页配置
+    if (KLIsFirstLaunch()) [AppLaunch setupGuidePage];
     
     // MARK: 启动图配置
-    [AppDelegate setupLaunchImage];
+    [AppLaunch setupLaunchImage];
     
     // MARK: 版本更新
-    [AppDelegate setupVersionUpdate];
+    [AppLaunch setupVersionUpdate];
     
     return YES;
 }

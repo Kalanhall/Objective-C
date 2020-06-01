@@ -1,0 +1,6 @@
+framework module KLGuidePage {
+  umbrella header "KLGuidePage-umbrella.h"
+
+  export *
+  module * { export * }
+}

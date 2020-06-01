@@ -1,16 +1,25 @@
 //
-//  AppDelegate+Launch.h
+//  AppLaunch.h
 //  Objective-C
 //
-//  Created by Logic on 2020/5/21.
+//  Created by Logic on 2020/6/1.
 //  Copyright © 2020 Kalan. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import <UIKit/UIKit.h>
+#import "TabBarController.h"
+#import "NavigationController.h"
+@import KLApplicationEntry;
+@import KLGuidePage;
+@import KLConsole;
+@import KLCategory;
+@import KLImageView;
+@import KLNetworkModule;
+@import KLHomeServiceInterface;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppDelegate (Launch)
+@interface AppLaunch : NSObject
 
 /**
  *  初始化控制器
@@ -31,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 启动图设置
 + (void)setupLaunchImage;
+
+/// 引导页设置
++ (void)setupGuidePage;
 
 /// 更新设置
 + (void)setupVersionUpdate;

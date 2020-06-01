@@ -16,14 +16,16 @@ PODS:
     - AFNetworking/NSURLSession
   - KLApplicationEntry (1.4.0)
   - KLCache (1.0.1)
-  - KLCategory (1.2.1):
-    - KLCategory/Foundation (= 1.2.1)
-    - KLCategory/UIKit (= 1.2.1)
-  - KLCategory/Foundation (1.2.1)
-  - KLCategory/UIKit (1.2.1)
+  - KLCategory (1.2.2.1):
+    - KLCategory/Foundation (= 1.2.2.1)
+    - KLCategory/UIKit (= 1.2.2.1)
+  - KLCategory/Foundation (1.2.2.1)
+  - KLCategory/UIKit (1.2.2.1)
   - KLConsole (1.0.6):
     - Masonry
     - YKWoodpecker
+  - KLGuidePage (1.0.1):
+    - Masonry
   - KLHomeService (0.0.2):
     - KLCategory
     - KLImageView
@@ -67,6 +69,7 @@ PODS:
 DEPENDENCIES:
   - KLApplicationEntry (~> 1.4.0)
   - KLConsole (~> 1.0.6)
+  - KLGuidePage (~> 1.0.0)
   - KLHomeService (from `/Users/kalan/KLHomeService`)
   - KLHomeServiceInterface
   - KLLeaks (~> 1.0.0)
@@ -84,6 +87,7 @@ SPEC REPOS:
     - KLCache
     - KLCategory
     - KLConsole
+    - KLGuidePage
     - KLHomeServiceInterface
     - KLImageView
     - KLLeaks
@@ -100,8 +104,9 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   KLApplicationEntry: 51fffce83930d6ed747c5fc739a90c57e605017a
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
-  KLCategory: 8ae6050bbb770465630718a6c66f45afb024e565
+  KLCategory: 3c3e042a297a24c6afe0142b108a0924a4a76eb2
   KLConsole: 144de281278a6523e08e07ebb96c7bd4e52d52b5
+  KLGuidePage: 8b666079aa940f065e207677641a237aa66b1236
   KLHomeService: 42cb549bb33fa4d3396d19786f5c1d79e2c9271c
   KLHomeServiceInterface: a74652cceadb8dc468ca16fb2be8bcfb8b2a965a
   KLImageView: 6b752b4fa59f6dd12d63975d0f8c6b05a9aa4fc6
@@ -115,6 +120,6 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YKWoodpecker: 97ebd8f4c0366560c61d5844e64b21af8d70804c
 
-PODFILE CHECKSUM: 9cae69e4d30d55d380c76f7b22c287746854cf5d
+PODFILE CHECKSUM: 92eb7080815200778f6b9995b77f4acc3d6b9db9
 
 COCOAPODS: 1.9.2

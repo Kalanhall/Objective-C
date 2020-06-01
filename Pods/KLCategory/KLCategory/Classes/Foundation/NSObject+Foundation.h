@@ -20,10 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (Foundation)
 
 // MARK: - Foundation
-/// 是否是苹果手机
-extern BOOL KLIsphone(void);
+/// 是否首次启动
+extern BOOL KLIsFirstLaunch(void);
 /// 是否是iPhoneX系列刘海屏
 extern BOOL KLIsphoneXabove(void);
+/// 是否是苹果手机
+extern BOOL KLIsphone(void);
 
 /// 屏幕宽度
 extern CGFloat KLScreenWidth(void);

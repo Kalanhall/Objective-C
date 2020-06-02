@@ -7,7 +7,9 @@
 //
 
 #import "AppLaunch.h"
-
+#import "TabBarController.h"
+#import "NavigationController.h"
+#import "AppUpdate.h"
 
 // MARK: - KLGuideCustomCell
 @interface KLGuideCustomCell : UICollectionViewCell
@@ -63,7 +65,7 @@
         [self.entryBtn setTitle:@"立即体验" forState:UIControlStateNormal];
         [self.contentView addSubview:self.entryBtn];
         [self.entryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(150);
+            make.width.mas_equalTo(self.mas_width).multipliedBy(0.5);
             make.height.mas_equalTo(50);
             make.centerX.mas_equalTo(0);
             make.bottom.mas_equalTo(-50);
@@ -256,6 +258,7 @@ static AppLaunch *_instance;
     // LaunchScreen 无法使用自定义控件、属性，提供容器，由外部进行个性化处理
     UIView *content = [launchVc.view viewWithTag:999]; // 自定义容器
     content.userInteractionEnabled = YES;
+    // 闪屏页面（广告）
     KLImageView *imageHandler = KLImageView.alloc.init;
     [content addSubview:imageHandler];
     [imageHandler mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -390,7 +393,7 @@ static AppLaunch *_instance;
             // 最新版本
             NSString *version = [response.data valueForKey:@"version_no"];
             // 更新描述
-            NSString *descrip = [response.data valueForKey:@"introduce"];
+            NSString *descriptions = [response.data valueForKey:@"introduce"];
             // 是否强更
             NSString *forced = [response.data valueForKey:@"forced_flag"];
             // 跳转地址
@@ -399,7 +402,8 @@ static AppLaunch *_instance;
             NSString *appVersion = [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"];
             if ([appVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
                 // 有新的版本需要更新
-                NSLogSuccess(@"\n最新版本：%@\n更新描述：%@\n是否强更：%@\n跳转地址：%@", version, descrip, forced, url);
+                NSLogSuccess(@"\n最新版本：%@\n更新描述：%@\n是否强更：%@\n跳转地址：%@", version, descriptions, forced, url);
+                [AppUpdate updateWithVersion:version descriptions:descriptions toURL:url forced:forced.boolValue];
             }
         }
     }];

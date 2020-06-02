@@ -8,13 +8,13 @@
 
 #import "AppDelegate.h"
 #import "AppLaunchSetup.h"
+#import "AppPushSetup.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -37,15 +37,30 @@
     // MARK: 版本更新
     [AppLaunchSetup setupVersionUpdate];
     
+    // MARK: 注册推送
+    [AppPushSetup.shareInstance application:application didFinishLaunchingWithOptions:launchOptions];
+    
     return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // 获取本地服务器地址
-    NSArray<KLConsoleSecondConfig *> *address = KLConsole.addressConfigs;
-    [address enumerateObjectsUsingBlock:^(KLConsoleSecondConfig * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [KLConsole.addressConfigs enumerateObjectsUsingBlock:^(KLConsoleSecondConfig * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSLogSuccess(@"获取本地服务器域名：%@", obj.subtitle);
     }];
+}
+
+// MARK: - Push Setup
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [AppPushSetup.shareInstance application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [AppPushSetup.shareInstance application:application didFailToRegisterForRemoteNotificationsWithError:error];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [AppPushSetup.shareInstance application:application didReceiveRemoteNotification:userInfo];
 }
 
 @end

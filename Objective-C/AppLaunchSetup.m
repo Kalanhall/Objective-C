@@ -95,7 +95,7 @@ static dispatch_once_t _onceToken;
 static AppLaunchSetup *_instance;
 
 // 创建单例
-+ (instancetype)shareLaunch {
++ (instancetype)shareInstance {
     dispatch_once(&_onceToken, ^{
         _instance = [[self alloc] init];
     });
@@ -322,7 +322,7 @@ static AppLaunchSetup *_instance;
 
 // MARK: 🌈🌈🌈 GuidePage
 + (void)setupGuidePage {
-    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleFade dataSource:AppLaunchSetup.shareLaunch];
+    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleFade dataSource:AppLaunchSetup.shareInstance];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;
     page.duration = 0.5;

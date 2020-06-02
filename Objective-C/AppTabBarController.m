@@ -1,21 +1,21 @@
 //
-//  TabBarController.m
+//  AppTabBarController.m
 //  Objective-C
 //
 //  Created by Logic on 2020/5/19.
 //  Copyright © 2020 Kalan. All rights reserved.
 //
 
-#import "TabBarController.h"
+#import "AppTabBarController.h"
 @import KLApplicationEntry;
 @import KLImageView;
 @import KLCategory;
 
-@interface TabBarController () <UITabBarControllerDelegate>
+@interface AppTabBarController () <UITabBarControllerDelegate>
 
 @end
 
-@implementation TabBarController
+@implementation AppTabBarController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

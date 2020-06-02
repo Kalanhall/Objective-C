@@ -6,10 +6,10 @@
 //  Copyright © 2020 Kalan. All rights reserved.
 //
 
-#import "AppLaunch.h"
-#import "TabBarController.h"
-#import "NavigationController.h"
-#import "AppUpdate.h"
+#import "AppLaunchSetup.h"
+#import "AppTabBarController.h"
+#import "AppNavigationController.h"
+#import "AppVersionUpdate.h"
 
 // MARK: - KLGuideCustomCell
 @interface KLGuideCustomCell : UICollectionViewCell
@@ -85,14 +85,14 @@
 @end
 
 // MARK: - AppLaunch
-@interface AppLaunch () <KLGuidePageDataSource>
+@interface AppLaunchSetup () <KLGuidePageDataSource>
 
 @end
 
-@implementation AppLaunch
+@implementation AppLaunchSetup
 
 static dispatch_once_t _onceToken;
-static AppLaunch *_instance;
+static AppLaunchSetup *_instance;
 
 // 创建单例
 + (instancetype)shareLaunch {
@@ -103,7 +103,7 @@ static AppLaunch *_instance;
 }
 
 // 释放单例
-+ (void)launchClear {
++ (void)shareClear {
     _onceToken = 0;
     _instance = nil;
 }
@@ -112,29 +112,29 @@ static AppLaunch *_instance;
 + (void)setupRootViewControllerWithWindow:(UIWindow *)window {
     // 选项卡入口配置
     NSArray *controllers =
-    @[[NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"],
-      [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
-      [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"发布" image:nil selectedImage:nil],
-      [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
-      [NavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                         title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"]];
-    TabBarController *vc = [TabBarController tabBarWithControllers:controllers];
+    @[[AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                          title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"],
+      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                          title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
+      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                          title:@"发布" image:nil selectedImage:nil],
+      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                          title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
+      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                          title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"]];
+    AppTabBarController *vc = [AppTabBarController tabBarWithControllers:controllers];
     
     // 控制台调用
     #ifdef DEBUG
     vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
-        [AppLaunch launchDebugTool];
+        [AppLaunchSetup launchDebugTool];
     };
     #endif
     
     // 导航栏全局设置
-    [NavigationController setAppearanceTincolor:UIColor.blackColor];
-    [NavigationController setAppearanceBarTincolor:UIColor.whiteColor];
-    [NavigationController setAppearanceBackIndicatorImage:[UIImage imageNamed:@"back"]];
+    [AppNavigationController setAppearanceTincolor:UIColor.blackColor];
+    [AppNavigationController setAppearanceBarTincolor:UIColor.whiteColor];
+    [AppNavigationController setAppearanceBackIndicatorImage:[UIImage imageNamed:@"back"]];
     
     // 选项卡全局设置
     // 设置阴影线颜色，当只有设置了背景图后才生效
@@ -343,7 +343,7 @@ static AppLaunch *_instance;
 
 // MARK: 🌈🌈🌈 GuidePage
 + (void)setupGuidePage {
-    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleFade dataSource:AppLaunch.shareLaunch];
+    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleFade dataSource:AppLaunchSetup.shareLaunch];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;
     page.duration = 0.5;
@@ -368,7 +368,7 @@ static AppLaunch *_instance;
     __weak typeof(page) weakpage = page;
     cell.entryBlock = ^{
         [weakpage hideWithStyle:KLGuideHideStyleNomal animated:YES]; // 移除引导页
-        [AppLaunch launchClear]; // 释放单例
+        [AppLaunchSetup shareClear]; // 释放单例
     };
 
     return cell;
@@ -403,7 +403,7 @@ static AppLaunch *_instance;
             if ([appVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
                 // 有新的版本需要更新
                 NSLogSuccess(@"\n最新版本：%@\n更新描述：%@\n是否强更：%@\n跳转地址：%@", version, descriptions, forced, url);
-                [AppUpdate updateWithVersion:version descriptions:descriptions toURL:url forced:forced.boolValue];
+                [AppVersionUpdate updateWithVersion:version descriptions:descriptions toURL:url forced:forced.boolValue];
             }
         }
     }];

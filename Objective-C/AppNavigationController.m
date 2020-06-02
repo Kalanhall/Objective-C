@@ -1,18 +1,18 @@
 //
-//  NavigationController.m
+//  AppNavigationController.m
 //  Objective-C
 //
 //  Created by Logic on 2020/5/20.
 //  Copyright © 2020 Kalan. All rights reserved.
 //
 
-#import "NavigationController.h"
+#import "AppNavigationController.h"
 
-@interface NavigationController ()
+@interface AppNavigationController ()
 
 @end
 
-@implementation NavigationController
+@implementation AppNavigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

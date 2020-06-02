@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppUpdate : UIView
+@interface AppVersionUpdate : UIView
 
 + (void)updateWithVersion:(NSString *)version descriptions:(NSString *)descriptions toURL:(NSString *)url forced:(BOOL)forced;
 

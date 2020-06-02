@@ -6,11 +6,11 @@
 //  Copyright © 2020 Kalan. All rights reserved.
 //
 
-#import "AppUpdate.h"
+#import "AppVersionUpdate.h"
 @import Masonry;
 @import KLCategory;
 
-@interface AppUpdate ()
+@interface AppVersionUpdate ()
 
 @property (strong, nonatomic) UIView *coverView;
 @property (strong, nonatomic) UIView *contentView;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation AppUpdate
+@implementation AppVersionUpdate
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -133,7 +133,7 @@
     NSString *cacheVersion = [NSUserDefaults.standardUserDefaults valueForKey:self.description];
     if ([cacheVersion isEqualToString:version]) return;
     
-    AppUpdate *view = AppUpdate.alloc.init;
+    AppVersionUpdate *view = AppVersionUpdate.alloc.init;
     view.titleLabel.text = [NSString stringWithFormat:@"版本更新：V%@", version];
     view.descripView.text = descriptions;
     view.updateCancle.hidden = forced;

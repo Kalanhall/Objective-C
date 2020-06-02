@@ -17,7 +17,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppLaunch : NSObject
+@interface AppLaunchSetup : NSObject
 
 /**
  *  初始化控制器

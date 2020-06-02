@@ -41,6 +41,11 @@ extern UIImage *KLImageColorSize(UIColor *color, CGSize size);
 /// @return 应用顶层控制器实例
 extern UIViewController *KLCurrentController(void);
 
+/// UIViewController (KLTraceLog) 路由信息开关
+extern void KLViewControllerTraceLogEnable(BOOL enable);
+/// 获取开关状态，存储在NSUserDefaults
+extern BOOL KLViewControllerTraceLogEnableState(void);
+
 @end
 
 NS_ASSUME_NONNULL_END

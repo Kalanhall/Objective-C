@@ -32,32 +32,8 @@
                            alpha:alpha];
 }
 
-+ (UIColor *)kl_colorWithRGBA:(CGFloat)red, ... {
-    NSMutableArray *temp = nil;
-    if (red) {
-        temp = NSMutableArray.array;
-        va_list args;
-        CGFloat arg;
-        va_start(args, red);
-        while ((arg = va_arg(args, CGFloat))) {
-            [temp addObject:@(arg)];
-        }
-        va_end(args);
-        NSAssert(temp.count < 4, @"RGBA 请输入4个CGFloat类型的参数");
-        return [UIColor colorWithRed:red / 255.0
-                               green:[temp[0] floatValue] / 255.0
-                                blue:[temp[1] floatValue] / 255.0
-                               alpha:[temp[2] floatValue]];
-    }
-    return UIColor.clearColor;
-}
-
 + (UIColor *)kl_randomColor {
-    return [self kl_colorWithRGBA:
-            (arc4random_uniform(255) + 1) * 1.0,
-            (arc4random_uniform(255) + 1) * 1.0,
-            (arc4random_uniform(255) + 1) * 1.0,
-            1.0, nil];
+    return [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1];
 }
 
 @end

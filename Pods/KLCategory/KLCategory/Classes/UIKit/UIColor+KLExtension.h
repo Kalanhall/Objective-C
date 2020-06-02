@@ -28,14 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)kl_colorWithHexNumber:(unsigned int)hexNumber;
 + (UIColor *)kl_colorWithHexNumber:(unsigned int)hexNumber alpha:(CGFloat)alpha;
 
-/**
-* @brief RGB值初始化一个颜色
-* @param red 动态参数，依次r,g,b,a
-* @discussion 固定RGBA 4个参数，缺一不可，参数类型必须为CGFloat
-* 例：[UIColor kl_colorWithRGBA:255.0, 255.0, 255.0, 1.0, nil];
-*/
-+ (UIColor *)kl_colorWithRGBA:(CGFloat)red, ... NS_REQUIRES_NIL_TERMINATION;
-
 @end
 
 NS_ASSUME_NONNULL_END

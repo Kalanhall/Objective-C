@@ -23,12 +23,8 @@
     self.delegate = self;
 
     // MARK: 中间Item点击回调
-    __weak typeof(self) weakself = self;
     self.shouldSelectViewController = ^(NSInteger index) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"消息" message:@"点击中间按钮" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
-        [alert addAction:sure];
-        [weakself presentViewController:alert animated:YES completion:nil];
+        NSLogAlert(@"中间Item点击回调");
     };
 }
 

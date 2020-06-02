@@ -117,7 +117,7 @@ static AppLaunchSetup *_instance;
       [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                           title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
       [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                          title:@"发布" image:nil selectedImage:nil],
+                                                          title:@"发布" image:@"x占位xx" selectedImage:@"x占位xx"],
       [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                           title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
       [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
@@ -166,45 +166,24 @@ static AppLaunchSetup *_instance;
     [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleSecondConfig *> *configs) {
         KLConsoleSecondConfig *serviceA = KLConsoleSecondConfig.alloc.init;
         serviceA.version = @"1.0";
-        serviceA.title = @"商城服务域名";
-        serviceA.subtitle = @"https://www.example.com/prod";
+        serviceA.title = @"服务器域名";
+        serviceA.subtitle = @"https://api.galanz.com/prod";
         serviceA.selectedIndex = 0;
         
         KLConsoleThreeConfig *serviceAa = KLConsoleThreeConfig.alloc.init;
         serviceAa.title = @"生产环境";
-        serviceAa.text = @"https://www.example.com/prod";
+        serviceAa.text = @"https://api.galanz.com/prod";
         KLConsoleThreeConfig *serviceAb = KLConsoleThreeConfig.alloc.init;
         serviceAb.title = @"开发环境";
-        serviceAb.text = @"https://www.example.com/dev";
+        serviceAb.text = @"https://api.galanz.com/dev";
         KLConsoleThreeConfig *serviceAc = KLConsoleThreeConfig.alloc.init;
         serviceAc.title = @"测试环境";
-        serviceAc.text = @"https://www.example.com/test";
+        serviceAc.text = @"https://api.galanz.com/test";
         KLConsoleThreeConfig *serviceAd = KLConsoleThreeConfig.alloc.init;
         serviceAd.title = @"预发布环境";
-        serviceAd.text = @"https://www.example.com/stadge";
+        serviceAd.text = @"https://api.galanz.com/stage";
         serviceA.details = @[serviceAa, serviceAb, serviceAc, serviceAd];
         [configs addObject:serviceA];
-        
-        KLConsoleSecondConfig *serviceB = KLConsoleSecondConfig.alloc.init;
-        serviceB.version = @"1.0";
-        serviceB.title = @"商城H5服务域名";
-        serviceB.subtitle = @"https://www.example.com/prod1";
-        serviceB.selectedIndex = 0;
-        
-        KLConsoleThreeConfig *serviceBa = KLConsoleThreeConfig.alloc.init;
-        serviceBa.title = @"生产环境";
-        serviceBa.text = @"https://www.example.com/prod1";
-        KLConsoleThreeConfig *serviceBb = KLConsoleThreeConfig.alloc.init;
-        serviceBb.title = @"开发环境";
-        serviceBb.text = @"https://www.example.com/dev1";
-        KLConsoleThreeConfig *serviceBc = KLConsoleThreeConfig.alloc.init;
-        serviceBc.title = @"测试环境";
-        serviceBc.text = @"https://www.example.com/test1";
-        KLConsoleThreeConfig *serviceBd = KLConsoleThreeConfig.alloc.init;
-        serviceBd.title = @"预发布环境";
-        serviceBd.text = @"https://www.example.com/stadge1";
-        serviceB.details = @[serviceBa, serviceBb, serviceBc, serviceBd];
-        [configs addObject:serviceB];
     }];
     
     // MAKR: 扩展功能
@@ -385,7 +364,8 @@ static AppLaunchSetup *_instance;
 // MARK: 🌈🌈🌈 Version Update
 + (void)setupVersionUpdate {
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
-        request.baseURL = @"https://api.galanz.com/prod/app/appversion/getAppVersionByType";
+        request.baseURL = KLConsole.addressConfigs.firstObject.subtitle;
+        request.path = @"/app/appversion/getAppVersionByType";
         request.method = KLNetworkRequestMethodPOST;
         request.normalParams = @{@"type" : @"ios"};
     } complete:^(KLNetworkResponse * _Nullable response) {

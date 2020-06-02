@@ -18,6 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    // MARK: 控制器控制台记录开关
+    KLViewControllerTraceLogEnable(NO);
+    
     // MARK: 根控制器配置
     self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
     [AppLaunchSetup setupRootViewControllerWithWindow:self.window];
@@ -35,6 +38,14 @@
     [AppLaunchSetup setupVersionUpdate];
     
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // 获取本地服务器地址
+    NSArray<KLConsoleSecondConfig *> *address = KLConsole.addressConfigs;
+    [address enumerateObjectsUsingBlock:^(KLConsoleSecondConfig * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSLogSuccess(@"获取本地服务器域名：%@", obj.subtitle);
+    }];
 }
 
 @end

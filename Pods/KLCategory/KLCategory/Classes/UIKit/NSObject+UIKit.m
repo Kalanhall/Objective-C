@@ -92,4 +92,13 @@ UIViewController *KLCurrentController(void)
     return round((origin * (width / base) * divisor)) / divisor;
 }
 
+extern void KLViewControllerTraceLogEnable(BOOL enable) {
+    [NSUserDefaults.standardUserDefaults setValue:@(enable) forKey:@"KLViewControllerTraceLogEnable"];
+    [NSUserDefaults.standardUserDefaults synchronize];
+}
+
+extern BOOL KLViewControllerTraceLogEnableState() {
+    return [[NSUserDefaults.standardUserDefaults valueForKey:@"KLViewControllerTraceLogEnable"] boolValue];
+}
+
 @end

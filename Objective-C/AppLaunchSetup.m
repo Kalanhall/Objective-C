@@ -127,7 +127,7 @@ static AppLaunchSetup *_instance;
     // 控制台调用
     #ifdef DEBUG
     vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
-        [AppLaunchSetup launchDebugTool];
+        [self showDebugTool];
     };
     #endif
     
@@ -229,7 +229,7 @@ static AppLaunchSetup *_instance;
     }];
 }
 
-+ (void)launchDebugTool {
++ (void)showDebugTool {
     [KLConsole consoleSetupAndSelectedCallBack:^(NSIndexPath * _Nonnull indexPath, BOOL switchOn) {
         // 扩展功能回调
         switch (indexPath.row) {

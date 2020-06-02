@@ -33,9 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)setupDebugTool;
 
-/// 启动开发工具
-+ (void)launchDebugTool;
-
 /// 启动图设置
 + (void)setupLaunchImage;
 

@@ -19,7 +19,6 @@
 		F69C07AA238F5B4D00610C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F69C07A9238F5B4D00610C02 /* Assets.xcassets */; };
 		F69C07B0238F5B4D00610C02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07AF238F5B4D00610C02 /* main.m */; };
 		F69C07BA238F5B4D00610C02 /* Objective_CTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07B9238F5B4D00610C02 /* Objective_CTests.m */; };
-		F6D4B62E248692120092F1AC /* AppPushSetup.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D4B62D248692120092F1AC /* AppPushSetup.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,8 +55,6 @@
 		F69C07B5238F5B4D00610C02 /* Objective-CTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Objective-CTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F69C07B9238F5B4D00610C02 /* Objective_CTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Objective_CTests.m; sourceTree = "<group>"; };
 		F69C07BB238F5B4D00610C02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6D4B62C248692120092F1AC /* AppPushSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppPushSetup.h; sourceTree = "<group>"; };
-		F6D4B62D248692120092F1AC /* AppPushSetup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppPushSetup.m; sourceTree = "<group>"; };
 		F9F5427AF44FE4C36984DFB7 /* Pods_Objective_CTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Objective_CTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -128,8 +125,6 @@
 				F69C079E238F5B4A00610C02 /* AppDelegate.m */,
 				F613D44724849AF500C1C532 /* AppLaunchSetup.h */,
 				F613D44824849AF500C1C532 /* AppLaunchSetup.m */,
-				F6D4B62C248692120092F1AC /* AppPushSetup.h */,
-				F6D4B62D248692120092F1AC /* AppPushSetup.m */,
 				F696DE242485EA2400769E37 /* AppVersionUpdate.h */,
 				F696DE252485EA2400769E37 /* AppVersionUpdate.m */,
 				F6443DD424752092004AD092 /* AppNavigationController.h */,
@@ -325,7 +320,6 @@
 				F613D44924849AF500C1C532 /* AppLaunchSetup.m in Sources */,
 				F6443DD624752092004AD092 /* AppNavigationController.m in Sources */,
 				F69C079F238F5B4A00610C02 /* AppDelegate.m in Sources */,
-				F6D4B62E248692120092F1AC /* AppPushSetup.m in Sources */,
 				F69C07B0238F5B4D00610C02 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

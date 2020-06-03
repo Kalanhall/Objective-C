@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "AppLaunchSetup.h"
-#import "AppPushSetup.h"
 
 @interface AppDelegate ()
 
@@ -37,9 +36,6 @@
     // MARK: 版本更新
     [AppLaunchSetup setupVersionUpdate];
     
-    // MARK: 注册推送
-    [AppPushSetup.shareInstance application:application didFinishLaunchingWithOptions:launchOptions];
-    
     return YES;
 }
 
@@ -52,15 +48,12 @@
 
 // MARK: - Push Setup
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [AppPushSetup.shareInstance application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [AppPushSetup.shareInstance application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [AppPushSetup.shareInstance application:application didReceiveRemoteNotification:userInfo];
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 @end

@@ -280,17 +280,17 @@ static AppLaunchSetup *_instance;
     }];
     
     // 网络获取广告信息
-    NSString *url = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589991864305&di=c6d607d12b111cb51a70132b7abc4b9a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180628%2F7c9e6065e61d4c4ab905bf45f7e87f06.gif";
-    NSURL *imageURL = [NSURL URLWithString: arc4random_uniform(2) ? url : @""];
+    NSString *remoteurl = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589991864305&di=c6d607d12b111cb51a70132b7abc4b9a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180628%2F7c9e6065e61d4c4ab905bf45f7e87f06.gif";
+    NSURL *imageURL = [NSURL URLWithString: arc4random_uniform(2) ? remoteurl : @""];
 
     // 根据获取广告的结果，设计交互逻辑
     [imageHandler kl_setImageWithURL:imageURL placeholder:nil options:KLWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, KLWebImageFromType from, KLWebImageStage stage, NSError * _Nullable error) {
         // 跳过按钮开关
-        timeHandler.hidden = image == nil;
+        timeHandler.hidden = remoteurl.length == 0;
         // 广告交互开关
-        imageHandler.userInteractionEnabled = image != nil;
+        imageHandler.userInteractionEnabled = !timeHandler.hidden;
         // 倒计时
-        [self setupCycleTimeOut:image == nil ? 1 : 3 callBack:^(NSTimeInterval time) {
+        [self setupCycleTimeOut:timeHandler.hidden ? 0 : 3 callBack:^(NSTimeInterval time) {
             if (time == 0) {
                 [self skipLaunchScreen:timeHandler];
             } else {

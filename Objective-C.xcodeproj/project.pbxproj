@@ -482,7 +482,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.163-Kalanhall.Objective-C";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.Objective-C";
 				PRODUCT_NAME = "Objective-C";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -500,7 +500,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.163-Kalanhall.Objective-C";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.Objective-C";
 				PRODUCT_NAME = "Objective-C";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

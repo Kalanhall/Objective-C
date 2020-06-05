@@ -10,15 +10,15 @@ target 'Objective-C' do
   use_frameworks!
 
   # Pods for Objective-C
-  pod 'KLApplicationEntry'  , '~> 1.4.0'
-  pod 'KLGuidePage'         , '~> 1.0.0'
-  pod 'KLUserInfoManager'   , '~> 1.0.1'
-  pod 'KLLeaks'             , '~> 1.0.0'
-  pod 'KLConsole'           , '~> 1.0.6'
+  pod 'KLApplicationEntry'    , '~> 1.4.0'
+  pod 'KLGuidePage'           , '~> 1.0.0'
+  pod 'KLUserInfoManager'     , '~> 1.0.1'
+  pod 'KLLeaks'               , '~> 1.0.0'
+  pod 'KLConsole'             , '~> 1.0.6'
   
   # 主页模块
-  pod 'KLHomeService', :path=>'/Users/kalan/KLHomeService'
-  pod 'KLHomeServiceInterface'
+  pod 'KLHomeService'         , '~> 0.0.2'
+  pod 'KLHomeServiceInterface', '~> 0.0.2'
 
   target 'Objective-CTests' do
     inherit! :search_paths

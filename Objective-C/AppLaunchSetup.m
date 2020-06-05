@@ -269,10 +269,11 @@ static AppLaunchSetup *_instance;
     // 广告点击跳转
     [imageHandler kl_setTapCompletion:^(UITapGestureRecognizer *tapGesture) {
         [self skipLaunchScreen:timeHandler];
-        
-        UIViewController *vc = UIViewController.new;
-        vc.view.backgroundColor = UIColor.kl_randomColor;
-        [(UINavigationController *)UIApplication.sharedApplication.keyWindow.rootViewController.childViewControllers.firstObject pushViewController:vc animated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIViewController *vc = UIViewController.new;
+            vc.view.backgroundColor = UIColor.kl_randomColor;
+            [(UINavigationController *)UIApplication.sharedApplication.keyWindow.rootViewController.childViewControllers.firstObject pushViewController:vc animated:YES];
+        });
     }];
     
     // 按钮点击跳过

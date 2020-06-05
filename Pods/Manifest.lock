@@ -70,8 +70,8 @@ DEPENDENCIES:
   - KLApplicationEntry (~> 1.4.0)
   - KLConsole (~> 1.0.6)
   - KLGuidePage (~> 1.0.0)
-  - KLHomeService (from `/Users/kalan/KLHomeService`)
-  - KLHomeServiceInterface
+  - KLHomeService (~> 0.0.2)
+  - KLHomeServiceInterface (~> 0.0.2)
   - KLLeaks (~> 1.0.0)
   - KLUserInfoManager (~> 1.0.1)
 
@@ -88,6 +88,7 @@ SPEC REPOS:
     - KLCategory
     - KLConsole
     - KLGuidePage
+    - KLHomeService
     - KLHomeServiceInterface
     - KLImageView
     - KLLeaks
@@ -96,10 +97,6 @@ SPEC REPOS:
     - KLNetworkModule
     - KLUserInfoManager
 
-EXTERNAL SOURCES:
-  KLHomeService:
-    :path: "/Users/kalan/KLHomeService"
-
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   KLApplicationEntry: 51fffce83930d6ed747c5fc739a90c57e605017a
@@ -107,7 +104,7 @@ SPEC CHECKSUMS:
   KLCategory: 8019da0194c2f2a9beee5bcbb57ea6f9d49c0d54
   KLConsole: 144de281278a6523e08e07ebb96c7bd4e52d52b5
   KLGuidePage: 8b666079aa940f065e207677641a237aa66b1236
-  KLHomeService: 42cb549bb33fa4d3396d19786f5c1d79e2c9271c
+  KLHomeService: 793e3b82f1995bec897fe739ab438b390fcea6d9
   KLHomeServiceInterface: a74652cceadb8dc468ca16fb2be8bcfb8b2a965a
   KLImageView: 6b752b4fa59f6dd12d63975d0f8c6b05a9aa4fc6
   KLLeaks: 665946f5ab269045f3d90974151af380c9770bc8
@@ -120,6 +117,6 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YKWoodpecker: 97ebd8f4c0366560c61d5844e64b21af8d70804c
 
-PODFILE CHECKSUM: 92eb7080815200778f6b9995b77f4acc3d6b9db9
+PODFILE CHECKSUM: 6aff9fb62a65438315804ea5d85da842e95048c3
 
 COCOAPODS: 1.9.2

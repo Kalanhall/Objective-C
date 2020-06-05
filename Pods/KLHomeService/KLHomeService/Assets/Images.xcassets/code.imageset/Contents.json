@@ -5,18 +5,17 @@
       "scale" : "1x"
     },
     {
-      "filename" : "home_logo_title_xianyu@2x.png",
       "idiom" : "universal",
+      "filename" : "扫码 (1).png",
       "scale" : "2x"
     },
     {
-      "filename" : "home_logo_title_xianyu@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

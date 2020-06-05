@@ -16,11 +16,11 @@ PODS:
     - AFNetworking/NSURLSession
   - KLApplicationEntry (1.4.0)
   - KLCache (1.0.1)
-  - KLCategory (1.2.3):
-    - KLCategory/Foundation (= 1.2.3)
-    - KLCategory/UIKit (= 1.2.3)
-  - KLCategory/Foundation (1.2.3)
-  - KLCategory/UIKit (1.2.3)
+  - KLCategory (1.2.4.2):
+    - KLCategory/Foundation (= 1.2.4.2)
+    - KLCategory/UIKit (= 1.2.4.2)
+  - KLCategory/Foundation (1.2.4.2)
+  - KLCategory/UIKit (1.2.4.2)
   - KLConsole (1.0.6):
     - Masonry
     - YKWoodpecker
@@ -104,7 +104,7 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   KLApplicationEntry: 51fffce83930d6ed747c5fc739a90c57e605017a
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
-  KLCategory: 4459b349713589b7ae7fae70aa8a0285e59a5c10
+  KLCategory: 8019da0194c2f2a9beee5bcbb57ea6f9d49c0d54
   KLConsole: 144de281278a6523e08e07ebb96c7bd4e52d52b5
   KLGuidePage: 8b666079aa940f065e207677641a237aa66b1236
   KLHomeService: 42cb549bb33fa4d3396d19786f5c1d79e2c9271c

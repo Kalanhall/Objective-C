@@ -34,53 +34,59 @@ if (level >= NSLogThreshold) { NSLog(__VA_ARGS__); }
 NSControlledLog(level, @"%@ %s Line:%d\n%@: %@", _NSFile, _NSFunc, _NSLine, tag, [NSString stringWithFormat:(format), ##__VA_ARGS__])
 
 #if NSLogThreshold <= LOG_LEVEL_ERROR
-#define NSLogError(...) NSFormattedLog(LOG_LEVEL_ERROR, @"\t❎❎❎\t", __VA_ARGS__)
+#define NSLogError(...) NSFormattedLog(LOG_LEVEL_ERROR, @"❌❌❌\t", __VA_ARGS__)
 #else
 #define NSLogError(...)
 #endif
 
 #if NSLogThreshold <= LOG_LEVEL_SUCCESS
-#define NSLogSuccess(...) NSFormattedLog(LOG_LEVEL_SUCCESS, @"\t✅✅✅\t", __VA_ARGS__)
+#define NSLogSuccess(...) NSFormattedLog(LOG_LEVEL_SUCCESS, @"✅✅✅\t", __VA_ARGS__)
 #else
 #define NSLogSuccess(...)
 #endif
 
 #if NSLogThreshold <= LOG_LEVEL_WARNING
-#define NSLogWarning(...) NSFormattedLog(LOG_LEVEL_WARNING, @"\t⚠️⚠️⚠️\t", __VA_ARGS__)
+#define NSLogWarning(...) NSFormattedLog(LOG_LEVEL_WARNING, @"⚠️⚠️⚠️\t", __VA_ARGS__)
 #else
 #define NSLogWarning(...)
 #endif
 
 #if NSLogThreshold <= LOG_LEVEL_NOTICE
-#define NSLogNotice(...) NSFormattedLog(LOG_LEVEL_NOTICE, @"\t🔔🔔🔔\t", __VA_ARGS__)
+#define NSLogNotice(...) NSFormattedLog(LOG_LEVEL_NOTICE, @"📣📣📣\t", __VA_ARGS__)
 #else
 #define NSLogNotice(...)
 #endif
 
 #if NSLogThreshold <= LOG_LEVEL_INFO
-#define NSLogInfos(...) NSFormattedLog(LOG_LEVEL_INFO, @"\t🌪🌪🌪\t", __VA_ARGS__)
+#define NSLogInfos(...) NSFormattedLog(LOG_LEVEL_INFO, @"✉️✉️✉️\t", __VA_ARGS__)
 #else
 #define NSLogInfos(...)
 #endif
 
+#if NSLogThreshold <= LOG_LEVEL_Network
+#define NSLogNetwork(...) NSFormattedLog(LOG_LEVEL_Network, @"♻️♻️♻️\t", __VA_ARGS__)
+#else
+#define NSLogNetwork(...)
+#endif
+
 #if NSLogThreshold <= LOG_LEVEL_DEBUG
-#define NSLogDebug(...) NSFormattedLog(LOG_LEVEL_DEBUG, @"\t🐝🐝🐝\t", __VA_ARGS__)
+#define NSLogDebug(...) NSFormattedLog(LOG_LEVEL_DEBUG, @"🔥🔥🔥\t", __VA_ARGS__)
 #else
 #define NSLogDebug(...)
 #endif
 
-#if NSLogThreshold <= LOG_LEVEL_Network
-#define NSLogNetwork(...) NSFormattedLog(LOG_LEVEL_Network, @"\t💥💥💥\t", __VA_ARGS__)
+#if NSLogThreshold <= LOG_LEVEL_VERBOSE
+#define NSLogVerbose(...) NSFormattedLog(LOG_LEVEL_VERBOSE, @"🔥🔥🔥\t", __VA_ARGS__)
 #else
-#define NSLogNetwork(...)
+#define NSLogVerbose(...)
 #endif
 
 #if NSLogThreshold <= LOG_LEVEL_ALERT
 #define NSLogAlert(...) \
 ^(){\
-    NSFormattedLog(LOG_LEVEL_ALERT, @"\t🐳🐳🐳\t", __VA_ARGS__);\
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"🐳🐳🐳\n" message:[NSString stringWithFormat:__VA_ARGS__] preferredStyle:UIAlertControllerStyleAlert];\
-    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"Cancle" style:UIAlertActionStyleDestructive handler:nil];\
+    NSFormattedLog(LOG_LEVEL_ALERT, @"🦊🦊🦊\t", __VA_ARGS__);\
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"🦊🦊🦊\n" message:[NSString stringWithFormat:__VA_ARGS__] preferredStyle:UIAlertControllerStyleAlert];\
+    UIAlertAction *cancle = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];\
     [vc addAction:cancle];\
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
         [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:vc animated:YES completion:nil];\
@@ -88,10 +94,4 @@ NSControlledLog(level, @"%@ %s Line:%d\n%@: %@", _NSFile, _NSFunc, _NSLine, tag,
 }()
 #else
 #define NSLogAlert(...)
-#endif
-
-#if NSLogThreshold <= LOG_LEVEL_VERBOSE
-#define NSLogVerbose(...) NSFormattedLog(LOG_LEVEL_VERBOSE, @"\t🐠🐠🐠\t", __VA_ARGS__)
-#else
-#define NSLogVerbose(...)
 #endif

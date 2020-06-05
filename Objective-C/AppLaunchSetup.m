@@ -59,7 +59,7 @@
         
         self.entryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.entryBtn.backgroundColor = UIColor.redColor;
-        self.entryBtn.layer.cornerRadius = 9;
+        self.entryBtn.layer.cornerRadius = 5;
         self.entryBtn.clipsToBounds = YES;
         [self.entryBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.entryBtn setTitle:@"立即体验" forState:UIControlStateNormal];
@@ -247,7 +247,6 @@ static AppLaunchSetup *_instance;
     // 添加倒计时控件
     UIButton *timeHandler = [UIButton buttonWithType:UIButtonTypeCustom];
     timeHandler.titleLabel.font = [UIFont systemFontOfSize:11];
-    timeHandler.layer.cornerRadius = 10;
     timeHandler.layer.masksToBounds = YES;
     timeHandler.hidden = YES;
     timeHandler.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
@@ -263,8 +262,9 @@ static AppLaunchSetup *_instance;
         }
         make.right.mas_equalTo(-15);
         make.width.mas_equalTo(80);
-        make.height.mas_equalTo(20);
+        make.height.mas_equalTo(25);
     }];
+    timeHandler.layer.cornerRadius = 25 * 0.5;
     
     // 广告点击跳转
     [imageHandler kl_setTapCompletion:^(UITapGestureRecognizer *tapGesture) {
@@ -324,7 +324,9 @@ static AppLaunchSetup *_instance;
 
 // MARK: 🌈🌈🌈 GuidePage
 + (void)setupGuidePage {
-    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleFade dataSource:AppLaunchSetup.shareInstance];
+    if (!KLFirstLaunch()) return;
+    
+    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:AppLaunchSetup.shareInstance];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;
     page.duration = 0.5;
@@ -341,13 +343,14 @@ static AppLaunchSetup *_instance;
 
 - (UICollectionViewCell *)guidePage:(KLGuidePage *)page data:(id)data cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     KLGuideCustomCell *cell = (KLGuideCustomCell *)[page dequeueReusableCellWithReuseIdentifier:KLGuideCustomCell.description forIndexPath:indexPath];
-//    cell.imageView.image = data;
+    cell.imageView.image = data;
     cell.titleLabel.text = @[@"欢迎使用京东", @"请授权位置信息权限", @"获取最新的促销信息"][indexPath.row];
     cell.subTitleLabel.text = @[@"正品低价、急速配送\n点缀您的品质生活", @"获取周边库存信息和周边服务、推送专属\n商品与优惠", @"随时了解促销信息，掌握实时物流动态\n请\"允许\"京东获取消息通知权限"][indexPath.row];
     cell.entryBtn.hidden = indexPath.row != self.dataOfItems.count - 1;
     
     __weak typeof(page) weakpage = page;
     cell.entryBlock = ^{
+        KLSetFirstLaunch(); // 启动标识
         [weakpage hideWithStyle:KLGuideHideStyleNomal animated:YES]; // 移除引导页
         [AppLaunchSetup shareClear]; // 释放单例
     };
@@ -383,14 +386,10 @@ static AppLaunchSetup *_instance;
             
             NSString *appVersion = [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"];
             if ([appVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
-                // 有新的版本需要更新
-                NSLogSuccess(@"\n最新版本：%@\n更新描述：%@\n是否强更：%@\n跳转地址：%@", version, descriptions, forced, url);
                 [AppVersionUpdate updateWithVersion:version descriptions:descriptions toURL:url forced:forced.boolValue];
             }
         }
     }];
-    
-    KLNetworkConfigure.shareInstance.enableDebug = YES;
 }
 
 @end

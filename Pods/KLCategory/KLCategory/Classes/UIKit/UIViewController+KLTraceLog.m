@@ -17,7 +17,6 @@
 + (void)load {
     KLExchangeImplementations(self, @selector(viewDidLoad), self, @selector(kl_viewDidLoad));
     KLExchangeImplementations(self, NSSelectorFromString(@"dealloc"), self, @selector(kl_dealloc));
-    KLViewControllerTraceLogEnable(YES);
 }
 
 - (void)kl_viewDidLoad {

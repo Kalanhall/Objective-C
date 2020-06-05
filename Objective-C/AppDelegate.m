@@ -16,6 +16,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"1 %@", NSStringFromSelector(_cmd));
     
     // MARK: 控制器控制台记录开关
     KLViewControllerTraceLogEnable(NO);

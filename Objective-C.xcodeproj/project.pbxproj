@@ -19,6 +19,7 @@
 		F69C07AA238F5B4D00610C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F69C07A9238F5B4D00610C02 /* Assets.xcassets */; };
 		F69C07B0238F5B4D00610C02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07AF238F5B4D00610C02 /* main.m */; };
 		F69C07BA238F5B4D00610C02 /* Objective_CTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F69C07B9238F5B4D00610C02 /* Objective_CTests.m */; };
+		F69FFE952489DE1900C3B7A9 /* UIResponder+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F69FFE942489DE1900C3B7A9 /* UIResponder+AppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		F69C07B5238F5B4D00610C02 /* Objective-CTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Objective-CTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F69C07B9238F5B4D00610C02 /* Objective_CTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Objective_CTests.m; sourceTree = "<group>"; };
 		F69C07BB238F5B4D00610C02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F69FFE932489DE1900C3B7A9 /* UIResponder+AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+AppDelegate.h"; sourceTree = "<group>"; };
+		F69FFE942489DE1900C3B7A9 /* UIResponder+AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+AppDelegate.m"; sourceTree = "<group>"; };
 		F9F5427AF44FE4C36984DFB7 /* Pods_Objective_CTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Objective_CTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -131,6 +134,8 @@
 				F6443DD524752092004AD092 /* AppNavigationController.m */,
 				F6443A222473C2C8004AD092 /* AppTabBarController.h */,
 				F6443A232473C2C8004AD092 /* AppTabBarController.m */,
+				F69FFE932489DE1900C3B7A9 /* UIResponder+AppDelegate.h */,
+				F69FFE942489DE1900C3B7A9 /* UIResponder+AppDelegate.m */,
 				F69C07A9238F5B4D00610C02 /* Assets.xcassets */,
 				F69C07AE238F5B4D00610C02 /* Info.plist */,
 				F69C07AB238F5B4D00610C02 /* LaunchScreen.storyboard */,
@@ -318,6 +323,7 @@
 				F696DE262485EA2400769E37 /* AppVersionUpdate.m in Sources */,
 				F6443A242473C2C8004AD092 /* AppTabBarController.m in Sources */,
 				F613D44924849AF500C1C532 /* AppLaunchSetup.m in Sources */,
+				F69FFE952489DE1900C3B7A9 /* UIResponder+AppDelegate.m in Sources */,
 				F6443DD624752092004AD092 /* AppNavigationController.m in Sources */,
 				F69C079F238F5B4A00610C02 /* AppDelegate.m in Sources */,
 				F69C07B0238F5B4D00610C02 /* main.m in Sources */,

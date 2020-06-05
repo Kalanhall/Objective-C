@@ -250,7 +250,8 @@ static AppLaunchSetup *_instance;
     timeHandler.layer.cornerRadius = 10;
     timeHandler.layer.masksToBounds = YES;
     timeHandler.hidden = YES;
-    [timeHandler setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    timeHandler.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
+    [timeHandler setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft]; // 避免数字变动造成视觉抖动
     [timeHandler setTitleEdgeInsets:(UIEdgeInsets){0,13,0,-13}];
     [timeHandler setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [launchVc.view addSubview:timeHandler];
@@ -267,11 +268,11 @@ static AppLaunchSetup *_instance;
     
     // 广告点击跳转
     [imageHandler kl_setTapCompletion:^(UITapGestureRecognizer *tapGesture) {
-        NSLogDebug(@"广告图片点击");
+        [self skipLaunchScreen:timeHandler];
+        
         UIViewController *vc = UIViewController.new;
         vc.view.backgroundColor = UIColor.kl_randomColor;
         [(UINavigationController *)UIApplication.sharedApplication.keyWindow.rootViewController.childViewControllers.firstObject pushViewController:vc animated:YES];
-        [self skipLaunchScreen:timeHandler];
     }];
     
     // 按钮点击跳过
@@ -280,24 +281,25 @@ static AppLaunchSetup *_instance;
     }];
     
     // 网络获取广告信息
-    NSString *remoteurl = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589991864305&di=c6d607d12b111cb51a70132b7abc4b9a&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180628%2F7c9e6065e61d4c4ab905bf45f7e87f06.gif";
-    NSURL *imageURL = [NSURL URLWithString: arc4random_uniform(2) ? remoteurl : @""];
-
-    // 根据获取广告的结果，设计交互逻辑
-    [imageHandler kl_setImageWithURL:imageURL placeholder:nil options:KLWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, KLWebImageFromType from, KLWebImageStage stage, NSError * _Nullable error) {
-        // 跳过按钮开关
-        timeHandler.hidden = remoteurl.length == 0;
-        // 广告交互开关
-        imageHandler.userInteractionEnabled = !timeHandler.hidden;
-        // 倒计时
-        [self setupCycleTimeOut:timeHandler.hidden ? 0 : 3 callBack:^(NSTimeInterval time) {
-            if (time == 0) {
-                [self skipLaunchScreen:timeHandler];
-            } else {
-                if (image) [timeHandler setTitle:[NSString stringWithFormat:@"跳过广告 %@", @(time)] forState:UIControlStateNormal];
-            }
+    NSString *remoteurl = @"https://pic.ibaotu.com/00/06/52/97i888piCRu2.jpg-0.jpg!ww7002";
+    if (remoteurl.length > 0) {
+        [imageHandler kl_setImageWithURL:[NSURL URLWithString:remoteurl] placeholder:nil options:KLWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, KLWebImageFromType from, KLWebImageStage stage, NSError * _Nullable error) {
+            // 跳过按钮开关
+            timeHandler.hidden = image == nil;
+            // 广告交互开关
+            imageHandler.userInteractionEnabled = image != nil;
+            // 倒计时
+            [self setupCycleTimeOut:image ? 3 : 0 callBack:^(NSTimeInterval time) {
+                if (time == 0) {
+                    [self skipLaunchScreen:timeHandler];
+                } else {
+                    if (image) [timeHandler setTitle:[NSString stringWithFormat:@"跳过广告 %@", @(time)] forState:UIControlStateNormal];
+                }
+            }];
         }];
-    }];
+    } else {
+        [self skipLaunchScreen:timeHandler];
+    }
 }
 
 + (void)skipLaunchScreen:(UIButton *)sender {

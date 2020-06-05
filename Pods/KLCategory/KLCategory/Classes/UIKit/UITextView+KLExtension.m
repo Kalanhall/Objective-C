@@ -1,14 +1,13 @@
 //
-//  UILabel+KLExtension.m
+//  UITextView+KLExtension.m
 //  KLCategory
 //
-//  Created by Logic on 2019/12/18.
+//  Created by Logic on 2020/6/5.
 //
 
-#import "UILabel+KLExtension.h"
-#import <CoreText/CoreText.h>
+#import "UITextView+KLExtension.h"
 
-@implementation UILabel (KLExtension)
+@implementation UITextView (KLExtension)
 
 - (void)kl_setWordSpace:(CGFloat)wordSpace
 {
@@ -20,7 +19,6 @@
 
 - (void)kl_setLineSpace:(CGFloat)lineSpace
 {
-    self.numberOfLines = 0;
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
     // 调整行距
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];

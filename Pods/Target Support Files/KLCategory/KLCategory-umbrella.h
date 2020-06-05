@@ -12,7 +12,6 @@
 
 #import "KLCategory.h"
 #import "NSDate+KLExtension.h"
-#import "NSMutableParagraphStyle+KLExtension.h"
 #import "NSObject+Foundation.h"
 #import "NSObject+KLCoding.h"
 #import "NSObject+KLObserver.h"
@@ -29,6 +28,7 @@
 #import "UIDevice+KLUUID.h"
 #import "UIImage+KLExtension.h"
 #import "UILabel+KLExtension.h"
+#import "UITextView+KLExtension.h"
 #import "UIView+KLExtension.h"
 #import "UIViewController+KLTraceLog.h"
 

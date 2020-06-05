@@ -83,29 +83,6 @@
             components1.day == components2.day);
 }
 
-- (NSString *)kl_stringWithFormat:(NSString *)format secondsFromGMT:(NSInteger)time
-{
-    NSDateFormatter *formatter = NSDateFormatter.alloc.init;
-    [formatter setDateFormat:format];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:time * 3600];
-    return [formatter stringFromDate:NSDate.date];
-}
-
-- (NSString *)kl_stringWithFormat:(NSString *)format
-{ return [self kl_stringWithFormat:format secondsFromGMT:8]; }
-
-+ (NSString *)kl_stringWithTimestamp:(NSInteger)timestamp format:(NSString *)format secondsFromGMT:(NSInteger)time
-{
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:time * 3600];
-    [formatter setDateFormat:format];
-    return [formatter stringFromDate:date];
-}
-
-+ (NSString *)kl_stringWithTimestamp:(NSInteger)timestamp format:(NSString *)format
-{ return [self kl_stringWithTimestamp:timestamp format:format secondsFromGMT:8]; }
-
 + (NSInteger)kl_dayWithTimestamp:(NSInteger)timestamp
 { return timestamp / 3600 / 24; }
 

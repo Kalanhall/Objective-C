@@ -46,27 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 是否是今天
 - (BOOL)kl_isToday;
 
-/// 时间戳转字符串
-///
-/// @Param format 格式化符 yyyy-MM-dd HH:mm:ss
-/// @Param time 自定义时区，东八区 = 8
-///
-/// @Return 时间字符串
-- (NSString *)kl_stringWithFormat:(NSString *)format secondsFromGMT:(NSInteger)time;
-/// 时间戳转字符串，默认东八区时间
-- (NSString *)kl_stringWithFormat:(NSString *)format;
-
-/// 时间戳转字符串
-///
-/// @Param timestamp 时间戳，秒，服务器一般为毫秒需要 timestamp/1000
-/// @Param format 格式化符 yyyy-MM-dd HH:mm:ss
-/// @Param time 自定义时区，东八区 = 8
-///
-/// @Return 时间字符串
-+ (NSString *)kl_stringWithTimestamp:(NSInteger)timestamp format:(NSString *)format secondsFromGMT:(NSInteger)time;
-/// 时间戳转字符串，默认东八区时间
-+ (NSString *)kl_stringWithTimestamp:(NSInteger)timestamp format:(NSString *)format;
-
 /// 时间戳转时分秒，用于倒计时场景
 + (NSInteger)kl_dayWithTimestamp:(NSInteger)timestamp;
 + (NSInteger)kl_hourWithTimestamp:(NSInteger)timestamp;

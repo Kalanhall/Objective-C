@@ -137,10 +137,10 @@ static AppLaunchSetup *_instance;
     [AppNavigationController setAppearanceBackIndicatorImage:[UIImage imageNamed:@"back"]];
     
     // 选项卡全局设置
-    // 设置阴影线颜色，当只有设置了背景图后才生效
-    [vc setTabBarShadowLineColor:UIColor.clearColor];
-    // 设置背景图片
-    [vc setTabBarBackgroundImageWithColor:UIColor.whiteColor];
+    // 设置背景
+    [vc setTabBarBackgroundImageWithColor:[UIColor.whiteColor colorWithAlphaComponent:0.9]];
+    // 设置阴影
+    [vc setTabBarShadowColor:UIColor.blackColor opacity:0.1];
     // 设置文字样式
     [vc setTabBarItemTitleTextAttributes:@{NSForegroundColorAttributeName : UIColor.blackColor,
                                            NSFontAttributeName : [UIFont systemFontOfSize:10]}

@@ -5,26 +5,32 @@
 //  Created by Logic on 2019/11/25.
 //
 
-typedef NS_ENUM(NSUInteger, KLLayoutStyle){
-    /** 正常位置，图左字右 */
-    KLLayoutStyleImageLeft,
-    /** 图右字左 */
-    KLLayoutStyleImageRight,
-    /** 图上字下 */
-    KLLayoutStyleImageTop,
-    /** 图下字上 */
-    KLLayoutStyleImageBottom,
+/**
+ Button 的样式，以图片为基准
+ */
+typedef NS_ENUM(NSInteger, KLButtonContentLayoutStyle) {
+    KLButtonContentLayoutStyleNormal = 0,       // 内容居中-图左文右
+    KLButtonContentLayoutStyleCenterImageRight, // 内容居中-图右文左
+    KLButtonContentLayoutStyleCenterImageTop,   // 内容居中-图上文下
+    KLButtonContentLayoutStyleCenterImageBottom,// 内容居中-图下文上
+    KLButtonContentLayoutStyleLeftImageLeft,    // 内容居左-图左文右
+    KLButtonContentLayoutStyleLeftImageRight,   // 内容居左-图右文左
+    KLButtonContentLayoutStyleRightImageLeft,   // 内容居右-图左文右
+    KLButtonContentLayoutStyleRightImageRight,  // 内容居右-图右文左
 };
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (KLExtension)
 
-/// 设置按钮内部图片及标题位置
-///
-/// @param Style 方向枚举
-/// @param margin 图片和标题之间的间距
-- (void)kl_layoutWithStyle:(KLLayoutStyle)Style margin:(CGFloat)margin;
+/// 图文间距，默认为：0
+@property (nonatomic, assign) CGFloat kl_padding;
+
+/// 图文边界的间距，默认为：5
+@property (nonatomic, assign) CGFloat kl_paddingInset;
+
+/// button 的布局样式
+@property(nonatomic, assign) KLButtonContentLayoutStyle kl_layoutStyle;
 
 /// 添加快捷事件
 - (void)kl_controlEvents:(UIControlEvents)events completion:(void (^)(UIButton *sender))completion;

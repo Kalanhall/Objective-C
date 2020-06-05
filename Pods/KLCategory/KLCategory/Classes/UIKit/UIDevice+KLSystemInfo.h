@@ -47,15 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 ///获取运营商编码
 + (NSString *)kl_mobileNetworkCode;
 
-/// 设备机型
-+ (NSString *)kl_currentModel;
-
-/// IPV4
-+ (NSString *)kl_IPV4;
-
-/// IPV6
-+ (NSString *)kl_IPV6;
-
 @end
 
 NS_ASSUME_NONNULL_END

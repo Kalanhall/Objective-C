@@ -15,7 +15,6 @@ target 'Objective-C' do
   pod 'KLUserInfoManager'     , '~> 1.0.1'
   pod 'KLLeaks'               , '~> 1.0.0'
   pod 'KLConsole'             , '~> 2.0.1'
-  pod 'FLEX'                  , '~> 4.1.1'
   pod 'YKWoodpecker'          , '~> 1.2.5'
   pod 'AppOrderFiles'
   # 主页模块

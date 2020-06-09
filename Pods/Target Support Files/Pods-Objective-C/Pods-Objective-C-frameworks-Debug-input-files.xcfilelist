@@ -1,7 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-Objective-C/Pods-Objective-C-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/AppOrderFiles/AppOrderFiles.framework
-${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework
 ${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework
 ${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework
 ${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework

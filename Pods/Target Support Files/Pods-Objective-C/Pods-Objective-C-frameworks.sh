@@ -199,7 +199,6 @@ fi
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AppOrderFiles/AppOrderFiles.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework"
@@ -221,7 +220,6 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AppOrderFiles/AppOrderFiles.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/FLEX/FLEX.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLApplicationEntry/KLApplicationEntry.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCache/KLCache.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KLCategory/KLCategory.framework"

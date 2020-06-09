@@ -27,6 +27,9 @@
     self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
     [AppLaunchSetup setupRootViewControllerWithWindow:self.window];
     
+    // MARK: 开发工具配置(服务器域名配置...)
+    [AppLaunchSetup setupDebugTool];
+    
     // MARK: 引导页配置
     if (KLFirstLaunch()) [AppLaunchSetup setupGuidePage];
     
@@ -35,9 +38,6 @@
     
     // MARK: 版本更新
     [AppLaunchSetup setupVersionUpdateToView:nil];
-    
-    // MARK: 开发工具配置
-    [AppLaunchSetup setupDebugTool];
     
     // Edit Scheme -> DYLD_PRINT_STATISTICS, to see launch time.
     // Other C Flags -> '-fsanitize-coverage=func,trace-pc-guard'

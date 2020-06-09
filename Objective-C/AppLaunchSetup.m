@@ -10,7 +10,6 @@
 #import "AppTabBarController.h"
 #import "AppNavigationController.h"
 #import "AppVersionUpdate.h"
-@import FLEX;
 @import YKWoodpecker;
 
 // MARK: - KLGuideCustomCell
@@ -194,12 +193,8 @@ static AppLaunchSetup *_instance;
         serverA.title = @"调试工具";
         
         KLConsoleRowConfig *serverAa = KLConsoleRowConfig.alloc.init;
-        serverAa.title = @"FLEX";
-        serverAa.subtitle = @"网络监控、视图层级、文件管理等";
-        
-        KLConsoleRowConfig *serverAb = KLConsoleRowConfig.alloc.init;
-        serverAb.title = @"YKWoodpecker";
-        serverAb.subtitle = @"FLEX中文版，视图校对、文件管理等";
+        serverAa.title = @"YKWoodpecker";
+        serverAa.subtitle = @"啄幕鸟：网络监听、视图校对、文件管理等";
         
         KLConsoleSectionConfig *serverB = KLConsoleSectionConfig.alloc.init;
         serverB.title = @"功能测试";
@@ -216,7 +211,7 @@ static AppLaunchSetup *_instance;
         serverBc.title = @"引导页测试";
         serverBc.subtitle = @"点击查看";
         
-        serverA.infos = @[serverAa, serverAb];
+        serverA.infos = @[serverAa];
         serverB.infos = @[serverBa, serverBb, serverBc];
         [configs addObject:serverA];
         [configs addObject:serverB];
@@ -228,27 +223,12 @@ static AppLaunchSetup *_instance;
     [KLConsole consoleSetupAndSelectedCallBack:^(NSIndexPath * _Nonnull indexPath, BOOL switchOn) {
         // 扩展功能回调
         if (indexPath.section == 0) {
-            switch (indexPath.row) {
-                case 0: {
-                    if (FLEXManager.sharedManager.isHidden) {
-                        [FLEXManager.sharedManager showExplorer];
-                    } else {
-                        [FLEXManager.sharedManager hideExplorer];
-                    }
-                }
-                    break;
-                case 1: {
-                    if (!YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow) {
-                        [YKWoodpeckerManager.sharedInstance show];
-                        YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = YES;
-                    } else {
-                        [YKWoodpeckerManager.sharedInstance hide];
-                        YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = NO;
-                    }
-                }
-                    break;
-                default:
-                    break;
+            if (!YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow) {
+                [YKWoodpeckerManager.sharedInstance show];
+                YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = YES;
+            } else {
+                [YKWoodpeckerManager.sharedInstance hide];
+                YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = NO;
             }
         } else if (indexPath.section == 1) {
             switch (indexPath.row) {

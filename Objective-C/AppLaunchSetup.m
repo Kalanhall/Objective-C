@@ -10,6 +10,8 @@
 #import "AppTabBarController.h"
 #import "AppNavigationController.h"
 #import "AppVersionUpdate.h"
+@import FLEX;
+@import YKWoodpecker;
 
 // MARK: - KLGuideCustomCell
 @interface KLGuideCustomCell : UICollectionViewCell
@@ -163,23 +165,23 @@ static AppLaunchSetup *_instance;
 // MARK: 🌈🌈🌈 DebugTool
 + (void)setupDebugTool {
     // 环境初始化
-    [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleSecondConfig *> *configs) {
-        KLConsoleSecondConfig *serviceA = KLConsoleSecondConfig.alloc.init;
+    [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleRowConfig *> *configs) {
+        KLConsoleRowConfig *serviceA = KLConsoleRowConfig.alloc.init;
         serviceA.version = @"1.0";
         serviceA.title = @"服务器域名";
         serviceA.subtitle = @"https://api.galanz.com/prod";
         serviceA.selectedIndex = 0;
         
-        KLConsoleThreeConfig *serviceAa = KLConsoleThreeConfig.alloc.init;
+        KLConsoleInfoConfig *serviceAa = KLConsoleInfoConfig.alloc.init;
         serviceAa.title = @"生产环境";
         serviceAa.text = @"https://api.galanz.com/prod";
-        KLConsoleThreeConfig *serviceAb = KLConsoleThreeConfig.alloc.init;
+        KLConsoleInfoConfig *serviceAb = KLConsoleInfoConfig.alloc.init;
         serviceAb.title = @"开发环境";
         serviceAb.text = @"https://api.galanz.com/dev";
-        KLConsoleThreeConfig *serviceAc = KLConsoleThreeConfig.alloc.init;
+        KLConsoleInfoConfig *serviceAc = KLConsoleInfoConfig.alloc.init;
         serviceAc.title = @"测试环境";
         serviceAc.text = @"https://api.galanz.com/test";
-        KLConsoleThreeConfig *serviceAd = KLConsoleThreeConfig.alloc.init;
+        KLConsoleInfoConfig *serviceAd = KLConsoleInfoConfig.alloc.init;
         serviceAd.title = @"预发布环境";
         serviceAd.text = @"https://api.galanz.com/stage";
         serviceA.details = @[serviceAa, serviceAb, serviceAc, serviceAd];
@@ -187,42 +189,81 @@ static AppLaunchSetup *_instance;
     }];
     
     // MAKR: 扩展功能
-    [KLConsole consoleSetup:^(NSMutableArray<KLConsoleConfig *> * _Nonnull configs) {
-        KLConsoleConfig *serverA = KLConsoleConfig.alloc.init;
-        serverA.title = @"功能测试";
+    [KLConsole consoleSetup:^(NSMutableArray<KLConsoleSectionConfig *> * _Nonnull configs) {
+        KLConsoleSectionConfig *serverA = KLConsoleSectionConfig.alloc.init;
+        serverA.title = @"调试工具";
         
-        KLConsoleSecondConfig *serviceA = KLConsoleSecondConfig.alloc.init;
-        serviceA.title = @"版本升级测试";
-        serviceA.subtitle = @"点击获取最新版本";
+        KLConsoleRowConfig *serverAa = KLConsoleRowConfig.alloc.init;
+        serverAa.title = @"FLEX";
+        serverAa.subtitle = @"网络监控、视图层级、文件管理等";
         
-        KLConsoleSecondConfig *serviceB = KLConsoleSecondConfig.alloc.init;
-        serviceB.title = @"启动页测试";
-        serviceB.subtitle = @"点击查看";
+        KLConsoleRowConfig *serverAb = KLConsoleRowConfig.alloc.init;
+        serverAb.title = @"YKWoodpecker";
+        serverAb.subtitle = @"FLEX中文版，视图校对、文件管理等";
         
-        KLConsoleSecondConfig *serviceC = KLConsoleSecondConfig.alloc.init;
-        serviceC.title = @"引导页测试";
-        serviceC.subtitle = @"点击查看";
+        KLConsoleSectionConfig *serverB = KLConsoleSectionConfig.alloc.init;
+        serverB.title = @"功能测试";
         
-        serverA.infos = @[serviceA, serviceB, serviceC];
+        KLConsoleRowConfig *serverBa = KLConsoleRowConfig.alloc.init;
+        serverBa.title = @"版本升级测试";
+        serverBa.subtitle = @"点击获取最新版本";
+        
+        KLConsoleRowConfig *serverBb = KLConsoleRowConfig.alloc.init;
+        serverBb.title = @"启动页测试";
+        serverBb.subtitle = @"点击查看";
+        
+        KLConsoleRowConfig *serverBc = KLConsoleRowConfig.alloc.init;
+        serverBc.title = @"引导页测试";
+        serverBc.subtitle = @"点击查看";
+        
+        serverA.infos = @[serverAa, serverAb];
+        serverB.infos = @[serverBa, serverBb, serverBc];
         [configs addObject:serverA];
+        [configs addObject:serverB];
     }];
 }
 
 + (void)showDebugTool {
+    YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = NO;
     [KLConsole consoleSetupAndSelectedCallBack:^(NSIndexPath * _Nonnull indexPath, BOOL switchOn) {
         // 扩展功能回调
-        switch (indexPath.row) {
-            case 0:
-                [self setupVersionUpdate];
-                break;
-            case 1:
-                [self setupLaunchImage];
-                break;
-            case 2:
-                [self setupGuidePage];
-                break;
-            default:
-                break;
+        if (indexPath.section == 0) {
+            switch (indexPath.row) {
+                case 0: {
+                    if (FLEXManager.sharedManager.isHidden) {
+                        [FLEXManager.sharedManager showExplorer];
+                    } else {
+                        [FLEXManager.sharedManager hideExplorer];
+                    }
+                }
+                    break;
+                case 1: {
+                    if (!YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow) {
+                        [YKWoodpeckerManager.sharedInstance show];
+                        YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = YES;
+                    } else {
+                        [YKWoodpeckerManager.sharedInstance hide];
+                        YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = NO;
+                    }
+                }
+                    break;
+                default:
+                    break;
+            }
+        } else if (indexPath.section == 1) {
+            switch (indexPath.row) {
+                case 0:
+                    [self setupVersionUpdate];
+                    break;
+                case 1:
+                    [self setupLaunchImage];
+                    break;
+                case 2:
+                    [self setupGuidePage];
+                    break;
+                default:
+                    break;
+            }
         }
     }];
 }
@@ -325,8 +366,6 @@ static AppLaunchSetup *_instance;
 
 // MARK: 🌈🌈🌈 GuidePage
 + (void)setupGuidePage {
-    if (!KLFirstLaunch()) return;
-    
     KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:AppLaunchSetup.shareInstance];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;

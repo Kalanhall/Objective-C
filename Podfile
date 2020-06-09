@@ -14,7 +14,9 @@ target 'Objective-C' do
   pod 'KLGuidePage'           , '~> 1.0.0'
   pod 'KLUserInfoManager'     , '~> 1.0.1'
   pod 'KLLeaks'               , '~> 1.0.0'
-  pod 'KLConsole'             , '~> 1.0.6'
+  pod 'KLConsole'             , '~> 2.0.1'
+  pod 'FLEX'                  , '~> 4.1.1'
+  pod 'YKWoodpecker'          , '~> 1.2.5'
   
   # 主页模块
   pod 'KLHomeService'         , :git=> 'https://github.com/Kalanhall/KLHomeService'

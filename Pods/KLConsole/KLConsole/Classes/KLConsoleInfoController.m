@@ -88,7 +88,7 @@
     
     if (self.infoType == KLConsoleInfoTypeAddress) {
         // 域名地址
-        KLConsoleThreeConfig *info = self.config.details[indexPath.row];
+        KLConsoleInfoConfig *info = self.config.details[indexPath.row];
         cell.titleLabel.text = info.title;
         cell.infoLabel.text = info.text;
         
@@ -118,8 +118,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.infoType == KLConsoleInfoTypeAddress) {
-        __block NSArray<KLConsoleSecondConfig *> *cachecgs = [KLConsoleConfig unarchiveObjectWithFilePath:KLConsoleAddressPath];
-        [cachecgs enumerateObjectsUsingBlock:^(KLConsoleSecondConfig * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        __block NSArray<KLConsoleRowConfig *> *cachecgs = [KLConsoleSectionConfig unarchiveObjectWithFilePath:KLConsoleAddressPath];
+        [cachecgs enumerateObjectsUsingBlock:^(KLConsoleRowConfig * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj.title isEqualToString:self.config.title]) {
                 obj.selectedIndex = indexPath.row;
                 obj.subtitle = obj.details[indexPath.row].text;

@@ -30,7 +30,7 @@
     [AppLaunchSetup setupDebugTool];
     
     // MARK: 引导页配置
-    [AppLaunchSetup setupGuidePage];
+    if (KLFirstLaunch()) [AppLaunchSetup setupGuidePage];
     
     // MARK: 启动图配置
     [AppLaunchSetup setupLaunchImage];
@@ -39,7 +39,7 @@
     [AppLaunchSetup setupVersionUpdate];
     
     // -------------- Service Address --------------
-    [KLConsole.addressConfigs enumerateObjectsUsingBlock:^(KLConsoleSecondConfig * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [KLConsole.addressConfigs enumerateObjectsUsingBlock:^(KLConsoleRowConfig * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSLogDebug(@"-------------- Service Address -------------- %@", obj.subtitle);
     }];
     

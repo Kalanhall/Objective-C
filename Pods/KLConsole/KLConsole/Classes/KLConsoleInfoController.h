@@ -12,7 +12,7 @@ typedef NS_ENUM(NSUInteger, KLConsoleInfoType) {
 };
 
 #import <UIKit/UIKit.h>
-#import "KLConsoleConfig.h"
+#import "KLConsoleSectionConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 页面类型
 @property (assign, nonatomic) KLConsoleInfoType infoType;
 /// 当前域名配置
-@property (strong, nonatomic) KLConsoleSecondConfig *config;
+@property (strong, nonatomic) KLConsoleRowConfig *config;
 
 @property (copy, nonatomic) void (^selectedCallBack)(void);
 

@@ -6,7 +6,6 @@
 //
 
 #define KLConsolePath [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"KLConsole.plist"]
-#define KLConsoleDebugPath [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"KLConsoleDebug.plist"]
 #define KLConsoleAddressPath [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"KLConsoleAddress.plist"]
 
 #import <UIKit/UIKit.h>

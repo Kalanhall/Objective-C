@@ -1,26 +1,26 @@
 //
-//  KLConsoleSecondConfig.m
+//  KLConsoleRowConfig.m
 //  KLCategory
 //
 //  Created by Kalan on 2020/1/9.
 //
 
-#import "KLConsoleConfig.h"
+#import "KLConsoleSectionConfig.h"
 #import "NSObject+KLConsole.h"
 
-@implementation KLConsoleThreeConfig
+@implementation KLConsoleInfoConfig
 
 KLImplementationCoding
 
 @end
 
-@implementation KLConsoleSecondConfig
+@implementation KLConsoleRowConfig
 
 KLImplementationCoding
 
 @end
 
-@implementation KLConsoleConfig
+@implementation KLConsoleSectionConfig
 
 KLImplementationCoding
 

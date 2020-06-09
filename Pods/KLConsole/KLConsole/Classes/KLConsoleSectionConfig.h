@@ -1,5 +1,5 @@
 //
-//  KLConsoleSecondConfig.h
+//  KLConsoleRowConfig.h
 //  KLCategory
 //
 //  Created by Kalan on 2020/1/9.
@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // 三级级扩展数据模型
-@interface KLConsoleThreeConfig : NSObject <NSCoding>
+@interface KLConsoleInfoConfig : NSObject <NSCoding>
 
 /// 域名中文注释
 @property (copy, nonatomic) NSString *title;
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 // 二级扩展数据模型
-@interface KLConsoleSecondConfig : NSObject <NSCoding>
+@interface KLConsoleRowConfig : NSObject <NSCoding>
 
 /// 环境版本
 @property (copy, nonatomic) NSString *version;
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 环境当前选中
 @property (copy, nonatomic) NSString *subtitle;
 /// 环境集合
-@property (copy, nonatomic) NSArray<KLConsoleThreeConfig *> *details;
+@property (copy, nonatomic) NSArray<KLConsoleInfoConfig *> *details;
 /// 环境当前选中下标
 @property (assign, nonatomic) NSInteger selectedIndex;
 /// 显示开关
@@ -40,12 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 // 一级扩展数据模型
-@interface KLConsoleConfig : NSObject <NSCoding>
+@interface KLConsoleSectionConfig : NSObject <NSCoding>
 
 /// section标题
 @property (copy, nonatomic) NSString *title;
 /// row数组
-@property (copy, nonatomic) NSArray<KLConsoleSecondConfig *> *infos;
+@property (copy, nonatomic) NSArray<KLConsoleRowConfig *> *infos;
 
 /// 归档
 + (BOOL)archiveRootObject:(id<NSCoding>)object toFilePath:(NSString *)filePath;

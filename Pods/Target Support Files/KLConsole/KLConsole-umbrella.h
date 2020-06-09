@@ -12,9 +12,9 @@
 
 #import "KLConsole.h"
 #import "KLConsoleCell.h"
-#import "KLConsoleConfig.h"
 #import "KLConsoleController.h"
 #import "KLConsoleInfoController.h"
+#import "KLConsoleSectionConfig.h"
 #import "NSObject+KLConsole.h"
 #import "UIDevice+KLConsole.h"
 

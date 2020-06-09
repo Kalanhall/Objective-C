@@ -17,7 +17,7 @@ target 'Objective-C' do
   pod 'KLConsole'             , '~> 2.0.1'
   pod 'FLEX'                  , '~> 4.1.1'
   pod 'YKWoodpecker'          , '~> 1.2.5'
-  
+  pod 'AppOrderFiles'
   # 主页模块
   pod 'KLHomeService'         , :git=> 'https://github.com/Kalanhall/KLHomeService'
   pod 'KLHomeServiceInterface', '~> 0.0.2'

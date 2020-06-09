@@ -14,6 +14,7 @@
 @import KLImageView;
 @import KLNetworkModule;
 @import KLHomeServiceInterface;
+@import AppOrderFiles;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setupGuidePage;
 
 /// 更新设置
-+ (void)setupVersionUpdate;
++ (void)setupVersionUpdateToView:(nullable UIView *)view;
 
 @end
 

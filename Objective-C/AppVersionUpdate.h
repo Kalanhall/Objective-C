@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AppVersionUpdate : UIView
 
-+ (void)updateWithVersion:(NSString *)version descriptions:(NSString *)descriptions toURL:(NSString *)url forced:(BOOL)forced;
++ (void)updateToView:(nullable UIView *)view withVersion:(NSString *)version descriptions:(NSString *)descriptions toURL:(NSString *)url forced:(BOOL)forced cancleHandler:(nullable void (^)(void))cancleHandler;
 
 @end
 

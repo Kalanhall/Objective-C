@@ -128,30 +128,29 @@
     }
 }
 
-+ (void)updateWithVersion:(NSString *)version descriptions:(NSString *)descriptions toURL:(NSString *)url forced:(BOOL)forced {
++ (void)updateToView:(nullable UIView *)view withVersion:(NSString *)version descriptions:(NSString *)descriptions toURL:(NSString *)url forced:(BOOL)forced cancleHandler:(nullable void (^)(void))cancleHandler {
     
-    NSString *cacheVersion = [NSUserDefaults.standardUserDefaults valueForKey:self.description];
-    if ([cacheVersion isEqualToString:version]) return;
-    
-    AppVersionUpdate *view = AppVersionUpdate.alloc.init;
-    view.titleLabel.text = [NSString stringWithFormat:@"版本更新：V%@", version];
-    view.descripView.text = descriptions;
-    view.updateCancle.hidden = forced;
-    [UIApplication.sharedApplication.keyWindow.rootViewController.view addSubview:view];
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+    AppVersionUpdate *updateView = AppVersionUpdate.alloc.init;
+    updateView.titleLabel.text = [NSString stringWithFormat:@"版本更新：V%@", version];
+    updateView.descripView.text = descriptions;
+    updateView.updateCancle.hidden = forced;
+    if (view == nil) view = UIApplication.sharedApplication.keyWindow.rootViewController.view;
+    [view addSubview:updateView];
+    [updateView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
     
-    [view startAnimation];
-    @weakify(view)
-    [view.updateCancle kl_controlEvents:UIControlEventTouchUpInside completion:^(UIButton * _Nonnull sender) {
-        @strongify(view)
-        [view stopAnimation];
-        // 忽略本次更新
-        [self ignoreThisUpdate:version];
+    [updateView startAnimation];
+    @weakify(updateView)
+    [updateView.updateCancle kl_controlEvents:UIControlEventTouchUpInside completion:^(UIButton * _Nonnull sender) {
+        @strongify(updateView)
+        [updateView stopAnimation];
+        if (cancleHandler) {
+            cancleHandler();
+        }
     }];
     
-    [view.updateBtn kl_controlEvents:UIControlEventTouchUpInside completion:^(UIButton * _Nonnull sender) {
+    [updateView.updateBtn kl_controlEvents:UIControlEventTouchUpInside completion:^(UIButton * _Nonnull sender) {
         if (@available(iOS 10.0, *)) {
             [UIApplication.sharedApplication openURL:[NSURL URLWithString:url] options:@{UIApplicationOpenURLOptionUniversalLinksOnly: @NO} completionHandler:nil];
         } else {
@@ -160,23 +159,17 @@
     }];
 }
 
-// MARK: 忽略本次更新
-+ (void)ignoreThisUpdate:(NSString *)version {
-    [NSUserDefaults.standardUserDefaults setValue:version forKey:self.description];
-    [NSUserDefaults.standardUserDefaults synchronize];
-}
-
 - (void)startAnimation {
     self.alpha = 0;
     self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-    [UIView animateWithDuration:0.75 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveLinear animations:^{
         self.alpha = 1;
         self.transform = CGAffineTransformIdentity;
     } completion:nil];
 }
 
 - (void)stopAnimation {
-    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.6 options:UIViewAnimationOptionCurveLinear animations:^{
         self.alpha = 0;
         self.transform = CGAffineTransformMakeScale(1.2, 1.2);
     } completion:^(BOOL finished) {

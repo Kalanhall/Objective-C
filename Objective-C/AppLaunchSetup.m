@@ -149,7 +149,7 @@ static AppLaunchSetup *_instance;
                                 forState:UIControlStateNormal];
     [vc setTabBarItemTitleTextAttributes:@{NSForegroundColorAttributeName : UIColor.blackColor,
                                            NSFontAttributeName : [UIFont systemFontOfSize:10]}
-                                forState:UIControlStateHighlighted];
+                                forState:UIControlStateSelected];
     // 设置文字位置偏移量
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateNormal];
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateSelected];
@@ -252,8 +252,11 @@ static AppLaunchSetup *_instance;
             }
         } else if (indexPath.section == 1) {
             switch (indexPath.row) {
-                case 0:
-                    [self setupVersionUpdate];
+                case 0: {
+                    [NSUserDefaults.standardUserDefaults setValue:nil forKey:AppVersionUpdate.description]; // 测试清空忽略版本
+                    [NSUserDefaults.standardUserDefaults synchronize];
+                    [self setupVersionUpdateToView:UIApplication.sharedApplication.keyWindow];
+                }
                     break;
                 case 1:
                     [self setupLaunchImage];
@@ -407,7 +410,7 @@ static AppLaunchSetup *_instance;
 }
 
 // MARK: 🌈🌈🌈 Version Update
-+ (void)setupVersionUpdate {
++ (void)setupVersionUpdateToView:(UIView *)view {
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
         request.baseURL = KLConsole.addressConfigs.firstObject.subtitle;
         request.path = @"/app/appversion/getAppVersionByType";
@@ -426,7 +429,12 @@ static AppLaunchSetup *_instance;
             
             NSString *appVersion = [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"];
             if ([appVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
-                [AppVersionUpdate updateWithVersion:version descriptions:descriptions toURL:url forced:forced.boolValue];
+                if ([[NSUserDefaults.standardUserDefaults valueForKey:AppVersionUpdate.description] isEqualToString:version]) return;
+                
+                [AppVersionUpdate updateToView:view withVersion:version descriptions:descriptions toURL:url forced:forced.boolValue cancleHandler:^{
+                    [NSUserDefaults.standardUserDefaults setValue:version forKey:AppVersionUpdate.description]; // 记录忽略版本
+                    [NSUserDefaults.standardUserDefaults synchronize];
+                }];
             }
         }
     }];

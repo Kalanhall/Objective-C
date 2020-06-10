@@ -71,7 +71,7 @@ DEPENDENCIES:
   - KLApplicationEntry (~> 1.4.0)
   - KLConsole (~> 2.0.1)
   - KLGuidePage (~> 1.0.0)
-  - KLHomeService (from `https://github.com/Kalanhall/KLHomeService`)
+  - KLHomeService (from `/Users/kalan/KLHomeService`)
   - KLHomeServiceInterface (~> 0.0.2)
   - KLLeaks (~> 1.0.0)
   - KLUserInfoManager (~> 1.0.1)
@@ -101,12 +101,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   KLHomeService:
-    :git: https://github.com/Kalanhall/KLHomeService
-
-CHECKOUT OPTIONS:
-  KLHomeService:
-    :commit: 822557fece023def844871b9b57283cc916cb831
-    :git: https://github.com/Kalanhall/KLHomeService
+    :path: "/Users/kalan/KLHomeService"
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -129,6 +124,6 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YKWoodpecker: 97ebd8f4c0366560c61d5844e64b21af8d70804c
 
-PODFILE CHECKSUM: 2d7351ce4509be96d9b8d9a122bbc41dee990858
+PODFILE CHECKSUM: 11563b203086760da2ebe4940f29f0300d615a62
 
 COCOAPODS: 1.9.2

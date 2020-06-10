@@ -55,6 +55,7 @@
 		F69C07B5238F5B4D00610C02 /* Objective-CTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Objective-CTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F69C07B9238F5B4D00610C02 /* Objective_CTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Objective_CTests.m; sourceTree = "<group>"; };
 		F69C07BB238F5B4D00610C02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6AA94DB249081B400690DF3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F9F5427AF44FE4C36984DFB7 /* Pods_Objective_CTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Objective_CTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -92,6 +93,7 @@
 		80F634F6844A1ABD18139365 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6AA94DB249081B400690DF3 /* CoreData.framework */,
 				CDC20B283307E301D5F89708 /* Pods_Objective_C.framework */,
 				F9F5427AF44FE4C36984DFB7 /* Pods_Objective_CTests.framework */,
 			);
@@ -471,6 +473,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 579P9269QX;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = "Objective-C/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -575,6 +578,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 579P9269QX;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = "Objective-C/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

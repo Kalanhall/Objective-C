@@ -111,18 +111,18 @@ static AppLaunchSetup *_instance;
 
 // MARK: 🌈🌈🌈 RootViewController
 + (void)setupRootViewControllerWithWindow:(UIWindow *)window {
+    AppNavigationController *one = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                                                       title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"];
+    AppNavigationController *two = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                                                       title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"];
+    AppNavigationController *thr = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                                                       title:@"发布" image:@"x占位xx" selectedImage:@"x占位xx"];
+    AppNavigationController *fou = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                                                       title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"];
+    AppNavigationController *fiv = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
+                                                                                       title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"];
     // 选项卡入口配置
-    NSArray *controllers =
-    @[[AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                          title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"],
-      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                          title:@"鱼塘" image:@"tab1-n" selectedImage:@"tab1-s"],
-      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                          title:@"发布" image:@"x占位xx" selectedImage:@"x占位xx"],
-      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                          title:@"消息" image:@"tab3-n" selectedImage:@"tab3-s"],
-      [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
-                                                          title:@"我的" image:@"tab4-n" selectedImage:@"tab4-s"]];
+    NSArray *controllers = @[one, two, thr, fou, fiv];
     AppTabBarController *vc = [AppTabBarController tabBarWithControllers:controllers];
     
     // 控制台调用

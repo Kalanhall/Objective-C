@@ -109,7 +109,7 @@ static AppLaunchSetup *_instance;
     _instance = nil;
 }
 
-// MARK: 🌈🌈🌈 RootViewController
+// MARK: - 🌈🌈🌈 RootViewController
 + (void)setupRootViewControllerWithWindow:(UIWindow *)window {
     AppNavigationController *one = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                                                        title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"];
@@ -161,7 +161,7 @@ static AppLaunchSetup *_instance;
     [window makeKeyAndVisible];
 }
 
-// MARK: 🌈🌈🌈 DebugTool
+// MARK: - 🌈🌈🌈 DebugTool
 + (void)setupDebugTool {
     // 环境初始化
     [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleRowConfig *> *configs) {
@@ -251,7 +251,7 @@ static AppLaunchSetup *_instance;
     }];
 }
 
-// MARK: 🌈🌈🌈 LaunchScreen
+// MARK: - 🌈🌈🌈 LaunchScreen
 + (void)setupLaunchImage {
     // 自定义布局
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
@@ -347,7 +347,7 @@ static AppLaunchSetup *_instance;
     }
 }
 
-// MARK: 🌈🌈🌈 GuidePage
+// MARK: - 🌈🌈🌈 GuidePage
 + (void)setupGuidePage {
     KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:AppLaunchSetup.shareInstance];
     page.hideForLastPage = YES;
@@ -388,7 +388,7 @@ static AppLaunchSetup *_instance;
     return imageView;
 }
 
-// MARK: 🌈🌈🌈 Version Update
+// MARK: - 🌈🌈🌈 Version Update
 + (void)setupVersionUpdateToView:(UIView *)view {
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
         request.baseURL = KLConsole.addressConfigs.firstObject.subtitle;

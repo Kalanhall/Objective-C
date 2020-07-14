@@ -18,7 +18,8 @@ target 'Objective-C' do
   pod 'YKWoodpecker'          , '~> 1.2.5'
   pod 'AppOrderFiles'
   # 主页模块
-  pod 'KLHomeService'         , :git=> 'https://github.com/Kalanhall/KLHomeService'
+#  pod 'KLHomeService'         , :git=> 'https://github.com/Kalanhall/KLHomeService'
+  pod 'KLHomeService'         , :path=> '/Users/kalan/KLHomeService'
   pod 'KLHomeServiceInterface', '~> 0.0.2'
 
   target 'Objective-CTests' do

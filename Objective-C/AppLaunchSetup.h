@@ -14,7 +14,10 @@
 @import KLImageView;
 @import KLNetworkModule;
 @import KLHomeServiceInterface;
+
+#ifdef DEBUG
 @import AppOrderFiles;
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

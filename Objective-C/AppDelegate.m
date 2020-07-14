@@ -39,9 +39,11 @@
     // MARK: 版本更新
     [AppLaunchSetup setupVersionUpdateToView:nil];
     
+    #ifdef DEBUG
     // Edit Scheme -> DYLD_PRINT_STATISTICS, to see launch time.
     // Other C Flags -> '-fsanitize-coverage=func,trace-pc-guard'
     AppOrderFiles(nil);
+    #endif
 
     return YES;
 }

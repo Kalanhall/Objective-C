@@ -12,14 +12,12 @@
 @implementation NSString (KLExtension)
 
 // 正则表达式验证
-- (BOOL)kl_evaluateWithRegular:(NSString *)regular
-{
+- (BOOL)kl_evaluateWithRegular:(NSString *)regular {
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regular];
     return [pre evaluateWithObject:self];
 }
 
-- (instancetype)kl_reverseString
-{
+- (instancetype)kl_reverseString {
     NSMutableString *string = [NSMutableString stringWithCapacity:self.length];
     for (NSInteger i = self.length-1; i >= 0; i--) {
         [string appendString:[self substringWithRange:NSMakeRange(i, 1)]];
@@ -27,8 +25,7 @@
     return string;
 }
 
-- (instancetype)kl_chinessToPinyin
-{
+- (instancetype)kl_chinessToPinyin {
     // 将NSString装换成NSMutableString
     NSMutableString *pinyin = [self mutableCopy];
     // 将汉字转换为拼音(带音标)
@@ -39,8 +36,7 @@
     return pinyin;
 }
 
-- (BOOL)kl_isContainChinese
-{
+- (BOOL)kl_isContainChinese {
     NSUInteger length = [self length];
     for (NSUInteger i = 0; i < length; i++) {
         NSRange range = NSMakeRange(i, 1);
@@ -53,25 +49,21 @@
     return NO;
 }
 
-+ (instancetype)kl_documentPathWithFileName:(NSString *)fileName
-{
++ (instancetype)kl_documentPathWithFileName:(NSString *)fileName {
     NSString *document = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
     return [document stringByAppendingPathComponent:fileName];
 }
 
-+ (instancetype)kl_cachePathWithFileName:(NSString *)fileName
-{
++ (instancetype)kl_cachePathWithFileName:(NSString *)fileName {
     NSString *cache = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject;
     return [cache stringByAppendingPathComponent:fileName];
 }
 
-+ (instancetype)kl_temptPathWithFileName:(NSString *)fileName
-{
++ (instancetype)kl_temptPathWithFileName:(NSString *)fileName {
     return [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
 }
 
-- (NSString *)kl_stringWithURLEncoding
-{
+- (NSString *)kl_stringWithURLEncoding {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
@@ -82,8 +74,7 @@
 #pragma clang diagnostic pop
 }
 
-- (NSString *)kl_stringWithURLEncodingPath
-{
+- (NSString *)kl_stringWithURLEncodingPath {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
@@ -94,10 +85,41 @@
 #pragma clang diagnostic pop
 }
 
-- (NSString *)kl_decodeURLEncoding
-{
+- (NSString *)kl_decodeURLEncoding {
     NSString *result = [self stringByRemovingPercentEncoding];
     return result?result:self;
+}
+
+// MARK: - 格式化字符串
+
+- (CGFloat)kl_decimalValue
+{ return round(self.doubleValue * 100) / 100; }
+
+- (NSString *)kl_decimalString
+{ return [NSString stringWithFormat:@"%.2f", self.kl_decimalValue]; }
+
++ (NSString *)kl_decimalStringWithValue:(CGFloat)value {
+    value = round(value * 100) / 100;
+    return [NSString stringWithFormat:@"%.2f", value];
+}
+
+- (NSString *)kl_decimalStyleString {
+    NSNumberFormatter *formatter = NSNumberFormatter.alloc.init;
+    NSNumber *number = [formatter numberFromString:self.kl_decimalString];
+    formatter.numberStyle = kCFNumberFormatterDecimalStyle;
+    return [formatter stringFromNumber:number];
+}
+
++ (NSString *)kl_decimalStyleStringWithValue:(CGFloat)value {
+    NSNumberFormatter *formatter = NSNumberFormatter.alloc.init;
+    NSNumber *number = [formatter numberFromString:[self kl_decimalStringWithValue:value]];
+    formatter.numberStyle = kCFNumberFormatterDecimalStyle;
+    return [formatter stringFromNumber:number];
+}
+
+- (NSNumber *)kl_numberValue {
+    NSNumberFormatter *formatter = NSNumberFormatter.alloc.init;
+    return [formatter numberFromString:self];
 }
 
 @end

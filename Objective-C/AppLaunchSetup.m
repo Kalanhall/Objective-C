@@ -200,16 +200,16 @@ static AppLaunchSetup *_instance;
         serverB.title = @"功能测试";
         
         KLConsoleRowConfig *serverBa = KLConsoleRowConfig.alloc.init;
-        serverBa.title = @"版本升级测试";
-        serverBa.subtitle = @"点击获取最新版本";
+        serverBa.title = @"版本升级";
+        serverBa.subtitle = @"点击测试获取最新版本";
         
         KLConsoleRowConfig *serverBb = KLConsoleRowConfig.alloc.init;
-        serverBb.title = @"启动页测试";
-        serverBb.subtitle = @"点击查看";
+        serverBb.title = @"启动页";
+        serverBb.subtitle = @"点击测试";
         
         KLConsoleRowConfig *serverBc = KLConsoleRowConfig.alloc.init;
-        serverBc.title = @"引导页测试";
-        serverBc.subtitle = @"点击查看";
+        serverBc.title = @"引导页";
+        serverBc.subtitle = @"点击测试";
         
         serverA.infos = @[serverAa];
         serverB.infos = @[serverBa, serverBb, serverBc];
@@ -373,7 +373,6 @@ static AppLaunchSetup *_instance;
     
     __weak typeof(page) weakpage = page;
     cell.entryBlock = ^{
-        KLSetFirstLaunch(); // 启动标识
         [weakpage hideWithStyle:KLGuideHideStyleNomal animated:YES]; // 移除引导页
         [AppLaunchSetup shareClear]; // 释放单例
     };

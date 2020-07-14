@@ -31,7 +31,7 @@
     [AppLaunchSetup setupDebugTool];
     
     // MARK: 引导页配置
-    if (KLFirstLaunch()) [AppLaunchSetup setupGuidePage];
+    if (KLFirstAutoLaunch()) [AppLaunchSetup setupGuidePage];
     
     // MARK: 启动图配置
     [AppLaunchSetup setupLaunchImage];

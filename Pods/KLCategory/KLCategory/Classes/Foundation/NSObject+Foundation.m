@@ -11,21 +11,6 @@
 
 // MARK: - Foundation
 static NSString *_versionStringKey = @"com.KLCategory.versionKey";
-BOOL KLFirstLaunch(void) {
-    NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    NSString *oldVersion = [NSUserDefaults.standardUserDefaults objectForKey:_versionStringKey];
-    if (![currentVersion isEqual:oldVersion]) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
-void KLSetFirstLaunch(void) {
-    NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    [NSUserDefaults.standardUserDefaults setObject:currentVersion forKey:_versionStringKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
-}
 
 BOOL KLFirstAutoLaunch(void) {
     NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
@@ -37,6 +22,11 @@ BOOL KLFirstAutoLaunch(void) {
     } else {
         return NO;
     }
+}
+
+void KLResetFirstLaunch(void) {
+    [NSUserDefaults.standardUserDefaults setObject:nil forKey:_versionStringKey];
+    [NSUserDefaults.standardUserDefaults synchronize];
 }
 
 BOOL KLIsphone(void) {

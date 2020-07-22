@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "AppLaunchSetup.h"
+#import "CommandManager.h"
+#import "LaunchCommand.h"
+@import AppOrderFiles;
 
 @interface AppDelegate ()
 
@@ -16,35 +18,22 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+ 
+    // MARK: 根控制器配置
+    [CommandManager executeCommand:LaunchCommand.new completion:nil];
+
     // MARK: 控制台记录开关
     /*
     KLViewControllerTraceLogEnable(YES);
     KLNetworkConfigure.shareInstance.enableDebug = YES;
     */
-    
-    // MARK: 根控制器配置
-    self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
-    [AppLaunchSetup setupRootViewControllerWithWindow:self.window];
-    
-    // MARK: 开发工具配置(服务器域名配置...)
-    [AppLaunchSetup setupDebugTool];
-    
-    // MARK: 引导页配置
-    if (KLFirstAutoLaunch()) [AppLaunchSetup setupGuidePage];
-    
-    // MARK: 启动图配置
-    [AppLaunchSetup setupLaunchImage];
-    
-    // MARK: 版本更新
-    [AppLaunchSetup setupVersionUpdateToView:nil];
-    
+
     #ifdef DEBUG
     // Edit Scheme -> DYLD_PRINT_STATISTICS, to see launch time.
     // Other C Flags -> '-fsanitize-coverage=func,trace-pc-guard'
     AppOrderFiles(nil);
     #endif
-
+    
     return YES;
 }
 

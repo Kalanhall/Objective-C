@@ -1,9 +1,8 @@
 //
-//  PrefixHeader.pch
+//  YKWoodpeckerCommonHeaders.h
 //  YKWoodpecker
 //
-//  Created by Zim on 2018/11/19.
-//  Copyright © 2018 Youku. All rights reserved.
+//  Created by Zim on 2020/6/11.
 //
 //  MIT License
 //
@@ -27,12 +26,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#ifndef PrefixHeader_pch
-#define PrefixHeader_pch
-
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-
 #import "UIView+YKWoodpeckerAdditions.h"
 #import "NSObject+YKWoodpeckerRuntime.h"
 #import "NSArray+YKWoodpeckerAdditions.h"
@@ -47,4 +40,3 @@
 #define YKWHighlightColor [UIColor ykw_colorWithHexString:@"ff00e6"]
 #define YKWINFOCOLOR [UIColor ykw_colorWithHexString:@"999999"]
 
-#endif /* PrefixHeader_pch */

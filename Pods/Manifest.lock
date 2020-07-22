@@ -17,11 +17,11 @@ PODS:
   - AppOrderFiles (1.0.2)
   - KLApplicationEntry (1.4.0)
   - KLCache (1.0.1)
-  - KLCategory (1.4.0):
-    - KLCategory/Foundation (= 1.4.0)
-    - KLCategory/UIKit (= 1.4.0)
-  - KLCategory/Foundation (1.4.0)
-  - KLCategory/UIKit (1.4.0)
+  - KLCategory (1.4.2):
+    - KLCategory/Foundation (= 1.4.2)
+    - KLCategory/UIKit (= 1.4.2)
+  - KLCategory/Foundation (1.4.2)
+  - KLCategory/UIKit (1.4.2)
   - KLConsole (2.0.1):
     - Masonry
   - KLGuidePage (1.0.1):
@@ -64,11 +64,12 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.1.0)
   - Masonry (1.1.0)
-  - YKWoodpecker (1.2.5)
+  - YKWoodpecker (1.2.8)
 
 DEPENDENCIES:
   - AppOrderFiles
   - KLApplicationEntry (~> 1.4.0)
+  - KLCategory (~> 1.4.2)
   - KLConsole (~> 2.0.1)
   - KLGuidePage (~> 1.0.0)
   - KLHomeService (from `/Users/kalan/KLHomeService`)
@@ -108,7 +109,7 @@ SPEC CHECKSUMS:
   AppOrderFiles: ce8436cdae89e5831b93961ebc81415a3481c5a6
   KLApplicationEntry: 51fffce83930d6ed747c5fc739a90c57e605017a
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
-  KLCategory: bf5db21c787249e3dac3916114f2fae5b56c0fe1
+  KLCategory: 20fdd3efc7a8204895a7e8c2de03935a795275f6
   KLConsole: 290bb18ea3aceffa580da13ef538df665f293de9
   KLGuidePage: 8b666079aa940f065e207677641a237aa66b1236
   KLHomeService: 42cb549bb33fa4d3396d19786f5c1d79e2c9271c
@@ -122,8 +123,8 @@ SPEC CHECKSUMS:
   KLUserInfoManager: 1602e368ddc874308cfc1e8fe9638979ab17e713
   libwebp: 04242ef451672185c1fe41b285a034d2fbda483c
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  YKWoodpecker: 97ebd8f4c0366560c61d5844e64b21af8d70804c
+  YKWoodpecker: c9c58ed903cde9507b0e9279c1c11abb119f32c2
 
-PODFILE CHECKSUM: 11563b203086760da2ebe4940f29f0300d615a62
+PODFILE CHECKSUM: 95e80ef4d1058cf1c1709683d5263f4feae0ce1b
 
 COCOAPODS: 1.9.1

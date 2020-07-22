@@ -28,6 +28,7 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "YKWPluginProtocol.h"
 
 @interface YKWCommandPlugin : NSObject<YKWPluginProtocol>
 

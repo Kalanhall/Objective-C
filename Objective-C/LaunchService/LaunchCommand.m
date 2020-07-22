@@ -1,116 +1,55 @@
 //
-//  AppLaunch.m
+//  LaunchCommand.m
 //  Objective-C
 //
-//  Created by Logic on 2020/6/1.
+//  Created by Kalan on 2020/7/22.
 //  Copyright © 2020 Kalan. All rights reserved.
 //
 
-#import "AppLaunchSetup.h"
+#import "LaunchCommand.h"
+@import KLApplicationEntry;
+@import KLHomeServiceInterface;
+@import KLConsole;
+@import KLCategory;
+@import KLGuidePage;
+@import KLImageView;
+@import KLNetworkModule;
+@import YKWoodpecker;
 #import "AppTabBarController.h"
 #import "AppNavigationController.h"
+#import "AppGuideCell.h"
 #import "AppVersionUpdate.h"
-@import YKWoodpecker;
 
-// MARK: - KLGuideCustomCell
-@interface KLGuideCustomCell : UICollectionViewCell
-
-@property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *subTitleLabel;
-@property (strong, nonatomic) UIButton *entryBtn;
-
-@property (copy  , nonatomic) void (^entryBlock)(void);
+@interface LaunchCommand () <KLGuidePageDataSource>
 
 @end
 
-@implementation KLGuideCustomCell
+@implementation LaunchCommand
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.imageView = UIImageView.alloc.init;
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:self.imageView];
-        [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(UIEdgeInsetsZero);
-        }];
+- (void)execute {
+    [super execute];
+    
+    // 网络环境初始化
+    [self setupDebugTool];
+    
+    // 根控制器初始化
+    [self setupRootViewController];
+    
+    // 引导图初始化
+    if (KLGetFirstLaunch()) [self setupGuidePage];
         
-        self.titleLabel = UILabel.new;
-        self.titleLabel.textColor = UIColor.blackColor;
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:25];
-        self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:self.titleLabel];
-        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(0);
-            make.centerY.mas_equalTo(self.contentView.mas_centerY).multipliedBy(1.3);
-        }];
-        
-        self.subTitleLabel = UILabel.new;
-        self.subTitleLabel.textColor = [UIColor.blackColor colorWithAlphaComponent:0.6];
-        self.subTitleLabel.font = [UIFont systemFontOfSize:16];
-        self.subTitleLabel.numberOfLines = 0;
-        self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:self.subTitleLabel];
-        [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(0);
-            make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(15);
-        }];
-        
-        self.entryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.entryBtn.backgroundColor = UIColor.redColor;
-        self.entryBtn.layer.cornerRadius = 5;
-        self.entryBtn.clipsToBounds = YES;
-        [self.entryBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-        [self.entryBtn setTitle:@"立即体验" forState:UIControlStateNormal];
-        [self.contentView addSubview:self.entryBtn];
-        [self.entryBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(self.mas_width).multipliedBy(0.5);
-            make.height.mas_equalTo(50);
-            make.centerX.mas_equalTo(0);
-            make.bottom.mas_equalTo(-50);
-        }];
-        
-        [self.entryBtn addTarget:self action:@selector(entryBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return self;
-}
-
-- (void)entryBtnClick:(UIButton *)sender {
-    if (self.entryBlock) {
-        self.entryBlock();
-    }
-}
-
-@end
-
-// MARK: - AppLaunch
-@interface AppLaunchSetup () <KLGuidePageDataSource>
-
-@end
-
-@implementation AppLaunchSetup
-
-static dispatch_once_t _onceToken;
-static AppLaunchSetup *_instance;
-
-// 创建单例
-+ (instancetype)shareInstance {
-    dispatch_once(&_onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
-
-// 释放单例
-+ (void)shareClear {
-    _onceToken = 0;
-    _instance = nil;
+    // 启动图 & 闪屏页 初始化
+    [self setupLaunchImage];
+    
+    // 版本更新
+    [self setupVersionUpdateToView:nil];
 }
 
 // MARK: - 🌈🌈🌈 RootViewController
-+ (void)setupRootViewControllerWithWindow:(UIWindow *)window {
+- (void)setupRootViewController {
+    UIWindow *window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
+    UIApplication.sharedApplication.delegate.window = window;
+    
     AppNavigationController *one = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
                                                                                        title:@"闲鱼" image:@"tab0-n" selectedImage:@"tab0-s"];
     AppNavigationController *two = [AppNavigationController navigationWithRootViewController:[KLServer.sharedServer fetchHomeController:nil]
@@ -127,8 +66,9 @@ static AppLaunchSetup *_instance;
     
     // 控制台调用
     #ifdef DEBUG
+    __weak typeof(self) weakself = self;
     vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
-        [self showDebugTool];
+        [weakself showDebugTool];
     };
     #endif
     
@@ -162,7 +102,7 @@ static AppLaunchSetup *_instance;
 }
 
 // MARK: - 🌈🌈🌈 DebugTool
-+ (void)setupDebugTool {
+- (void)setupDebugTool {
     // 环境初始化
     [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleRowConfig *> *configs) {
         KLConsoleRowConfig *serviceA = KLConsoleRowConfig.alloc.init;
@@ -218,8 +158,9 @@ static AppLaunchSetup *_instance;
     }];
 }
 
-+ (void)showDebugTool {
+- (void)showDebugTool {
     YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = NO;
+    __weak typeof(self) weakself = self;
     [KLConsole consoleSetupAndSelectedCallBack:^(NSIndexPath * _Nonnull indexPath, BOOL switchOn) {
         // 扩展功能回调
         if (indexPath.section == 0) {
@@ -235,14 +176,14 @@ static AppLaunchSetup *_instance;
                 case 0: {
                     [NSUserDefaults.standardUserDefaults setValue:nil forKey:AppVersionUpdate.description]; // 测试清空忽略版本
                     [NSUserDefaults.standardUserDefaults synchronize];
-                    [self setupVersionUpdateToView:UIApplication.sharedApplication.keyWindow];
+                    [weakself setupVersionUpdateToView:UIApplication.sharedApplication.keyWindow];
                 }
                     break;
                 case 1:
-                    [self setupLaunchImage];
+                    [weakself setupLaunchImage];
                     break;
                 case 2:
-                    [self setupGuidePage];
+                    [weakself setupGuidePage];
                     break;
                 default:
                     break;
@@ -252,7 +193,7 @@ static AppLaunchSetup *_instance;
 }
 
 // MARK: - 🌈🌈🌈 LaunchScreen
-+ (void)setupLaunchImage {
+- (void)setupLaunchImage {
     // 自定义布局
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
     UIViewController *launchVc = [story instantiateViewControllerWithIdentifier:@"LaunchScreen"];
@@ -290,9 +231,11 @@ static AppLaunchSetup *_instance;
     }];
     timeHandler.layer.cornerRadius = 25 * 0.5;
     
+    __weak typeof(self) weakself = self;
+    
     // 广告点击跳转
     [imageHandler kl_setTapCompletion:^(UITapGestureRecognizer *tapGesture) {
-        [self skipLaunchScreen:timeHandler];
+        [weakself skipLaunchScreen:timeHandler];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIViewController *vc = UIViewController.new;
             vc.view.backgroundColor = UIColor.kl_randomColor;
@@ -302,7 +245,7 @@ static AppLaunchSetup *_instance;
     
     // 按钮点击跳过
     [timeHandler kl_controlEvents:UIControlEventTouchUpInside completion:^(UIButton * _Nonnull sender) {
-        [self skipLaunchScreen:timeHandler];
+        [weakself skipLaunchScreen:timeHandler];
     }];
     
     // 网络获取广告信息
@@ -314,9 +257,9 @@ static AppLaunchSetup *_instance;
             // 广告交互开关
             imageHandler.userInteractionEnabled = image != nil;
             // 倒计时
-            [self setupCycleTimeOut:image ? 3 : 0 callBack:^(NSTimeInterval time) {
+            [weakself setupCycleTimeOut:image ? 3 : 0 callBack:^(NSTimeInterval time) {
                 if (time == 0) {
-                    [self skipLaunchScreen:timeHandler];
+                    [weakself skipLaunchScreen:timeHandler];
                 } else {
                     if (image) [timeHandler setTitle:[NSString stringWithFormat:@"跳过广告 %@", @(time)] forState:UIControlStateNormal];
                 }
@@ -327,7 +270,7 @@ static AppLaunchSetup *_instance;
     }
 }
 
-+ (void)skipLaunchScreen:(UIButton *)sender {
+- (void)skipLaunchScreen:(UIButton *)sender {
     [UIView animateWithDuration:0.75 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         sender.superview.alpha = 0;
         sender.superview.transform = CGAffineTransformMakeScale(2, 2);
@@ -336,7 +279,7 @@ static AppLaunchSetup *_instance;
     }];
 }
 
-+ (void)setupCycleTimeOut:(NSTimeInterval)timeout callBack:(void (^)(NSTimeInterval time))callBack {
+- (void)setupCycleTimeOut:(NSTimeInterval)timeout callBack:(void (^)(NSTimeInterval time))callBack {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (timeout > 0) {
             [self setupCycleTimeOut:timeout - 1 callBack:callBack];
@@ -348,8 +291,8 @@ static AppLaunchSetup *_instance;
 }
 
 // MARK: - 🌈🌈🌈 GuidePage
-+ (void)setupGuidePage {
-    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:AppLaunchSetup.shareInstance];
+- (void)setupGuidePage {
+    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:self];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;
     page.duration = 0.5;
@@ -357,7 +300,7 @@ static AppLaunchSetup *_instance;
     page.bottomSpace = 50;
     page.bottomControl.pageIndicatorTintColor = [UIColor.redColor colorWithAlphaComponent:0.3];
     page.bottomControl.currentPageIndicatorTintColor = UIColor.redColor;
-    [page registerClass:KLGuideCustomCell.class forCellWithReuseIdentifier:KLGuideCustomCell.description];
+    [page registerClass:AppGuideCell.class forCellWithReuseIdentifier:AppGuideCell.description];
 }
 
 - (NSArray *)dataOfItems {
@@ -365,7 +308,7 @@ static AppLaunchSetup *_instance;
 }
 
 - (UICollectionViewCell *)guidePage:(KLGuidePage *)page data:(id)data cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    KLGuideCustomCell *cell = (KLGuideCustomCell *)[page dequeueReusableCellWithReuseIdentifier:KLGuideCustomCell.description forIndexPath:indexPath];
+    AppGuideCell *cell = (AppGuideCell *)[page dequeueReusableCellWithReuseIdentifier:AppGuideCell.description forIndexPath:indexPath];
     cell.imageView.image = data;
     cell.titleLabel.text = @[@"欢迎使用京东", @"请授权位置信息权限", @"获取最新的促销信息"][indexPath.row];
     cell.subTitleLabel.text = @[@"正品低价、急速配送\n点缀您的品质生活", @"获取周边库存信息和周边服务、推送专属\n商品与优惠", @"随时了解促销信息，掌握实时物流动态\n请\"允许\"京东获取消息通知权限"][indexPath.row];
@@ -374,7 +317,7 @@ static AppLaunchSetup *_instance;
     __weak typeof(page) weakpage = page;
     cell.entryBlock = ^{
         [weakpage hideWithStyle:KLGuideHideStyleNomal animated:YES]; // 移除引导页
-        [AppLaunchSetup shareClear]; // 释放单例
+        KLSetFirstLaunch(); // 记录启动版本
     };
 
     return cell;
@@ -389,7 +332,7 @@ static AppLaunchSetup *_instance;
 }
 
 // MARK: - 🌈🌈🌈 Version Update
-+ (void)setupVersionUpdateToView:(UIView *)view {
+- (void)setupVersionUpdateToView:(UIView *)view {
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
         request.baseURL = KLConsole.addressConfigs.firstObject.subtitle;
         request.path = @"/app/appversion/getAppVersionByType";
@@ -409,7 +352,6 @@ static AppLaunchSetup *_instance;
             NSString *appVersion = [NSBundle.mainBundle.infoDictionary objectForKey:@"CFBundleShortVersionString"];
             if ([appVersion compare:version options:NSNumericSearch] == NSOrderedAscending) {
                 if ([[NSUserDefaults.standardUserDefaults valueForKey:AppVersionUpdate.description] isEqualToString:version]) return;
-                
                 [AppVersionUpdate updateToView:view withVersion:version descriptions:descriptions toURL:url forced:forced.boolValue cancleHandler:^{
                     [NSUserDefaults.standardUserDefaults setValue:version forKey:AppVersionUpdate.description]; // 记录忽略版本
                     [NSUserDefaults.standardUserDefaults synchronize];

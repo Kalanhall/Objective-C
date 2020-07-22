@@ -20,10 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (Foundation)
 
 // MARK: - Foundation
-/// 自动设置并获取启动标识
-extern BOOL KLFirstAutoLaunch(void);
-/// 重置首次启动标识
-extern void KLResetFirstLaunch(void);
+
+/// 设置启动标识，默认以当前应用版本号设置
+extern void KLSetFirstLaunch(void);
+/// 获取启动标识
+extern BOOL KLGetFirstLaunch(void);
+/// 清除启动标识
+extern void KLClearFirstLaunch(void);
 /// 是否是iPhoneX系列刘海屏
 extern BOOL KLIsphoneXabove(void);
 /// 是否是苹果手机

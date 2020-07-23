@@ -10,6 +10,8 @@
 #import "CommandManager.h"
 #import "LaunchCommand.h"
 @import AppOrderFiles;
+@import KLCategory;
+@import KLNetworkModule;
 
 @interface AppDelegate ()
 
@@ -27,7 +29,7 @@
     KLViewControllerTraceLogEnable(YES);
     KLNetworkConfigure.shareInstance.enableDebug = YES;
     */
-
+    
     #ifdef DEBUG
     // Edit Scheme -> DYLD_PRINT_STATISTICS, to see launch time.
     // Other C Flags -> '-fsanitize-coverage=func,trace-pc-guard'

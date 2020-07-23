@@ -12,6 +12,7 @@
 @implementation Command
 
 - (void)execute {
+    [self done];
 }
 
 - (void)cancel {

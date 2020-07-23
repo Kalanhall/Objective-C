@@ -26,6 +26,16 @@
 
 @implementation LaunchCommand
 
+// 代理辅助类，因为command在execute后释放
+static LaunchCommand *_instance = nil;
++ (instancetype)shareInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
+
 - (void)execute {
     [super execute];
     
@@ -231,11 +241,9 @@
     }];
     timeHandler.layer.cornerRadius = 25 * 0.5;
     
-    __weak typeof(self) weakself = self;
-    
     // 广告点击跳转
     [imageHandler kl_setTapCompletion:^(UITapGestureRecognizer *tapGesture) {
-        [weakself skipLaunchScreen:timeHandler];
+        [LaunchCommand skipLaunchScreen:timeHandler];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIViewController *vc = UIViewController.new;
             vc.view.backgroundColor = UIColor.kl_randomColor;
@@ -245,7 +253,7 @@
     
     // 按钮点击跳过
     [timeHandler kl_controlEvents:UIControlEventTouchUpInside completion:^(UIButton * _Nonnull sender) {
-        [weakself skipLaunchScreen:timeHandler];
+        [LaunchCommand skipLaunchScreen:timeHandler];
     }];
     
     // 网络获取广告信息
@@ -257,20 +265,20 @@
             // 广告交互开关
             imageHandler.userInteractionEnabled = image != nil;
             // 倒计时
-            [weakself setupCycleTimeOut:image ? 3 : 0 callBack:^(NSTimeInterval time) {
+            [LaunchCommand setupCycleTimeOut:image ? 3 : 0 callBack:^(NSTimeInterval time) {
                 if (time == 0) {
-                    [weakself skipLaunchScreen:timeHandler];
+                    [LaunchCommand skipLaunchScreen:timeHandler];
                 } else {
                     if (image) [timeHandler setTitle:[NSString stringWithFormat:@"跳过广告 %@", @(time)] forState:UIControlStateNormal];
                 }
             }];
         }];
     } else {
-        [self skipLaunchScreen:timeHandler];
+        [LaunchCommand skipLaunchScreen:timeHandler];
     }
 }
 
-- (void)skipLaunchScreen:(UIButton *)sender {
++ (void)skipLaunchScreen:(UIButton *)sender {
     [UIView animateWithDuration:0.75 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         sender.superview.alpha = 0;
         sender.superview.transform = CGAffineTransformMakeScale(2, 2);
@@ -279,7 +287,7 @@
     }];
 }
 
-- (void)setupCycleTimeOut:(NSTimeInterval)timeout callBack:(void (^)(NSTimeInterval time))callBack {
++ (void)setupCycleTimeOut:(NSTimeInterval)timeout callBack:(void (^)(NSTimeInterval time))callBack {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (timeout > 0) {
             [self setupCycleTimeOut:timeout - 1 callBack:callBack];
@@ -292,7 +300,7 @@
 
 // MARK: - 🌈🌈🌈 GuidePage
 - (void)setupGuidePage {
-    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:self];
+    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:LaunchCommand.shareInstance];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;
     page.duration = 0.5;
@@ -318,6 +326,7 @@
     cell.entryBlock = ^{
         [weakpage hideWithStyle:KLGuideHideStyleNomal animated:YES]; // 移除引导页
         KLSetFirstLaunch(); // 记录启动版本
+        _instance = nil;    // 释放辅助单例
     };
 
     return cell;

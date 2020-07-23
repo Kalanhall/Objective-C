@@ -25,6 +25,6 @@
 #import "UIImage+KLExtension.h"
 #import "UILabel+KLExtension.h"
 #import "UIView+KLExtension.h"
-#import "UIViewController+KLTraceLog.h"
+#import "UIViewController+KLTrackLog.h"
 
 #endif /* KLCategory_h */

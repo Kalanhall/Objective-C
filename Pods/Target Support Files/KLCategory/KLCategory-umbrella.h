@@ -26,7 +26,7 @@
 #import "UILabel+KLExtension.h"
 #import "UITextView+KLExtension.h"
 #import "UIView+KLExtension.h"
-#import "UIViewController+KLTraceLog.h"
+#import "UIViewController+KLTrackLog.h"
 
 FOUNDATION_EXPORT double KLCategoryVersionNumber;
 FOUNDATION_EXPORT const unsigned char KLCategoryVersionString[];

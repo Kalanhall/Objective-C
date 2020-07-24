@@ -76,9 +76,8 @@ static LaunchCommand *_instance = nil;
     
     // 控制台调用
     #ifdef DEBUG
-    __weak typeof(self) weakself = self;
     vc.swipeTabBarCallBack = ^(UISwipeGestureRecognizer * _Nonnull swipe) {
-        [weakself showDebugTool];
+        [LaunchCommand showDebugTool];
     };
     #endif
     
@@ -168,7 +167,7 @@ static LaunchCommand *_instance = nil;
     }];
 }
 
-- (void)showDebugTool {
++ (void)showDebugTool {
     YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = NO;
     __weak typeof(self) weakself = self;
     [KLConsole consoleSetupAndSelectedCallBack:^(NSIndexPath * _Nonnull indexPath, BOOL switchOn) {

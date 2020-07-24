@@ -24,10 +24,12 @@ PODS:
   - KLCategory/UIKit (1.4.3)
   - KLConsole (2.0.1):
     - Masonry
+  - KLCrypto (1.0.0)
   - KLGuidePage (1.0.1):
     - Masonry
   - KLHomeService (0.0.2):
     - KLCategory
+    - KLCrypto
     - KLImageView
     - KLLeaks
     - KLNavigationController
@@ -90,6 +92,7 @@ SPEC REPOS:
     - KLCache
     - KLCategory
     - KLConsole
+    - KLCrypto
     - KLGuidePage
     - KLHomeServiceInterface
     - KLImageView
@@ -110,8 +113,9 @@ SPEC CHECKSUMS:
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
   KLCategory: 3e6880dd5b674326483cbc259d487fda5b387445
   KLConsole: 290bb18ea3aceffa580da13ef538df665f293de9
+  KLCrypto: 6f6e2ec8e1141ab42fe2bff74a7bb2309ddc33db
   KLGuidePage: 8b666079aa940f065e207677641a237aa66b1236
-  KLHomeService: 42cb549bb33fa4d3396d19786f5c1d79e2c9271c
+  KLHomeService: b4a8d609e4f2a89f733d66183ea4228d1affcf87
   KLHomeServiceInterface: a74652cceadb8dc468ca16fb2be8bcfb8b2a965a
   KLImageView: 6b752b4fa59f6dd12d63975d0f8c6b05a9aa4fc6
   KLLeaks: 665946f5ab269045f3d90974151af380c9770bc8

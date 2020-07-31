@@ -89,6 +89,9 @@
     Ba.subtitle = @"系统及应用相关信息";
     B.infos = @[Ba];
     
+    // 非频繁操作，直接移除
+    [self.dataSource removeAllObjects];
+    
     // 固定设置
     [self.dataSource addObject:A];
     [self.dataSource addObject:B];

@@ -89,7 +89,7 @@ static LaunchCommand *_instance = nil;
     // 选项卡全局设置
     // 设置背景
     [vc setTabBarBackgroundImageWithColor:[UIColor.whiteColor colorWithAlphaComponent:0.9]];
-    // 设置阴影
+//    // 设置阴影
     [vc setTabBarShadowColor:UIColor.blackColor opacity:0.1];
     // 设置文字样式
     [vc setTabBarItemTitleTextAttributes:@{NSForegroundColorAttributeName : UIColor.blackColor,
@@ -101,7 +101,7 @@ static LaunchCommand *_instance = nil;
     // 设置文字位置偏移量
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateNormal];
     [vc setTabBarItemTitlePositionAdjustment:(UIOffset){0, -2} forState:UIControlStateSelected];
-    
+
     // 设置中间凸起按钮
     [vc setupCustomAreaView];
     
@@ -115,10 +115,6 @@ static LaunchCommand *_instance = nil;
     // 环境初始化
     [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleRowConfig *> *configs) {
         KLConsoleRowConfig *serviceA = KLConsoleRowConfig.alloc.init;
-        serviceA.version = @"1.0";
-        serviceA.title = @"服务器域名";
-        serviceA.subtitle = @"https://api.galanz.com/prod";
-        serviceA.selectedIndex = 0;
         
         KLConsoleInfoConfig *serviceAa = KLConsoleInfoConfig.alloc.init;
         serviceAa.title = @"生产环境";
@@ -133,6 +129,12 @@ static LaunchCommand *_instance = nil;
         serviceAd.title = @"预发布环境";
         serviceAd.text = @"https://api.galanz.com/stage";
         serviceA.details = @[serviceAa, serviceAb, serviceAc, serviceAd];
+        
+        serviceA.version = @"1.0";
+        serviceA.title = @"服务器域名";
+        serviceA.selectedIndex = 2;
+        serviceA.subtitle = serviceA.details[serviceA.selectedIndex].text;
+        
         [configs addObject:serviceA];
     }];
     
@@ -342,7 +344,7 @@ static LaunchCommand *_instance = nil;
 // MARK: - 🌈🌈🌈 Version Update
 - (void)setupVersionUpdateToView:(UIView *)view {
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
-        request.baseURL = KLConsole.addressConfigs.firstObject.subtitle;
+        request.baseURL = KLConsole.addressConfigs.firstObject.details[KLConsole.addressConfigs.firstObject.selectedIndex].text;
         request.path = @"/app/appversion/getAppVersionByType";
         request.method = KLNetworkRequestMethodPOST;
         request.normalParams = @{@"type" : @"ios"};

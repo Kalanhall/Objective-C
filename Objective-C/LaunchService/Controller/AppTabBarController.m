@@ -45,8 +45,7 @@
     // 添加自定义凸起区域
     KLImageView *center = KLImageView.alloc.init;
     center.contentMode = UIViewContentModeScaleAspectFit;
-    center.tag = 2;
-    [self addTabBarCustomAreaWithView:center atIndex:center.tag height:0];
+    [self addTabBarCustomAreaWithView:center atIndex:2 height:0];
     [self resetTabBarCustomArea:center extendEdgeInsets:(UIEdgeInsets){-17, 0, -17, 0}];
     // 图片事件回调
     @weakify(self)

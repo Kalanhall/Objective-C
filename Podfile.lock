@@ -22,7 +22,7 @@ PODS:
     - KLCategory/UIKit (= 1.4.3)
   - KLCategory/Foundation (1.4.3)
   - KLCategory/UIKit (1.4.3)
-  - KLConsole (2.0.1):
+  - KLConsole (2.1.0):
     - Masonry
   - KLCrypto (1.0.0)
   - KLGuidePage (1.0.1):
@@ -71,7 +71,7 @@ PODS:
 DEPENDENCIES:
   - AppOrderFiles
   - KLApplicationEntry (~> 1.4.0)
-  - KLConsole (~> 2.0.1)
+  - KLConsole (~> 2.1.0)
   - KLGuidePage (~> 1.0.0)
   - KLHomeService (from `https://github.com/Kalanhall/KLHomeService`)
   - KLHomeServiceInterface (~> 0.0.2)
@@ -117,7 +117,7 @@ SPEC CHECKSUMS:
   KLApplicationEntry: 51fffce83930d6ed747c5fc739a90c57e605017a
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
   KLCategory: 3e6880dd5b674326483cbc259d487fda5b387445
-  KLConsole: 290bb18ea3aceffa580da13ef538df665f293de9
+  KLConsole: 0f8e16dbcb82eeac11250d31e73bf76fcfc1ea99
   KLCrypto: 6f6e2ec8e1141ab42fe2bff74a7bb2309ddc33db
   KLGuidePage: 8b666079aa940f065e207677641a237aa66b1236
   KLHomeService: b4a8d609e4f2a89f733d66183ea4228d1affcf87
@@ -133,6 +133,6 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YKWoodpecker: c9c58ed903cde9507b0e9279c1c11abb119f32c2
 
-PODFILE CHECKSUM: 4bd36f11beee800c79ea5d56091159ea444fa3c3
+PODFILE CHECKSUM: a60ce54d17a208305340c47e24f426ffafc5d168
 
 COCOAPODS: 1.9.1

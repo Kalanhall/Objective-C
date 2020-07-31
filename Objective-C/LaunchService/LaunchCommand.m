@@ -40,23 +40,23 @@ static LaunchCommand *_instance = nil;
     [super execute];
     
     // 网络环境初始化
-    [self setupDebugTool];
+    [LaunchCommand setupDebugTool];
     
     // 根控制器初始化
-    [self setupRootViewController];
+    [LaunchCommand setupRootViewController];
     
     // 引导图初始化
-    if (KLGetFirstLaunch()) [self setupGuidePage];
+    if (KLGetFirstLaunch()) [LaunchCommand setupGuidePage];
         
     // 启动图 & 闪屏页 初始化
-    [self setupLaunchImage];
+    [LaunchCommand setupLaunchImage];
     
     // 版本更新
-    [self setupVersionUpdateToView:nil];
+    [LaunchCommand setupVersionUpdateToView:nil];
 }
 
 // MARK: - 🌈🌈🌈 RootViewController
-- (void)setupRootViewController {
++ (void)setupRootViewController {
     UIWindow *window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
     UIApplication.sharedApplication.delegate.window = window;
     
@@ -111,7 +111,7 @@ static LaunchCommand *_instance = nil;
 }
 
 // MARK: - 🌈🌈🌈 DebugTool
-- (void)setupDebugTool {
++ (void)setupDebugTool {
     // 环境初始化
     [KLConsole consoleAddressSetup:^(NSMutableArray<KLConsoleRowConfig *> *configs) {
         KLConsoleRowConfig *serviceA = KLConsoleRowConfig.alloc.init;
@@ -171,7 +171,7 @@ static LaunchCommand *_instance = nil;
 
 + (void)showDebugTool {
     YKWoodpeckerManager.sharedInstance.autoOpenUICheckOnShow = NO;
-    __weak typeof(self) weakself = self;
+
     [KLConsole consoleSetupAndSelectedCallBack:^(NSIndexPath * _Nonnull indexPath, BOOL switchOn) {
         // 扩展功能回调
         if (indexPath.section == 0) {
@@ -187,14 +187,14 @@ static LaunchCommand *_instance = nil;
                 case 0: {
                     [NSUserDefaults.standardUserDefaults setValue:nil forKey:AppVersionUpdate.description]; // 测试清空忽略版本
                     [NSUserDefaults.standardUserDefaults synchronize];
-                    [weakself setupVersionUpdateToView:UIApplication.sharedApplication.keyWindow];
+                    [LaunchCommand setupVersionUpdateToView:UIApplication.sharedApplication.keyWindow];
                 }
                     break;
                 case 1:
-                    [weakself setupLaunchImage];
+                    [LaunchCommand setupLaunchImage];
                     break;
                 case 2:
-                    [weakself setupGuidePage];
+                    [LaunchCommand setupGuidePage];
                     break;
                 default:
                     break;
@@ -204,7 +204,7 @@ static LaunchCommand *_instance = nil;
 }
 
 // MARK: - 🌈🌈🌈 LaunchScreen
-- (void)setupLaunchImage {
++ (void)setupLaunchImage {
     // 自定义布局
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
     UIViewController *launchVc = [story instantiateViewControllerWithIdentifier:@"LaunchScreen"];
@@ -300,7 +300,7 @@ static LaunchCommand *_instance = nil;
 }
 
 // MARK: - 🌈🌈🌈 GuidePage
-- (void)setupGuidePage {
++ (void)setupGuidePage {
     KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:LaunchCommand.shareInstance];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;
@@ -342,7 +342,7 @@ static LaunchCommand *_instance = nil;
 }
 
 // MARK: - 🌈🌈🌈 Version Update
-- (void)setupVersionUpdateToView:(UIView *)view {
++ (void)setupVersionUpdateToView:(UIView *)view {
     [KLNetworkModule.shareManager sendRequestWithConfigBlock:^(KLNetworkRequest * _Nullable request) {
         request.baseURL = KLConsole.addressConfigs.firstObject.details[KLConsole.addressConfigs.firstObject.selectedIndex].text;
         request.path = @"/app/appversion/getAppVersionByType";

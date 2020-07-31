@@ -37,8 +37,6 @@ static LaunchCommand *_instance = nil;
 }
 
 - (void)execute {
-    [super execute];
-    
     // 网络环境初始化
     [LaunchCommand setupDebugTool];
     
@@ -53,6 +51,8 @@ static LaunchCommand *_instance = nil;
     
     // 版本更新
     [LaunchCommand setupVersionUpdateToView:nil];
+    
+    [super execute];
 }
 
 // MARK: - 🌈🌈🌈 RootViewController
@@ -132,7 +132,7 @@ static LaunchCommand *_instance = nil;
         
         serviceA.version = @"1.0";
         serviceA.title = @"服务器域名";
-        serviceA.selectedIndex = 2;
+        serviceA.selectedIndex = 0;
         serviceA.subtitle = serviceA.details[serviceA.selectedIndex].text;
         
         [configs addObject:serviceA];

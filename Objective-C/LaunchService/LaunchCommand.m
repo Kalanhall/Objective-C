@@ -204,7 +204,9 @@ static LaunchCommand *_instance = nil;
 }
 
 // MARK: - 🌈🌈🌈 LaunchScreen
+static BOOL _skip = NO; // 是否点击了跳过
 + (void)setupLaunchImage {
+    _skip = NO;
     // 自定义布局
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
     UIViewController *launchVc = [story instantiateViewControllerWithIdentifier:@"LaunchScreen"];
@@ -267,7 +269,7 @@ static LaunchCommand *_instance = nil;
             imageHandler.userInteractionEnabled = image != nil;
             // 倒计时
             [LaunchCommand setupCycleTimeOut:image ? 3 : 0 callBack:^(NSTimeInterval time) {
-                if (time == 0) {
+                if (time == 0 && _skip == NO) {
                     [LaunchCommand skipLaunchScreen:timeHandler];
                 } else {
                     if (image) [timeHandler setTitle:[NSString stringWithFormat:@"跳过广告 %@", @(time)] forState:UIControlStateNormal];
@@ -280,6 +282,7 @@ static LaunchCommand *_instance = nil;
 }
 
 + (void)skipLaunchScreen:(UIButton *)sender {
+    _skip = YES;
     [UIView animateWithDuration:0.75 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         sender.superview.alpha = 0;
         sender.superview.transform = CGAffineTransformMakeScale(2, 2);

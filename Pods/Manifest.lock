@@ -17,11 +17,11 @@ PODS:
   - AppOrderFiles (1.0.2)
   - KLApplicationEntry (1.4.0)
   - KLCache (1.0.1)
-  - KLCategory (1.4.3):
-    - KLCategory/Foundation (= 1.4.3)
-    - KLCategory/UIKit (= 1.4.3)
-  - KLCategory/Foundation (1.4.3)
-  - KLCategory/UIKit (1.4.3)
+  - KLCategory (1.4.5):
+    - KLCategory/Foundation (= 1.4.5)
+    - KLCategory/UIKit (= 1.4.5)
+  - KLCategory/Foundation (1.4.5)
+  - KLCategory/UIKit (1.4.5)
   - KLConsole (2.1.0):
     - Masonry
   - KLCrypto (1.0.0)
@@ -116,7 +116,7 @@ SPEC CHECKSUMS:
   AppOrderFiles: ce8436cdae89e5831b93961ebc81415a3481c5a6
   KLApplicationEntry: 51fffce83930d6ed747c5fc739a90c57e605017a
   KLCache: 1bf0c622da8f7e4e3acf2569e1d02e60b11ff6e6
-  KLCategory: 3e6880dd5b674326483cbc259d487fda5b387445
+  KLCategory: 407a0eac054e8e57755ca79cc586eee9d8cc86ed
   KLConsole: 0f8e16dbcb82eeac11250d31e73bf76fcfc1ea99
   KLCrypto: 6f6e2ec8e1141ab42fe2bff74a7bb2309ddc33db
   KLGuidePage: 8b666079aa940f065e207677641a237aa66b1236

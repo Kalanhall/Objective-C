@@ -14,6 +14,7 @@
 #import "NSObject+Foundation.h"
 #import "NSObject+KLExtension.h"
 #import "NSString+KLExtension.h"
+#import "NSTimer+KLExtentsion.h"
 
 // MARK: - UIKit
 #import "KLRuntime.h"

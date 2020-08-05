@@ -10,7 +10,7 @@
 
 @interface KLObserverHelper : NSObject
 
-@property (unsafe_unretained, nonatomic) id object; // 当对象释放后仍指向该内存空间
+@property (weak  , nonatomic) id object; // 当对象释放后仍指向该内存空间,weak线程安全，自旋锁
 @property (strong, nonatomic) NSString *keyPath;
 @property (strong, nonatomic) void (^completion)(id value);
 
@@ -21,7 +21,7 @@
 // MARK: - NSCoding
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([object isEqual:self.object] && self.completion) {
-        self.completion([change valueForKey:@"new"]);
+        self.completion(change[NSKeyValueChangeNewKey]);
     }
 }
 
@@ -42,8 +42,7 @@
 
 @implementation NSObject (KLExtension)
 
--(void)kl_encode:(NSCoder *)aCoder
-{
+-(void)kl_encode:(NSCoder *)aCoder {
     // 获取所有的实例变量
     unsigned int count = 0;
     Ivar *ivars = class_copyIvarList([self class], &count);
@@ -70,8 +69,7 @@
     
 }
 
--(void)kl_decode:(NSCoder *)aDecoder
-{
+-(void)kl_decode:(NSCoder *)aDecoder {
     // 获取所有的实例变量
     unsigned int count = 0;
     Ivar *ivars = class_copyIvarList([self class], &count);
@@ -96,6 +94,7 @@
     observer.object = object;
     observer.keyPath = keyPath;
     observer.completion = completion;
+    // 随self的销毁，关联属性也会销毁
     objc_setAssociatedObject(self, NSSelectorFromString(observer.description), observer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [object addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
 }

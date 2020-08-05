@@ -26,33 +26,18 @@
 
 @implementation LaunchCommand
 
-// 代理辅助类，因为command在execute后释放
-static LaunchCommand *_instance = nil;
-+ (instancetype)shareInstance {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
-
 - (void)execute {
+    [super execute];
     // 网络环境初始化
     [LaunchCommand setupDebugTool];
-    
     // 根控制器初始化
     [LaunchCommand setupRootViewController];
-    
     // 引导图初始化
     if (KLGetFirstLaunch()) [LaunchCommand setupGuidePage];
-        
     // 启动图 & 闪屏页 初始化
     [LaunchCommand setupLaunchImage];
-    
     // 版本更新
     [LaunchCommand setupVersionUpdateToView:nil];
-    
-    [super execute];
 }
 
 // MARK: - 🌈🌈🌈 RootViewController
@@ -303,8 +288,18 @@ static BOOL _skip = NO; // 是否点击了跳过
 }
 
 // MARK: - 🌈🌈🌈 GuidePage
+
+// 静态全局变量作为GuideView数据代理，手动释放;execute执行后command对象会释放
+static LaunchCommand *_instance = nil;
++ (instancetype)staticInstance {
+    if (_instance == nil) {
+        _instance = [[self alloc] init];
+    }
+    return _instance;
+}
+
 + (void)setupGuidePage {
-    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:LaunchCommand.shareInstance];
+    KLGuidePage *page = [KLGuidePage pageWithStyle:KLGuideStyleTranslationFade dataSource:LaunchCommand.staticInstance];
     page.hideForLastPage = YES;
     page.alphaMultiple = 1.5;
     page.duration = 0.5;
@@ -330,7 +325,7 @@ static BOOL _skip = NO; // 是否点击了跳过
     cell.entryBlock = ^{
         [weakpage hideWithStyle:KLGuideHideStyleNomal animated:YES]; // 移除引导页
         KLSetFirstLaunch(); // 记录启动版本
-        _instance = nil;    // 释放辅助单例
+        _instance = nil;    // 释放静态全局变量
     };
 
     return cell;

@@ -27,15 +27,15 @@
     // MARK: 控制台记录开关
     UIViewController.trackLogEnable = YES;
     KLNetworkConfigure.shareInstance.enableDebug = YES;
-    
+
     #ifdef DEBUG
     // Edit Scheme -> DYLD_PRINT_STATISTICS, to see launch time.
     // Other C Flags -> '-fsanitize-coverage=func,trace-pc-guard'
     AppOrderFiles(nil);
     #endif
     
-    
     return YES;
 }
+
 
 @end
